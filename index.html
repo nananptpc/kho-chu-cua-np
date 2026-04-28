@@ -3,28 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kho chữ của np – HSK1 Quiz 00</title>
+  <title>Kho chữ của np – Học tiếng Trung</title>
   <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: #fff5f7;
       font-family: 'EB Garamond', serif;
       color: #5a3e4b;
       padding: 40px 20px;
     }
-
     .container {
       max-width: 900px;
       margin: 0 auto;
     }
-
-    /* header pastel */
     .hero {
       text-align: center;
       background: #ffe9ef;
@@ -33,57 +25,47 @@
       margin-bottom: 40px;
       box-shadow: 0 6px 14px rgba(212, 122, 158, 0.1);
     }
-
     h1 {
       font-size: 3.5rem;
       color: #d47a9e;
       letter-spacing: 2px;
     }
-
     .sub {
       font-size: 1.2rem;
       font-style: italic;
       color: #b5838d;
     }
-
-    /* level box */
     .level {
       background: white;
       border-radius: 32px;
-      margin-bottom: 30px;
-      padding: 15px 25px 25px 25px;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.03);
+      margin-bottom: 25px;
+      padding: 15px 25px 20px 25px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.03);
       border: 1px solid #ffdfe8;
     }
-
     .level-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      padding: 10px 0;
+      padding: 8px 0;
     }
-
     .level-title {
       font-size: 2rem;
       font-weight: 600;
       color: #d47a9e;
     }
-
     .toggle-icon {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       transition: transform 0.2s;
+      color: #d47a9e;
     }
-
-    /* quiz list */
     .quiz-list {
       margin-top: 20px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      transition: all 0.2s;
     }
-
     .quiz-link {
       display: flex;
       align-items: center;
@@ -97,31 +79,27 @@
       font-weight: 500;
       transition: 0.2s;
     }
-
     .quiz-link:hover {
       background: #ffeef3;
       border-color: #d47a9e;
       transform: translateX(6px);
     }
-
     .quiz-name {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
     }
-
     .badge {
       background: #f3c4d4;
       padding: 4px 12px;
       border-radius: 40px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: #8b5e6b;
+      font-weight: normal;
     }
-
     .footer {
       text-align: center;
       margin-top: 50px;
       color: #c98aa8;
     }
-
     .hidden {
       display: none;
     }
@@ -131,52 +109,65 @@
 <div class="container">
   <div class="hero">
     <h1>🌸 kho chữ của np 🌸</h1>
-    <div class="sub">học chữ Hán · quiz trực tiếp · không rườm rà</div>
+    <div class="sub">quiz trực tiếp · Ẩn/hiện theo trình độ · học vui</div>
   </div>
 
   <!-- HSK1 -->
   <div class="level">
-    <div class="level-header" onclick="toggleLevel('hsk1list')">
-      <span class="level-title">📘 HSK1</span>
-      <span class="toggle-icon" id="hsk1icon">▼</span>
+    <div class="level-header" onclick="toggleList('hsk1')">
+      <span class="level-title">📘 HSK 1</span>
+      <span class="toggle-icon" id="hsk1-icon">▼</span>
     </div>
-    <div class="quiz-list" id="hsk1list">
-      <!-- QUIZ TRỰC TIẾP: bấm vào là vào luôn quiz -->
+    <div class="quiz-list" id="hsk1-list">
+      <!-- Quiz trực tiếp - link đang hoạt động -->
       <a href="https://nananptpc.github.io/cau-tao-chu-han" class="quiz-link">
         <span class="quiz-name">📖 HSK1 – Quiz 00 – Cấu tạo chữ Hán</span>
         <span class="badge">tượng hình · chỉ sự · hội ý · hình thanh</span>
       </a>
-
-      <!-- mẫu thêm quiz mới chỉ cần copy dòng trên, đổi link và tên -->
-      <!-- <a href="https://nananptpc.github.io/quiz-pinyin" class="quiz-link"> ... </a> -->
+      <!-- Thêm quiz mới bằng cách copy dòng trên, sửa link và tên -->
     </div>
   </div>
 
-  <!-- HSK2 (có thể thêm sau) -->
+  <!-- HSK2 (tạm thời chưa có quiz) -->
   <div class="level">
-    <div class="level-header" onclick="toggleLevel('hsk2list')">
-      <span class="level-title">📗 HSK2</span>
-      <span class="toggle-icon" id="hsk2icon">▶</span>
+    <div class="level-header" onclick="toggleList('hsk2')">
+      <span class="level-title">📗 HSK 2</span>
+      <span class="toggle-icon" id="hsk2-icon">▶</span>
     </div>
-    <div class="quiz-list hidden" id="hsk2list">
-      <div class="quiz-link" style="cursor:default; background:#faf0f3;">✨ Sắp ra mắt</div>
+    <div class="quiz-list hidden" id="hsk2-list">
+      <div class="quiz-link" style="cursor:default; background:#faf0f3; justify-content:center;">
+        ✨ Sắp ra mắt
+      </div>
+    </div>
+  </div>
+
+  <!-- HSK3 -->
+  <div class="level">
+    <div class="level-header" onclick="toggleList('hsk3')">
+      <span class="level-title">📙 HSK 3</span>
+      <span class="toggle-icon" id="hsk3-icon">▶</span>
+    </div>
+    <div class="quiz-list hidden" id="hsk3-list">
+      <div class="quiz-link" style="cursor:default; background:#faf0f3; justify-content:center;">
+        🌿 Đang xây dựng
+      </div>
     </div>
   </div>
 
   <div class="footer">
-    💬 mỗi quiz là một link trực tiếp — gọn, nhanh, không cần tạo nhiều file
+    💡 mỗi quiz là một link trực tiếp — không cần tạo nhiều trang con
   </div>
 </div>
 
 <script>
-  function toggleLevel(id) {
-    const el = document.getElementById(id);
-    const icon = document.getElementById(id === 'hsk1list' ? 'hsk1icon' : 'hsk2icon');
-    if (el.classList.contains('hidden')) {
-      el.classList.remove('hidden');
+  function toggleList(level) {
+    const list = document.getElementById(level + '-list');
+    const icon = document.getElementById(level + '-icon');
+    if (list.classList.contains('hidden')) {
+      list.classList.remove('hidden');
       icon.innerHTML = '▼';
     } else {
-      el.classList.add('hidden');
+      list.classList.add('hidden');
       icon.innerHTML = '▶';
     }
   }
