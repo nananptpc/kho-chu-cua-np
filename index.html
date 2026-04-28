@@ -4,12 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kho chữ của np – Học tiếng Trung</title>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <!-- Google Fonts Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: #fff5f7;
-      font-family: 'EB Garamond', serif;
+      font-family: 'Montserrat', sans-serif;
       color: #5a3e4b;
       padding: 40px 20px;
     }
@@ -29,11 +30,13 @@
       font-size: 3.5rem;
       color: #d47a9e;
       letter-spacing: 2px;
+      font-weight: 700;
     }
     .sub {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-style: italic;
       color: #b5838d;
+      font-weight: 400;
     }
     .level {
       background: white;
@@ -52,7 +55,7 @@
     }
     .level-title {
       font-size: 2rem;
-      font-weight: 600;
+      font-weight: 700;
       color: #d47a9e;
     }
     .toggle-icon {
@@ -78,6 +81,7 @@
       color: #5a3e4b;
       font-weight: 500;
       transition: 0.2s;
+      font-family: 'Montserrat', sans-serif;
     }
     .quiz-link:hover {
       background: #ffeef3;
@@ -85,23 +89,30 @@
       transform: translateX(6px);
     }
     .quiz-name {
-      font-size: 1.1rem;
+      font-size: 1rem;
+      font-weight: 600;
     }
     .badge {
       background: #f3c4d4;
       padding: 4px 12px;
       border-radius: 40px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #8b5e6b;
-      font-weight: normal;
+      font-weight: 500;
+      letter-spacing: 0.3px;
     }
     .footer {
       text-align: center;
       margin-top: 50px;
       color: #c98aa8;
+      font-size: 0.85rem;
+      font-weight: 400;
     }
     .hidden {
       display: none;
+    }
+    button {
+      font-family: 'Montserrat', sans-serif;
     }
   </style>
 </head>
@@ -119,16 +130,14 @@
       <span class="toggle-icon" id="hsk1-icon">▼</span>
     </div>
     <div class="quiz-list" id="hsk1-list">
-      <!-- Quiz trực tiếp - link đang hoạt động -->
       <a href="https://nananptpc.github.io/cau-tao-chu-han" class="quiz-link">
         <span class="quiz-name">📖 HSK1 – Quiz 00 – Cấu tạo chữ Hán</span>
         <span class="badge">tượng hình · chỉ sự · hội ý · hình thanh</span>
       </a>
-      <!-- Thêm quiz mới bằng cách copy dòng trên, sửa link và tên -->
     </div>
   </div>
 
-  <!-- HSK2 (tạm thời chưa có quiz) -->
+  <!-- HSK2 -->
   <div class="level">
     <div class="level-header" onclick="toggleList('hsk2')">
       <span class="level-title">📗 HSK 2</span>
