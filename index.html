@@ -1,278 +1,185 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kho Chữ Của NP - Học tiếng Trung theo collocations</title>
-    <!-- EB Garamond font from Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kho chữ của np – HSK1 Quiz 00</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'EB Garamond', 'Times New Roman', serif;
-            background: #fff5f7;  /* pastel pink background */
-            color: #5a3e4b;
-            line-height: 1.6;
-        }
+    body {
+      background: #fff5f7;
+      font-family: 'EB Garamond', serif;
+      color: #5a3e4b;
+      padding: 40px 20px;
+    }
 
-        /* Decorative floral elements */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
 
-        /* Header section */
-        .hero {
-            text-align: center;
-            padding: 50px 20px 30px;
-            background: linear-gradient(135deg, #ffe4ec 0%, #ffd6e2 100%);
-            border-radius: 60px 60px 40px 40px;
-            margin-bottom: 50px;
-            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.3);
-        }
+    /* header pastel */
+    .hero {
+      text-align: center;
+      background: #ffe9ef;
+      border-radius: 60px;
+      padding: 30px 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 6px 14px rgba(212, 122, 158, 0.1);
+    }
 
-        h1 {
-            font-size: 4rem;
-            font-weight: 600;
-            color: #d47a9e;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
+    h1 {
+      font-size: 3.5rem;
+      color: #d47a9e;
+      letter-spacing: 2px;
+    }
 
-        .subtitle {
-            font-size: 1.3rem;
-            color: #b5838d;
-            font-style: italic;
-        }
+    .sub {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #b5838d;
+    }
 
-        .decorative-line {
-            width: 80px;
-            height: 3px;
-            background: #f3c4d4;
-            margin: 20px auto;
-            border-radius: 3px;
-        }
+    /* level box */
+    .level {
+      background: white;
+      border-radius: 32px;
+      margin-bottom: 30px;
+      padding: 15px 25px 25px 25px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.03);
+      border: 1px solid #ffdfe8;
+    }
 
-        /* Level sections */
-        .level-section {
-            background: white;
-            border-radius: 35px;
-            padding: 25px 30px;
-            margin-bottom: 35px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+    .level-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      padding: 10px 0;
+    }
 
-        .level-section:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(212, 122, 158, 0.15);
-        }
+    .level-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #d47a9e;
+    }
 
-        .level-title {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #d47a9e;
-            border-left: 5px solid #f3c4d4;
-            padding-left: 20px;
-            margin-bottom: 20px;
-        }
+    .toggle-icon {
+      font-size: 1.8rem;
+      transition: transform 0.2s;
+    }
 
-        .unit-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
+    /* quiz list */
+    .quiz-list {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s;
+    }
 
-        /* Quiz card buttons */
-        .quiz-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #fffafb;
-            border: 1px solid #ffdfe8;
-            border-radius: 60px;
-            padding: 12px 20px;
-            text-decoration: none;
-            color: #5a3e4b;
-            transition: all 0.2s ease;
-            font-weight: 500;
-        }
+    .quiz-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fffafb;
+      border-radius: 60px;
+      padding: 12px 20px;
+      text-decoration: none;
+      border: 1px solid #ffdfe8;
+      color: #5a3e4b;
+      font-weight: 500;
+      transition: 0.2s;
+    }
 
-        .quiz-card:hover {
-            background: #ffeef3;
-            border-color: #d47a9e;
-            transform: translateX(5px);
-        }
+    .quiz-link:hover {
+      background: #ffeef3;
+      border-color: #d47a9e;
+      transform: translateX(6px);
+    }
 
-        .quiz-name {
-            font-size: 1.1rem;
-        }
+    .quiz-name {
+      font-size: 1.15rem;
+    }
 
-        .quiz-emoji {
-            font-size: 1.4rem;
-            opacity: 0.7;
-        }
+    .badge {
+      background: #f3c4d4;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: #8b5e6b;
+    }
 
-        /* Empty state (when no quizzes added yet) */
-        .empty-message {
-            color: #b5838d;
-            font-style: italic;
-            padding: 15px 0;
-            font-size: 1rem;
-        }
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #c98aa8;
+    }
 
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 60px;
-            padding: 30px;
-            color: #c98aa8;
-            border-top: 1px solid #ffdfe8;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 700px) {
-            h1 { font-size: 2.5rem; }
-            .container { padding: 20px; }
-            .level-title { font-size: 1.5rem; }
-            .quiz-card { padding: 10px 15px; }
-        }
-    </style>
+    .hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="hero">
-            <h1>🌸 kho chữ của np 🌸</h1>
-            <div class="decorative-line"></div>
-            <div class="subtitle">Học tiếng Trung qua collocations • Trắc nghiệm 4 lựa chọn</div>
-        </div>
+<div class="container">
+  <div class="hero">
+    <h1>🌸 kho chữ của np 🌸</h1>
+    <div class="sub">học chữ Hán · quiz trực tiếp · không rườm rà</div>
+  </div>
 
-        <!-- HSK 1 Section -->
-        <div class="level-section">
-            <div class="level-title">📘 HSK 1</div>
-            <div class="unit-grid" id="hsk1-grid">
-                <!-- Quizzes will appear here as you add them -->
-                <div class="empty-message">✨ Sắp ra mắt... Hãy quay lại sau nhé! ✨</div>
-            </div>
-        </div>
-
-        <!-- HSK 2 Section -->
-        <div class="level-section">
-            <div class="level-title">📗 HSK 2</div>
-            <div class="unit-grid" id="hsk2-grid">
-                <div class="empty-message">🌸 Đang xây dựng... 🌸</div>
-            </div>
-        </div>
-
-        <!-- HSK 3 Section -->
-        <div class="level-section">
-            <div class="level-title">📙 HSK 3</div>
-            <div class="unit-grid" id="hsk3-grid">
-                <div class="empty-message">🌿 Sẽ cập nhật sớm... 🌿</div>
-            </div>
-        </div>
-
-        <!-- HSK 4+ Section (future) -->
-        <div class="level-section">
-            <div class="level-title">📕 HSK 4+</div>
-            <div class="unit-grid" id="hsk4-grid">
-                <div class="empty-message">🍃 Coming soon... 🍃</div>
-            </div>
-        </div>
-
-        <div class="footer">
-            💕 Mỗi bài quiz đều tập trung vào collocations — học tự nhiên, nhớ lâu 💕
-        </div>
+  <!-- HSK1 -->
+  <div class="level">
+    <div class="level-header" onclick="toggleLevel('hsk1list')">
+      <span class="level-title">📘 HSK1</span>
+      <span class="toggle-icon" id="hsk1icon">▼</span>
     </div>
+    <div class="quiz-list" id="hsk1list">
+      <!-- QUIZ TRỰC TIẾP: bấm vào là vào luôn quiz -->
+      <a href="https://nananptpc.github.io/cau-tao-chu-han" class="quiz-link">
+        <span class="quiz-name">📖 HSK1 – Quiz 00 – Cấu tạo chữ Hán</span>
+        <span class="badge">tượng hình · chỉ sự · hội ý · hình thanh</span>
+      </a>
 
-    <script>
-        // ============================================
-        // 👇 YOU WILL ADD YOUR QUIZ LINKS HERE
-        // As you create each quiz repository, add its info below
-        // ============================================
-        
-        const quizzes = {
-            hsk1: [
-                { name: "📘 Vào học HSK1", url: "https://nananptpc.github.io/hsk1-menu", emoji: "📘" }
-                // Example format (uncomment and add when you have a quiz):
-                // { name: "Bài 1: Chào hỏi", url: "https://nananptpc.github.io/hsk1-u1", emoji: "🌸" },
-                // { name: "Bài 2: Số đếm", url: "https://nananptpc.github.io/hsk1-u2", emoji: "🔢" },
-                // { name: "Ôn tập giữa kỳ", url: "https://nananptpc.github.io/hsk1-review", emoji: "📝" }
-            ],
-            hsk2: [
-                // Add HSK2 quizzes here later
-            ],
-            hsk3: [
-                // Add HSK3 quizzes here later
-            ],
-            hsk4: [
-                // Add HSK4+ quizzes here later
-            ]
-        };
+      <!-- mẫu thêm quiz mới chỉ cần copy dòng trên, đổi link và tên -->
+      <!-- <a href="https://nananptpc.github.io/quiz-pinyin" class="quiz-link"> ... </a> -->
+    </div>
+  </div>
 
-        function renderQuizzes() {
-            // HSK1
-            const hsk1Grid = document.getElementById('hsk1-grid');
-            if (quizzes.hsk1.length > 0) {
-                hsk1Grid.innerHTML = quizzes.hsk1.map(q => `
-                    <a href="${q.url}" class="quiz-card" target="_blank">
-                        <span class="quiz-name">${q.name}</span>
-                        <span class="quiz-emoji">${q.emoji || '🌸'}</span>
-                    </a>
-                `).join('');
-            } else {
-                hsk1Grid.innerHTML = '<div class="empty-message">✨ Sắp ra mắt... Hãy quay lại sau nhé! ✨</div>';
-            }
+  <!-- HSK2 (có thể thêm sau) -->
+  <div class="level">
+    <div class="level-header" onclick="toggleLevel('hsk2list')">
+      <span class="level-title">📗 HSK2</span>
+      <span class="toggle-icon" id="hsk2icon">▶</span>
+    </div>
+    <div class="quiz-list hidden" id="hsk2list">
+      <div class="quiz-link" style="cursor:default; background:#faf0f3;">✨ Sắp ra mắt</div>
+    </div>
+  </div>
 
-            // HSK2
-            const hsk2Grid = document.getElementById('hsk2-grid');
-            if (quizzes.hsk2.length > 0) {
-                hsk2Grid.innerHTML = quizzes.hsk2.map(q => `
-                    <a href="${q.url}" class="quiz-card" target="_blank">
-                        <span class="quiz-name">${q.name}</span>
-                        <span class="quiz-emoji">${q.emoji || '📗'}</span>
-                    </a>
-                `).join('');
-            } else {
-                hsk2Grid.innerHTML = '<div class="empty-message">🌸 Đang xây dựng... 🌸</div>';
-            }
+  <div class="footer">
+    💬 mỗi quiz là một link trực tiếp — gọn, nhanh, không cần tạo nhiều file
+  </div>
+</div>
 
-            // HSK3
-            const hsk3Grid = document.getElementById('hsk3-grid');
-            if (quizzes.hsk3.length > 0) {
-                hsk3Grid.innerHTML = quizzes.hsk3.map(q => `
-                    <a href="${q.url}" class="quiz-card" target="_blank">
-                        <span class="quiz-name">${q.name}</span>
-                        <span class="quiz-emoji">${q.emoji || '📙'}</span>
-                    </a>
-                `).join('');
-            } else {
-                hsk3Grid.innerHTML = '<div class="empty-message">🌿 Sẽ cập nhật sớm... 🌿</div>';
-            }
-
-            // HSK4+
-            const hsk4Grid = document.getElementById('hsk4-grid');
-            if (quizzes.hsk4.length > 0) {
-                hsk4Grid.innerHTML = quizzes.hsk4.map(q => `
-                    <a href="${q.url}" class="quiz-card" target="_blank">
-                        <span class="quiz-name">${q.name}</span>
-                        <span class="quiz-emoji">${q.emoji || '📕'}</span>
-                    </a>
-                `).join('');
-            } else {
-                hsk4Grid.innerHTML = '<div class="empty-message">🍃 Coming soon... 🍃</div>';
-            }
-        }
-
-        renderQuizzes();
-    </script>
+<script>
+  function toggleLevel(id) {
+    const el = document.getElementById(id);
+    const icon = document.getElementById(id === 'hsk1list' ? 'hsk1icon' : 'hsk2icon');
+    if (el.classList.contains('hidden')) {
+      el.classList.remove('hidden');
+      icon.innerHTML = '▼';
+    } else {
+      el.classList.add('hidden');
+      icon.innerHTML = '▶';
+    }
+  }
+</script>
 </body>
 </html>
