@@ -12,11 +12,11 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
         }
 
         body {
             background: #fff5f7;
+            font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
             padding: 2rem 1.5rem;
             min-height: 100vh;
         }
@@ -28,7 +28,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0, 0, 0, 0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -73,15 +73,14 @@
             margin-top: 10px;
         }
 
-        /* GIAO DIỆN CHÍNH PASTEL PINK */
+        /* GIAO DIỆN CHÍNH */
         .app-container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: #ffffffdd;
-            backdrop-filter: blur(2px);
+            background: white;
             border-radius: 2rem;
-            box-shadow: 0 20px 35px -10px rgba(255, 105, 180, 0.15);
-            padding: 1.8rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
             border: 1px solid #ffe2f0;
         }
 
@@ -90,28 +89,23 @@
             margin-bottom: 2rem;
         }
         .logo-area {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #e88d9e, #f4acb7);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
+            color: #d47a9e;
         }
         .cherry-blossom {
-            font-size: 1.9rem;
+            font-size: 1.8rem;
             display: inline-block;
         }
         .subtitle {
             color: #c2778a;
             font-size: 0.85rem;
-            font-weight: 500;
             margin-top: 6px;
         }
 
-        /* FILTER BAR */
         .filter-bar {
-            background: #ffeef4;
-            border-radius: 2rem;
+            background: #fef5f8;
+            border-radius: 1.5rem;
             padding: 1rem 1.5rem;
             display: flex;
             flex-wrap: wrap;
@@ -135,7 +129,6 @@
             padding: 8px 14px;
             border-radius: 40px;
             font-size: 0.8rem;
-            font-weight: 500;
             color: #8f4b62;
             cursor: pointer;
         }
@@ -143,11 +136,7 @@
             background: #ffdae6;
             border: none;
         }
-        .reset-btn:hover {
-            background: #ffc0d1;
-        }
 
-        /* VIEW TOGGLE */
         .view-toggle {
             display: flex;
             justify-content: center;
@@ -166,36 +155,33 @@
         .view-btn.active {
             background: #f7a1b5;
             color: white;
-            box-shadow: 0 4px 10px rgba(247,161,181,0.4);
         }
 
-        /* GRID VOCABULARY */
         .vocab-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
             gap: 1.3rem;
         }
         .word-card {
             background: white;
-            border-radius: 1.5rem;
+            border-radius: 1.2rem;
             overflow: hidden;
-            box-shadow: 0 12px 20px -12px rgba(0,0,0,0.05);
-            transition: 0.2s;
             cursor: pointer;
-            border: 1px solid #ffdfea;
+            border: 1px solid #ffe0ec;
+            transition: 0.2s;
         }
         .word-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 18px 28px -12px #ffb7cb80;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -12px #ffb7cb;
         }
         .card-img {
-            background: #fff0f5;
-            height: 100px;
+            background: #fff4f8;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            border-bottom: 1px solid #ffe1ed;
+            color: #bc5f7c;
         }
         .card-info {
             padding: 0.9rem;
@@ -221,7 +207,6 @@
         .meaning {
             font-size: 0.75rem;
             margin-top: 6px;
-            font-weight: 500;
             color: #6e4758;
         }
         .theme-badge {
@@ -233,17 +218,16 @@
             margin-top: 6px;
         }
 
-        /* FLASHCARD MODE */
         .flashcard-mode {
             background: #fffafc;
-            border-radius: 2rem;
+            border-radius: 1.8rem;
             padding: 1.2rem;
         }
         .flashcard {
-            background: linear-gradient(145deg, #ffffff, #fff3f8);
-            border-radius: 2rem;
-            box-shadow: 0 25px 35px -12px rgba(189, 79, 108, 0.2);
-            min-height: 380px;
+            background: white;
+            border-radius: 1.8rem;
+            box-shadow: 0 20px 30px -12px rgba(189, 79, 108, 0.15);
+            min-height: 360px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -252,17 +236,16 @@
             border: 1px solid #ffd9e6;
         }
         .front-han {
-            font-size: 3rem;
-            font-weight: 800;
-            margin: 0.8rem 0;
+            font-size: 2.8rem;
+            font-weight: 700;
             color: #bc5f7c;
         }
         .front-pinyin {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #cc879e;
         }
         .back-meaning {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 600;
             color: #b45f7a;
         }
@@ -277,7 +260,7 @@
             border: none;
             padding: 8px 22px;
             border-radius: 3rem;
-            font-weight: bold;
+            font-weight: 600;
             color: white;
             cursor: pointer;
         }
@@ -297,45 +280,265 @@
     </style>
 </head>
 <body>
-    <div id="mainApp" class="app-container" style="display: none;">
-        <div class="brand-header">
-            <div class="logo-area">
-                <span class="cherry-blossom">🌸</span> Flashcard thông minh <span class="cherry-blossom">🌸</span>
-            </div>
-            <p class="subtitle">học từ vựng theo chủ đề · trình độ · từ loại</p>
-        </div>
 
-        <div class="filter-bar">
-            <div class="filter-group">
-                <label>📚 Trình độ</label>
-                <select id="filterHsk"></select>
-            </div>
-            <div class="filter-group">
-                <label>🏷️ Từ loại</label>
-                <select id="filterType"></select>
-            </div>
-            <div class="filter-group">
-                <label>🌈 Chủ đề</label>
-                <select id="filterTheme"></select>
-            </div>
-            <button id="resetFiltersBtn" class="reset-btn">✨ Xóa lọc</button>
+<div id="mainApp" class="app-container" style="display: none;">
+    <div class="brand-header">
+        <div class="logo-area">
+            <span class="cherry-blossom">🌸</span> Flashcard thông minh <span class="cherry-blossom">🌸</span>
         </div>
-
-        <div class="view-toggle">
-            <button id="gridViewBtn" class="view-btn active">📇 Dạng lưới</button>
-            <button id="flashcardViewBtn" class="view-btn">🃏 Dạng thẻ ghi nhớ</button>
-        </div>
-
-        <div id="contentArea" class="content-area">
-            <div class="loading-message">🌸 Đang tải dữ liệu từ vựng... 🌸</div>
-        </div>
-
-        <div class="study-footer">
-            <span>💡 Mẹo: Bấm vào thẻ để nghe phát âm | Dữ liệu từ file CSV</span>
-        </div>
+        <p class="subtitle">học từ vựng theo chủ đề · trình độ · từ loại</p>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    <script src="script.js"></script>
+    <div class="filter-bar">
+        <div class="filter-group">
+            <label>📚 Trình độ</label>
+            <select id="filterHsk"></select>
+        </div>
+        <div class="filter-group">
+            <label>🏷️ Từ loại</label>
+            <select id="filterType"></select>
+        </div>
+        <div class="filter-group">
+            <label>🌈 Chủ đề</label>
+            <select id="filterTheme"></select>
+        </div>
+        <button id="resetFiltersBtn" class="reset-btn">✨ Xóa lọc</button>
+    </div>
+
+    <div class="view-toggle">
+        <button id="gridViewBtn" class="view-btn active">📇 Dạng lưới</button>
+        <button id="flashcardViewBtn" class="view-btn">🃏 Dạng thẻ ghi nhớ</button>
+    </div>
+
+    <div id="contentArea">
+        <div class="loading-message">🌸 Đang tải dữ liệu từ vocabulary.csv... 🌸</div>
+    </div>
+
+    <div class="study-footer">
+        <span>💡 Bấm vào thẻ để nghe phát âm | Dữ liệu từ file CSV</span>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+    // ==================== MẬT KHẨU ====================
+    const CORRECT_CODE = "123456"; // 🔐 Đổi thành mã của bạn sau
+
+    const overlay = document.createElement('div');
+    overlay.id = 'access-overlay';
+    overlay.innerHTML = `
+        <div class="access-box">
+            <h3>🔐 NHẬP MÃ TRUY CẬP</h3>
+            <p>Nhập 6 số để vào học</p>
+            <input type="password" id="access-code" maxlength="6" placeholder="******">
+            <button id="verify-btn">Xác nhận</button>
+            <div id="access-error" class="error-msg"></div>
+        </div>
+    `;
+    document.body.prepend(overlay);
+
+    document.getElementById('verify-btn').onclick = function() {
+        if (document.getElementById('access-code').value === CORRECT_CODE) {
+            document.getElementById('access-overlay').style.display = 'none';
+            document.getElementById('mainApp').style.display = 'block';
+        } else {
+            document.getElementById('access-error').innerHTML = '❌ Mã sai!';
+            document.getElementById('access-code').value = '';
+        }
+    };
+    document.getElementById('access-code').onkeypress = function(e) {
+        if (e.key === 'Enter') document.getElementById('verify-btn').click();
+    };
+
+    // ==================== LOGIC FLASHCARD TỪ CSV ====================
+    let masterVocabulary = [];
+    let filteredVocabulary = [];
+    let currentView = "grid";
+    let flashcardIndex = 0;
+    let isFlipped = false;
+
+    const contentArea = document.getElementById("contentArea");
+    const gridBtn = document.getElementById("gridViewBtn");
+    const flashcardBtn = document.getElementById("flashcardViewBtn");
+    const filterHsk = document.getElementById("filterHsk");
+    const filterType = document.getElementById("filterType");
+    const filterTheme = document.getElementById("filterTheme");
+    const resetBtn = document.getElementById("resetFiltersBtn");
+
+    function loadCSV() {
+        Papa.parse("vocabulary.csv", {
+            download: true,
+            header: true,
+            encoding: "UTF-8",
+            skipEmptyLines: true,
+            complete: function(results) {
+                if (results.data && results.data.length > 0) {
+                    masterVocabulary = results.data.map(row => ({
+                        word: row.word?.trim() || "",
+                        pinyin: row.pinyin?.trim() || "",
+                        meaning: row.meaning?.trim() || "",
+                        type: row.type?.trim() || "Từ vựng",
+                        theme: row.theme?.trim() || "Chung",
+                        hsk: row.hsk?.trim() || "HSK 1",
+                        image_url: row.image_url?.trim() || ""
+                    })).filter(item => item.word !== "");
+                }
+                if (masterVocabulary.length === 0) {
+                    contentArea.innerHTML = `<div class="loading-message">⚠️ Không tìm thấy dữ liệu trong vocabulary.csv. Hãy kiểm tra file!</div>`;
+                    return;
+                }
+                initFilters();
+                applyFiltersAndRender();
+            },
+            error: function(err) {
+                console.error("Lỗi đọc CSV:", err);
+                contentArea.innerHTML = `<div class="loading-message">❌ Không thể đọc file vocabulary.csv. Hãy chắc chắn file tồn tại!</div>`;
+            }
+        });
+    }
+
+    function initFilters() {
+        const hskSet = new Set(masterVocabulary.map(v => v.hsk));
+        const typeSet = new Set(masterVocabulary.map(v => v.type));
+        const themeSet = new Set(masterVocabulary.map(v => v.theme));
+        populateSelect(filterHsk, ["Tất cả HSK", ...Array.from(hskSet).sort()]);
+        populateSelect(filterType, ["Tất cả từ loại", ...Array.from(typeSet).sort()]);
+        populateSelect(filterTheme, ["Tất cả chủ đề", ...Array.from(themeSet).sort()]);
+    }
+
+    function populateSelect(select, options) {
+        if (!select) return;
+        select.innerHTML = "";
+        options.forEach(opt => {
+            const option = document.createElement("option");
+            option.value = opt;
+            option.textContent = opt;
+            select.appendChild(option);
+        });
+    }
+
+    function applyFiltersAndRender() {
+        const selectedHsk = filterHsk.value;
+        const selectedType = filterType.value;
+        const selectedTheme = filterTheme.value;
+
+        filteredVocabulary = masterVocabulary.filter(item => {
+            if (selectedHsk !== "Tất cả HSK" && item.hsk !== selectedHsk) return false;
+            if (selectedType !== "Tất cả từ loại" && item.type !== selectedType) return false;
+            if (selectedTheme !== "Tất cả chủ đề" && item.theme !== selectedTheme) return false;
+            return true;
+        });
+        flashcardIndex = 0;
+        isFlipped = false;
+        renderCurrentView();
+    }
+
+    function renderCurrentView() {
+        if (currentView === "grid") renderGridView();
+        else renderFlashcardView();
+    }
+
+    function renderGridView() {
+        if (!filteredVocabulary.length) {
+            contentArea.innerHTML = `<div class="loading-message">🌸 Không có từ nào phù hợp 🌸</div>`;
+            return;
+        }
+        let html = `<div class="vocab-grid">`;
+        filteredVocabulary.forEach(v => {
+            html += `<div class="word-card" onclick="speakWord('${v.word}')">
+                <div class="card-img">📖</div>
+                <div class="card-info">
+                    <div class="hanzi">${escapeHtml(v.word)}</div>
+                    <div class="pinyin">${escapeHtml(v.pinyin)}</div>
+                    <div class="word-type">${escapeHtml(v.type)}</div>
+                    <div class="meaning">✨ ${escapeHtml(v.meaning)}</div>
+                    <div class="theme-badge">${escapeHtml(v.theme)} · ${escapeHtml(v.hsk)}</div>
+                </div>
+            </div>`;
+        });
+        contentArea.innerHTML = html + `</div>`;
+    }
+
+    function renderFlashcardView() {
+        if (!filteredVocabulary.length) {
+            contentArea.innerHTML = `<div class="loading-message">🌸 Chọn lại bộ lọc 🌸</div>`;
+            return;
+        }
+        const w = filteredVocabulary[flashcardIndex];
+        const inner = !isFlipped 
+            ? `<div class="front-han">${escapeHtml(w.word)}</div><div class="front-pinyin">${escapeHtml(w.pinyin)}</div><div class="word-type" style="margin-top:12px;">${escapeHtml(w.type)} · ${escapeHtml(w.hsk)}</div><div class="flip-hint" style="margin-top:1rem;">👉 Nhấn để xem nghĩa</div>`
+            : `<div class="back-meaning">${escapeHtml(w.meaning)}</div><div class="back-desc" style="margin-top:12px;">📚 ${escapeHtml(w.theme)}</div>`;
+        
+        contentArea.innerHTML = `<div class="flashcard-mode">
+            <div style="margin-bottom:12px;">${flashcardIndex+1}/${filteredVocabulary.length} · ${escapeHtml(w.theme)}</div>
+            <div class="flashcard" id="flashcardCore">${inner}</div>
+            <div class="flashcard-nav">
+                <button id="prevFlashBtn">◀ Trước</button>
+                <button id="nextFlashBtn">Sau ▶</button>
+            </div>
+        </div>`;
+        
+        document.getElementById("flashcardCore")?.addEventListener("click", () => {
+            isFlipped = !isFlipped;
+            renderFlashcardView();
+        });
+        document.getElementById("prevFlashBtn")?.addEventListener("click", () => {
+            if (filteredVocabulary.length) {
+                flashcardIndex = (flashcardIndex - 1 + filteredVocabulary.length) % filteredVocabulary.length;
+                isFlipped = false;
+                renderFlashcardView();
+            }
+        });
+        document.getElementById("nextFlashBtn")?.addEventListener("click", () => {
+            if (filteredVocabulary.length) {
+                flashcardIndex = (flashcardIndex + 1) % filteredVocabulary.length;
+                isFlipped = false;
+                renderFlashcardView();
+            }
+        });
+    }
+
+    function escapeHtml(str) {
+        if (!str) return "";
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    window.speakWord = function(word) {
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = "zh-CN";
+        utterance.rate = 0.8;
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utterance);
+    };
+
+    // Sự kiện
+    gridBtn.onclick = () => {
+        currentView = "grid";
+        gridBtn.classList.add("active");
+        flashcardBtn.classList.remove("active");
+        renderCurrentView();
+    };
+    flashcardBtn.onclick = () => {
+        currentView = "flashcard";
+        flashcardBtn.classList.add("active");
+        gridBtn.classList.remove("active");
+        renderCurrentView();
+    };
+    filterHsk.onchange = filterType.onchange = filterTheme.onchange = applyFiltersAndRender;
+    resetBtn.onclick = () => {
+        filterHsk.value = "Tất cả HSK";
+        filterType.value = "Tất cả từ loại";
+        filterTheme.value = "Tất cả chủ đề";
+        applyFiltersAndRender();
+    };
+
+    // Bắt đầu
+    loadCSV();
+</script>
 </body>
 </html>
