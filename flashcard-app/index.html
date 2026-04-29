@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>🌸 Flashcard thông minh - kho chữ của np</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="brand-header">
+            <div class="logo-area">
+                <span class="cherry-blossom">🌸</span> Flashcard thông minh <span class="cherry-blossom">🌸</span>
+            </div>
+            <p class="subtitle">học từ vựng theo chủ đề · trình độ · từ loại</p>
+        </div>
+
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label>📚 Trình độ</label>
+                <select id="filterHsk"></select>
+            </div>
+            <div class="filter-group">
+                <label>🏷️ Từ loại</label>
+                <select id="filterType"></select>
+            </div>
+            <div class="filter-group">
+                <label>🌈 Chủ đề</label>
+                <select id="filterTheme"></select>
+            </div>
+            <button id="resetFiltersBtn" class="reset-btn">✨ Xóa lọc</button>
+        </div>
+
+        <div class="view-toggle">
+            <button id="gridViewBtn" class="view-btn active">📇 Dạng lưới</button>
+            <button id="flashcardViewBtn" class="view-btn">🃏 Dạng thẻ ghi nhớ</button>
+        </div>
+
+        <div id="contentArea" class="content-area">
+            <div class="loading-message">🌸 Đang tải dữ liệu từ vựng... 🌸</div>
+        </div>
+
+        <div class="study-footer">
+            <span>💡 Mẹo: Bấm vào thẻ để nghe phát âm | Dữ liệu từ file CSV</span>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
