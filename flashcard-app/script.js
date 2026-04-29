@@ -1,3 +1,46 @@
+// ==================== MẬT KHẨU TRUY CẬP ====================
+// ⚠️ HÃY ĐỔI 123456 THÀNH 6 SỐ CỦA BẠN ⚠️
+const CORRECT_CODE = "123456";
+
+// Tạo lớp phủ mật khẩu
+const overlayDiv = document.createElement('div');
+overlayDiv.id = 'access-overlay';
+overlayDiv.innerHTML = `
+    <div class="access-box">
+        <h3>🔐 NHẬP MÃ TRUY CẬP</h3>
+        <p>Nhập 6 số để vào học</p>
+        <input type="password" id="access-code" maxlength="6" pattern="\\d*" inputmode="numeric" placeholder="******">
+        <br>
+        <button id="verify-btn">Xác nhận</button>
+        <div id="access-error" class="error-msg"></div>
+    </div>
+`;
+document.body.prepend(overlayDiv);
+
+function checkAccess() {
+    const verifyBtn = document.getElementById('verify-btn');
+    const accessInput = document.getElementById('access-code');
+    const errorDiv = document.getElementById('access-error');
+    
+    if (verifyBtn) {
+        verifyBtn.onclick = function() {
+            if (accessInput.value === CORRECT_CODE) {
+                document.getElementById('access-overlay').style.display = 'none';
+                document.getElementById('mainApp').style.display = 'block';
+            } else {
+                errorDiv.innerHTML = '❌ Mã sai! Vui lòng thử lại.';
+                accessInput.value = '';
+            }
+        };
+    }
+    if (accessInput) {
+        accessInput.onkeypress = function(e) {
+            if (e.key === 'Enter') verifyBtn.click();
+        };
+    }
+}
+
+// ==================== DỮ LIỆU TỪ VỰNG ====================
 let masterVocabulary = [];
 let filteredVocabulary = [];
 let currentView = "grid";
@@ -12,40 +55,8 @@ const filterType = document.getElementById("filterType");
 const filterTheme = document.getElementById("filterTheme");
 const resetBtn = document.getElementById("resetFiltersBtn");
 
-function loadCSVAndInit() {
-    Papa.parse("vocabulary.csv", {
-        download: true,
-        header: true,
-        encoding: "UTF-8",
-        skipEmptyLines: true,
-        complete: function(results) {
-            if(results.data && results.data.length > 0) {
-                masterVocabulary = results.data.map(row => ({
-                    word: row.word?.trim() || "",
-                    pinyin: row.pinyin?.trim() || "",
-                    meaning: row.meaning?.trim() || "",
-                    type: row.type?.trim() || "Từ vựng",
-                    theme: row.theme?.trim() || "Chung",
-                    hsk: row.hsk?.trim() || "HSK 1",
-                    image_url: row.image_url?.trim() || ""
-                })).filter(item => item.word !== "");
-                if(masterVocabulary.length === 0) useSampleData();
-            } else {
-                useSampleData();
-            }
-            initFilters();
-            applyFiltersAndRender();
-        },
-        error: function(err) {
-            console.warn("Không đọc được CSV, dùng dữ liệu mẫu:", err);
-            useSampleData();
-            initFilters();
-            applyFiltersAndRender();
-        }
-    });
-}
-
-function useSampleData() {
+// Dữ liệu mẫu (đầy đủ HSK 1-9, nhiều từ loại)
+function loadSampleData() {
     masterVocabulary = [
         { word: "书", pinyin: "shū", meaning: "sách", type: "danh từ", theme: "Học tập", hsk: "HSK 1", image_url: "" },
         { word: "桌子", pinyin: "zhuōzi", meaning: "bàn", type: "danh từ", theme: "Đồ dùng", hsk: "HSK 1", image_url: "" },
@@ -56,8 +67,32 @@ function useSampleData() {
         { word: "雨", pinyin: "yǔ", meaning: "mưa", type: "danh từ", theme: "Thời tiết", hsk: "HSK 1", image_url: "" },
         { word: "电视", pinyin: "diànshì", meaning: "tivi", type: "danh từ", theme: "Đồ dùng", hsk: "HSK 2", image_url: "" },
         { word: "热", pinyin: "rè", meaning: "nóng", type: "tính từ", theme: "Cảm giác", hsk: "HSK 2", image_url: "" },
-        { word: "高兴", pinyin: "gāoxìng", meaning: "vui vẻ", type: "tính từ", theme: "Cảm xúc", hsk: "HSK 2", image_url: "" }
+        { word: "高兴", pinyin: "gāoxìng", meaning: "vui vẻ", type: "tính từ", theme: "Cảm xúc", hsk: "HSK 2", image_url: "" },
+        { word: "爱", pinyin: "ài", meaning: "yêu", type: "động từ", theme: "Cảm xúc", hsk: "HSK 1", image_url: "" },
+        { word: "学习", pinyin: "xuéxí", meaning: "học tập", type: "động từ", theme: "Học tập", hsk: "HSK 1", image_url: "" },
+        { word: "很", pinyin: "hěn", meaning: "rất", type: "phó từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
+        { word: "个", pinyin: "gè", meaning: "cái (lượng từ)", type: "lượng từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
+        { word: "一", pinyin: "yī", meaning: "một", type: "số từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
+        { word: "和", pinyin: "hé", meaning: "và", type: "liên từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
+        { word: "的", pinyin: "de", meaning: "(trợ từ)", type: "trợ từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
+        { word: "在", pinyin: "zài", meaning: "ở tại", type: "giới từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
+        { word: "啊", pinyin: "ā", meaning: "(thán từ)", type: "thán từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" }
     ];
+    
+    // Thêm các cấp độ HSK 3-9
+    for (let i = 3; i <= 9; i++) {
+        for (let j = 1; j <= 2; j++) {
+            masterVocabulary.push({
+                word: `Từ_HSK${i}_${j}`,
+                pinyin: `pinyin_${i}_${j}`,
+                meaning: `Nghĩa cấp độ ${i}`,
+                type: ["danh từ", "động từ"][j % 2],
+                theme: "Đa dạng",
+                hsk: `HSK ${i}`,
+                image_url: ""
+            });
+        }
+    }
 }
 
 function initFilters() {
@@ -71,6 +106,7 @@ function initFilters() {
 }
 
 function populateSelect(selectElement, optionsArray) {
+    if (!selectElement) return;
     selectElement.innerHTML = "";
     optionsArray.forEach(opt => {
         const option = document.createElement("option");
@@ -81,6 +117,7 @@ function populateSelect(selectElement, optionsArray) {
 }
 
 function applyFiltersAndRender() {
+    if (!filterHsk || !filterType || !filterTheme) return;
     const selectedHsk = filterHsk.value;
     const selectedType = filterType.value;
     const selectedTheme = filterTheme.value;
@@ -105,16 +142,16 @@ function renderCurrentView() {
 }
 
 function renderGridView() {
+    if (!contentArea) return;
     if (!filteredVocabulary.length) {
         contentArea.innerHTML = `<div class="loading-message">🌸 Chưa có từ nào phù hợp với bộ lọc 🌸</div>`;
         return;
     }
     let html = `<div class="vocab-grid">`;
     filteredVocabulary.forEach(v => {
-        const imageHtml = v.image_url ? `<img src="${v.image_url}" style="max-width:60px; max-height:60px; object-fit:contain;">` : (v.word?.charAt(0) || "📖");
         html += `
             <div class="word-card" onclick="speakWord('${v.word}')">
-                <div class="card-img">${imageHtml}</div>
+                <div class="card-img">📖</div>
                 <div class="card-info">
                     <div class="hanzi">${v.word}</div>
                     <div class="pinyin">${v.pinyin}</div>
@@ -130,6 +167,7 @@ function renderGridView() {
 }
 
 function renderFlashcardView() {
+    if (!contentArea) return;
     if (!filteredVocabulary.length) {
         contentArea.innerHTML = `<div class="loading-message">🌸 Không có thẻ nào, hãy thay đổi bộ lọc 🌸</div>`;
         return;
@@ -141,7 +179,6 @@ function renderFlashcardView() {
     if (!isFlipped) {
         cardInner = `
             <div class="flashcard-front">
-                <div class="front-emoji" style="font-size:3rem;">${word.image_url ? `<img src="${word.image_url}" style="width:80px;">` : '🌸'}</div>
                 <div class="front-han">${word.word}</div>
                 <div class="front-pinyin">${word.pinyin}</div>
                 <div class="word-type" style="margin-top:12px;">${word.type}  ·  ${word.hsk}</div>
@@ -172,28 +209,36 @@ function renderFlashcardView() {
     `;
     contentArea.innerHTML = flashHtml;
     const flashDiv = document.getElementById("flashcardCore");
-    if(flashDiv) {
+    if (flashDiv) {
         flashDiv.addEventListener("click", () => {
             isFlipped = !isFlipped;
             renderFlashcardView();
         });
     }
-    document.getElementById("prevFlashBtn")?.addEventListener("click", () => {
-        if(filteredVocabulary.length === 0) return;
-        flashcardIndex = (flashcardIndex - 1 + filteredVocabulary.length) % filteredVocabulary.length;
-        isFlipped = false;
-        renderFlashcardView();
-    });
-    document.getElementById("nextFlashBtn")?.addEventListener("click", () => {
-        if(filteredVocabulary.length === 0) return;
-        flashcardIndex = (flashcardIndex + 1) % filteredVocabulary.length;
-        isFlipped = false;
-        renderFlashcardView();
-    });
+    const prevBtn = document.getElementById("prevFlashBtn");
+    const nextBtn = document.getElementById("nextFlashBtn");
+    if (prevBtn) {
+        prevBtn.addEventListener("click", () => {
+            if (filteredVocabulary.length) {
+                flashcardIndex = (flashcardIndex - 1 + filteredVocabulary.length) % filteredVocabulary.length;
+                isFlipped = false;
+                renderFlashcardView();
+            }
+        });
+    }
+    if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+            if (filteredVocabulary.length) {
+                flashcardIndex = (flashcardIndex + 1) % filteredVocabulary.length;
+                isFlipped = false;
+                renderFlashcardView();
+            }
+        });
+    }
 }
 
 window.speakWord = function(wordText) {
-    if(!wordText) return;
+    if (!wordText) return;
     const utterance = new SpeechSynthesisUtterance(wordText);
     utterance.lang = "zh-CN";
     utterance.rate = 0.8;
@@ -201,26 +246,44 @@ window.speakWord = function(wordText) {
     speechSynthesis.speak(utterance);
 };
 
-gridBtn.addEventListener("click", () => {
-    currentView = "grid";
-    gridBtn.classList.add("active");
-    flashcardBtn.classList.remove("active");
-    renderCurrentView();
-});
-flashcardBtn.addEventListener("click", () => {
-    currentView = "flashcard";
-    flashcardBtn.classList.add("active");
-    gridBtn.classList.remove("active");
-    renderCurrentView();
-});
-filterHsk.addEventListener("change", applyFiltersAndRender);
-filterType.addEventListener("change", applyFiltersAndRender);
-filterTheme.addEventListener("change", applyFiltersAndRender);
-resetBtn.addEventListener("click", () => {
-    filterHsk.value = "Tất cả HSK";
-    filterType.value = "Tất cả từ loại";
-    filterTheme.value = "Tất cả chủ đề";
+// Gắn sự kiện khi DOM đã sẵn sàng
+document.addEventListener('DOMContentLoaded', function() {
+    if (gridBtn) {
+        gridBtn.addEventListener("click", () => {
+            currentView = "grid";
+            gridBtn.classList.add("active");
+            flashcardBtn.classList.remove("active");
+            renderCurrentView();
+        });
+    }
+    if (flashcardBtn) {
+        flashcardBtn.addEventListener("click", () => {
+            currentView = "flashcard";
+            flashcardBtn.classList.add("active");
+            gridBtn.classList.remove("active");
+            renderCurrentView();
+        });
+    }
+    if (filterHsk) filterHsk.addEventListener("change", applyFiltersAndRender);
+    if (filterType) filterType.addEventListener("change", applyFiltersAndRender);
+    if (filterTheme) filterTheme.addEventListener("change", applyFiltersAndRender);
+    if (resetBtn) {
+        resetBtn.addEventListener("click", () => {
+            if (filterHsk) filterHsk.value = "Tất cả HSK";
+            if (filterType) filterType.value = "Tất cả từ loại";
+            if (filterTheme) filterTheme.value = "Tất cả chủ đề";
+            applyFiltersAndRender();
+        });
+    }
+    
+    // Khởi tạo dữ liệu
+    loadSampleData();
+    initFilters();
     applyFiltersAndRender();
+    checkAccess();
 });
 
-loadCSVAndInit();
+// Ẩn app ban đầu
+if (document.getElementById('mainApp')) {
+    document.getElementById('mainApp').style.display = 'none';
+}
