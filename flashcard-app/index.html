@@ -8,27 +8,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #fff5f7;
             font-family: 'Montserrat', 'Inter', system-ui, sans-serif;
             padding: 2rem 1.5rem;
             min-height: 100vh;
         }
-
-        /* LỚP PHỦ MẬT KHẨU */
         #access-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0,0,0,0.85);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -43,10 +36,7 @@
             width: 90%;
             border: 2px solid #d47a9e;
         }
-        .access-box h3 {
-            color: #d47a9e;
-            margin-bottom: 15px;
-        }
+        .access-box h3 { color: #d47a9e; margin-bottom: 15px; }
         .access-box input {
             width: 100%;
             padding: 12px;
@@ -56,7 +46,6 @@
             border: 2px solid #ffccda;
             border-radius: 60px;
             margin: 15px 0;
-            font-family: monospace;
         }
         .access-box button {
             background: #d47a9e;
@@ -67,42 +56,19 @@
             cursor: pointer;
             font-weight: bold;
         }
-        .error-msg {
-            color: #c62828;
-            font-size: 0.8rem;
-            margin-top: 10px;
-        }
-
-        /* GIAO DIỆN CHÍNH */
+        .error-msg { color: #c62828; font-size: 0.8rem; margin-top: 10px; }
         .app-container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 2rem;
-            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.05);
             padding: 2rem;
             border: 1px solid #ffe2f0;
         }
-
-        .brand-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .logo-area {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #d47a9e;
-        }
-        .cherry-blossom {
-            font-size: 1.8rem;
-            display: inline-block;
-        }
-        .subtitle {
-            color: #c2778a;
-            font-size: 0.85rem;
-            margin-top: 6px;
-        }
-
+        .brand-header { text-align: center; margin-bottom: 2rem; }
+        .logo-area { font-size: 1.8rem; font-weight: 700; color: #d47a9e; }
+        .cherry-blossom { font-size: 1.8rem; display: inline-block; }
+        .subtitle { color: #c2778a; font-size: 0.85rem; margin-top: 6px; }
         .filter-bar {
             background: #fef5f8;
             border-radius: 1.5rem;
@@ -113,16 +79,8 @@
             align-items: flex-end;
             margin-bottom: 1.8rem;
         }
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .filter-group label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #c0627c;
-        }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; }
+        .filter-group label { font-size: 0.7rem; font-weight: 600; color: #c0627c; }
         select, .reset-btn {
             background: white;
             border: 1px solid #ffcddc;
@@ -132,11 +90,7 @@
             color: #8f4b62;
             cursor: pointer;
         }
-        .reset-btn {
-            background: #ffdae6;
-            border: none;
-        }
-
+        .reset-btn { background: #ffdae6; border: none; }
         .view-toggle {
             display: flex;
             justify-content: center;
@@ -152,11 +106,7 @@
             cursor: pointer;
             color: #b05d77;
         }
-        .view-btn.active {
-            background: #f7a1b5;
-            color: white;
-        }
-
+        .view-btn.active { background: #f7a1b5; color: white; }
         .vocab-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -170,10 +120,7 @@
             border: 1px solid #ffe0ec;
             transition: 0.2s;
         }
-        .word-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px -12px #ffb7cb;
-        }
+        .word-card:hover { transform: translateY(-4px); box-shadow: 0 12px 20px -12px #ffb7cb; }
         .card-img {
             background: #fff4f8;
             height: 90px;
@@ -183,19 +130,9 @@
             font-size: 2.5rem;
             color: #bc5f7c;
         }
-        .card-info {
-            padding: 0.9rem;
-        }
-        .hanzi {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #bc5f7c;
-        }
-        .pinyin {
-            font-size: 0.7rem;
-            color: #b88295;
-            margin: 5px 0;
-        }
+        .card-info { padding: 0.9rem; }
+        .hanzi { font-size: 1.3rem; font-weight: 700; color: #bc5f7c; }
+        .pinyin { font-size: 0.7rem; color: #b88295; margin: 5px 0; }
         .word-type {
             display: inline-block;
             background: #fce4ec;
@@ -204,11 +141,7 @@
             border-radius: 30px;
             color: #bd6b85;
         }
-        .meaning {
-            font-size: 0.75rem;
-            margin-top: 6px;
-            color: #6e4758;
-        }
+        .meaning { font-size: 0.75rem; margin-top: 6px; color: #6e4758; }
         .theme-badge {
             font-size: 0.6rem;
             background: #f5e1e8;
@@ -217,16 +150,10 @@
             border-radius: 20px;
             margin-top: 6px;
         }
-
-        .flashcard-mode {
-            background: #fffafc;
-            border-radius: 1.8rem;
-            padding: 1.2rem;
-        }
+        .flashcard-mode { background: #fffafc; border-radius: 1.8rem; padding: 1.2rem; }
         .flashcard {
             background: white;
             border-radius: 1.8rem;
-            box-shadow: 0 20px 30px -12px rgba(189, 79, 108, 0.15);
             min-height: 360px;
             display: flex;
             align-items: center;
@@ -235,48 +162,13 @@
             text-align: center;
             border: 1px solid #ffd9e6;
         }
-        .front-han {
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: #bc5f7c;
-        }
-        .front-pinyin {
-            font-size: 1.1rem;
-            color: #cc879e;
-        }
-        .back-meaning {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #b45f7a;
-        }
-        .flashcard-nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        .flashcard-nav button {
-            background: #f6b2c5;
-            border: none;
-            padding: 8px 22px;
-            border-radius: 3rem;
-            font-weight: 600;
-            color: white;
-            cursor: pointer;
-        }
-        .loading-message {
-            text-align: center;
-            padding: 3rem;
-            color: #be7c94;
-        }
-        .study-footer {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 0.7rem;
-            color: #e2a1b5;
-            border-top: 1px dashed #ffcddc;
-            padding-top: 1rem;
-        }
+        .front-han { font-size: 2.8rem; font-weight: 700; color: #bc5f7c; }
+        .front-pinyin { font-size: 1.1rem; color: #cc879e; }
+        .back-meaning { font-size: 1.8rem; font-weight: 600; color: #b45f7a; }
+        .flashcard-nav { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
+        .flashcard-nav button { background: #f6b2c5; border: none; padding: 8px 22px; border-radius: 3rem; color: white; cursor: pointer; }
+        .loading-message { text-align: center; padding: 3rem; color: #be7c94; }
+        .study-footer { text-align: center; margin-top: 2rem; font-size: 0.7rem; color: #e2a1b5; border-top: 1px dashed #ffcddc; padding-top: 1rem; }
     </style>
 </head>
 <body>
@@ -286,20 +178,20 @@
         <div class="logo-area">
             <span class="cherry-blossom">🌸</span> Flashcard thông minh <span class="cherry-blossom">🌸</span>
         </div>
-        <p class="subtitle">học từ vựng theo chủ đề · trình độ · từ loại</p>
+        <p class="subtitle">học từ vựng theo chủ đề · trình độ · từ loại · các cụm thường gặp</p>
     </div>
 
     <div class="filter-bar">
         <div class="filter-group">
-            <label>📚 Trình độ</label>
+            <label>📌 Trình độ</label>
             <select id="filterHsk"></select>
         </div>
         <div class="filter-group">
-            <label>🏷️ Từ loại</label>
+            <label>📌 Từ loại</label>
             <select id="filterType"></select>
         </div>
         <div class="filter-group">
-            <label>🌈 Chủ đề</label>
+            <label>🧑‍💻 Chủ đề</label>
             <select id="filterTheme"></select>
         </div>
         <button id="resetFiltersBtn" class="reset-btn">✨ Xóa lọc</button>
@@ -309,11 +201,10 @@
         <button id="gridViewBtn" class="view-btn active">📇 Dạng lưới</button>
         <button id="flashcardViewBtn" class="view-btn">🃏 Dạng thẻ ghi nhớ</button>
         <button id="exerciseBtn" class="view-btn">📝 Bài tập</button>
-
     </div>
 
     <div id="contentArea">
-        <div class="loading-message">🌸 Đang tải dữ liệu từ vocabulary.csv... 🌸</div>
+        <div class="loading-message">🌸 Đang tải dữ liệu từ vựng... 🌸</div>
     </div>
 
     <div class="study-footer">
@@ -340,19 +231,20 @@
     document.body.prepend(overlay);
 
     document.getElementById('verify-btn').onclick = function() {
-        if (document.getElementById('access-code').value === CORRECT_CODE) {
+        const input = document.getElementById('access-code');
+        if (input.value === CORRECT_CODE) {
             document.getElementById('access-overlay').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
         } else {
-            document.getElementById('access-error').innerHTML = '❌ Mã sai!';
-            document.getElementById('access-code').value = '';
+            document.getElementById('access-error').innerHTML = '❌ Mã sai! Vui lòng thử lại.';
+            input.value = '';
         }
     };
     document.getElementById('access-code').onkeypress = function(e) {
         if (e.key === 'Enter') document.getElementById('verify-btn').click();
     };
 
-    // ==================== LOGIC FLASHCARD TỪ CSV ====================
+    // ==================== DỮ LIỆU & LOGIC FLASHCARD ====================
     let masterVocabulary = [];
     let filteredVocabulary = [];
     let currentView = "grid";
@@ -392,8 +284,7 @@
                 initFilters();
                 applyFiltersAndRender();
             },
-            error: function(err) {
-                console.error("Lỗi đọc CSV:", err);
+            error: function() {
                 contentArea.innerHTML = `<div class="loading-message">❌ Không thể đọc file vocabulary.csv. Hãy chắc chắn file tồn tại!</div>`;
             }
         });
@@ -423,7 +314,6 @@
         const selectedHsk = filterHsk.value;
         const selectedType = filterType.value;
         const selectedTheme = filterTheme.value;
-
         filteredVocabulary = masterVocabulary.filter(item => {
             if (selectedHsk !== "Tất cả HSK" && item.hsk !== selectedHsk) return false;
             if (selectedType !== "Tất cả từ loại" && item.type !== selectedType) return false;
@@ -447,7 +337,7 @@
         }
         let html = `<div class="vocab-grid">`;
         filteredVocabulary.forEach(v => {
-            html += `<div class="word-card" onclick="speakWord('${v.word}')">
+            html += `<div class="word-card" onclick="speakWord('${v.word.replace(/'/g, "\\'")}')">
                 <div class="card-img">📖</div>
                 <div class="card-info">
                     <div class="hanzi">${escapeHtml(v.word)}</div>
@@ -470,84 +360,36 @@
         const inner = !isFlipped 
             ? `<div class="front-han">${escapeHtml(w.word)}</div><div class="front-pinyin">${escapeHtml(w.pinyin)}</div><div class="word-type" style="margin-top:12px;">${escapeHtml(w.type)} · ${escapeHtml(w.hsk)}</div><div class="flip-hint" style="margin-top:1rem;">👉 Nhấn để xem nghĩa</div>`
             : `<div class="back-meaning">${escapeHtml(w.meaning)}</div><div class="back-desc" style="margin-top:12px;">📚 ${escapeHtml(w.theme)}</div>`;
-        
         contentArea.innerHTML = `<div class="flashcard-mode">
             <div style="margin-bottom:12px;">${flashcardIndex+1}/${filteredVocabulary.length} · ${escapeHtml(w.theme)}</div>
             <div class="flashcard" id="flashcardCore">${inner}</div>
-            <div class="flashcard-nav">
-                <button id="prevFlashBtn">◀ Trước</button>
-                <button id="nextFlashBtn">Sau ▶</button>
-            </div>
+            <div class="flashcard-nav"><button id="prevFlashBtn">◀ Trước</button><button id="nextFlashBtn">Sau ▶</button></div>
         </div>`;
-        
-        document.getElementById("flashcardCore")?.addEventListener("click", () => {
-            isFlipped = !isFlipped;
-            renderFlashcardView();
-        });
-        document.getElementById("prevFlashBtn")?.addEventListener("click", () => {
-            if (filteredVocabulary.length) {
-                flashcardIndex = (flashcardIndex - 1 + filteredVocabulary.length) % filteredVocabulary.length;
-                isFlipped = false;
-                renderFlashcardView();
-            }
-        });
-        document.getElementById("nextFlashBtn")?.addEventListener("click", () => {
-            if (filteredVocabulary.length) {
-                flashcardIndex = (flashcardIndex + 1) % filteredVocabulary.length;
-                isFlipped = false;
-                renderFlashcardView();
-            }
-        });
+        document.getElementById("flashcardCore")?.addEventListener("click", () => { isFlipped = !isFlipped; renderFlashcardView(); });
+        document.getElementById("prevFlashBtn")?.addEventListener("click", () => { if (filteredVocabulary.length) { flashcardIndex = (flashcardIndex - 1 + filteredVocabulary.length) % filteredVocabulary.length; isFlipped = false; renderFlashcardView(); } });
+        document.getElementById("nextFlashBtn")?.addEventListener("click", () => { if (filteredVocabulary.length) { flashcardIndex = (flashcardIndex + 1) % filteredVocabulary.length; isFlipped = false; renderFlashcardView(); } });
     }
 
-    function escapeHtml(str) {
-        if (!str) return "";
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
+    function escapeHtml(str) { if (!str) return ""; return str.replace(/[&<>]/g, function(m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
 
-    window.speakWord = function(word) {
-        const utterance = new SpeechSynthesisUtterance(word);
-        utterance.lang = "zh-CN";
-        utterance.rate = 0.8;
-        speechSynthesis.cancel();
-        speechSynthesis.speak(utterance);
-    };
+    window.speakWord = function(word) { const utterance = new SpeechSynthesisUtterance(word); utterance.lang = "zh-CN"; utterance.rate = 0.8; speechSynthesis.cancel(); speechSynthesis.speak(utterance); };
 
     // Sự kiện
-    gridBtn.onclick = () => {
-        currentView = "grid";
-        gridBtn.classList.add("active");
-        flashcardBtn.classList.remove("active");
-        renderCurrentView();
-    };
-    flashcardBtn.onclick = () => {
-        currentView = "flashcard";
-        flashcardBtn.classList.add("active");
-        gridBtn.classList.remove("active");
-        renderCurrentView();
-    };
+    gridBtn.onclick = () => { currentView = "grid"; gridBtn.classList.add("active"); flashcardBtn.classList.remove("active"); renderCurrentView(); };
+    flashcardBtn.onclick = () => { currentView = "flashcard"; flashcardBtn.classList.add("active"); gridBtn.classList.remove("active"); renderCurrentView(); };
     filterHsk.onchange = filterType.onchange = filterTheme.onchange = applyFiltersAndRender;
-    resetBtn.onclick = () => {
-        filterHsk.value = "Tất cả HSK";
-        filterType.value = "Tất cả từ loại";
-        filterTheme.value = "Tất cả chủ đề";
-        applyFiltersAndRender();
-    };
+    resetBtn.onclick = () => { filterHsk.value = "Tất cả HSK"; filterType.value = "Tất cả từ loại"; filterTheme.value = "Tất cả chủ đề"; applyFiltersAndRender(); };
+
+    // ===== NÚT CHUYỂN SANG BÀI TẬP =====
+    const exerciseBtn = document.getElementById("exerciseBtn");
+    if (exerciseBtn) {
+        exerciseBtn.onclick = function() {
+            window.location.href = "exercises/index.html";
+        };
+    }
 
     // Bắt đầu
     loadCSV();
-    // Nút chuyển sang bài tập
-const exerciseBtn = document.getElementById("exerciseBtn");
-if (exerciseBtn) {
-    exerciseBtn.onclick = function() {
-        window.location.href = "exercises/index.html";
-    };
-}
 </script>
 </body>
 </html>
