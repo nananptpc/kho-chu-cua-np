@@ -1,0 +1,7 @@
+type,question,options,answer,matchLeft,matchRight,hint
+dragdrop,Kéo thả từ đúng vào ô trống:,书|桌子|水,书|桌子|水,,,Ghép từ Hán với nghĩa phù hợp
+dragdrop,Chọn động từ đúng:,吃|喝|去,吃,,,Hành động liên quan đến ăn
+fillblank,Điền từ thích hợp: "Tôi ___ cà phê.",,thích,,,Động từ thể hiện sở thích
+mcq,"""Nǐ hǎo"" có nghĩa là gì?",Xin chào|Cảm ơn|Tạm biệt,Xin chào,,,
+mcq,Số 8 trong tiếng Trung là?,bā|jiǔ|shí,bā,,,
+matching,ghép cột trái với cột phải:,,,书|水|吃,sách|nước|ăn,,
