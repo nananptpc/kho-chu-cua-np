@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Thanh mẫu - Vận mẫu | Biến điệu + Bảng Pinyin | Kho Chữ Của NP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(145deg, #ffe4ec 0%, #ffd9e4 100%);
+            color: #5a3e4b;
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        .container { max-width: 1500px; margin: 0 auto; }
+        .back-home {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #d47a9e;
+            text-decoration: none;
+            font-weight: 500;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 60px;
+            border: 1px solid #ffccda;
+            transition: 0.2s;
+        }
+        .back-home:hover { background: #ffeef3; transform: translateX(-3px); }
+        .header {
+            text-align: center;
+            background: white;
+            border-radius: 60px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid #ffccda;
+        }
+        h1 { color: #d47a9e; font-size: 1.8rem; margin-bottom: 8px; }
+        .sub { color: #b5838d; font-size: 0.85rem; }
+        .tabs {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: white;
+            border: 2px solid #ffdfe8;
+            padding: 10px 18px;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+        }
+        .tab-btn.active { background: #d47a9e; color: white; border-color: #d47a9e; }
+        .tab-pane { display: none; }
+        .tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .theory-card {
+            background: white;
+            border-radius: 40px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid #ffdfe8;
+        }
+        .theory-card h2 {
+            color: #d47a9e;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            border-left: 4px solid #d47a9e;
+            padding-left: 15px;
+        }
+        .theory-card h3 { color: #b86284; font-size: 1.05rem; margin: 20px 0 8px 0; }
+        .sound-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.85rem;
+        }
+        .sound-table th, .sound-table td {
+            padding: 10px 8px;
+            border: 1px solid #ffdfe8;
+            text-align: left;
+            vertical-align: top;
+        }
+        .sound-table th { background: #ffeef3; color: #d47a9e; }
+        .tip-box {
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 30px;
+            margin: 15px 0;
+            border-left: 5px solid #ffb74d;
+        }
+        .combine-table-wrapper {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: auto;
+            max-height: 550px;
+            margin: 20px 0;
+            border-radius: 20px;
+            border: 1px solid #ffccda;
+        }
+        .combine-table {
+            width: max-content;
+            min-width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: white;
+        }
+        .combine-table th, .combine-table td {
+            border: 1px solid #ffccda;
+            padding: 10px 8px;
+            text-align: center;
+            min-width: 60px;
+        }
+        .combine-table th {
+            background: #d47a9e;
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+        .combine-table th:first-child {
+            left: 0;
+            z-index: 30;
+        }
+        .combine-table td:first-child {
+            position: sticky;
+            left: 0;
+            background: #ffeef3;
+            font-weight: bold;
+            z-index: 10;
+        }
+        .invalid-cell { background: #ffebee; color: #c62828; font-weight: bold; }
+        .valid-cell { background: #e8f5e9; color: #2e7d32; }
+        .numbered-list { list-style: none; padding-left: 0; counter-reset: step-counter; }
+        .numbered-list li { margin: 6px 0; counter-increment: step-counter; }
+        .numbered-list li::before { content: counter(step-counter) ". "; font-weight: bold; color: #d47a9e; }
+        .quiz-container {
+            background: white;
+            border-radius: 40px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        .quiz-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #ffeef3;
+            border-radius: 60px;
+        }
+        .quiz-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .quiz-opt {
+            background: #f9f0f3;
+            padding: 12px 25px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #ffccda;
+            font-weight: 500;
+        }
+        .quiz-opt:hover { background: #ffe0e8; transform: scale(1.02); }
+        .quiz-opt.correct { background: #c8e6c9; border-color: #4caf50; }
+        .quiz-opt.wrong { background: #ffcdd2; border-color: #f44336; }
+        .quiz-feedback { text-align: center; margin: 15px 0; font-size: 0.9rem; }
+        .fact-area {
+            background: linear-gradient(135deg, #fff0f5, #ffe0e8);
+            border-radius: 30px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            border-left: 4px solid #d47a9e;
+        }
+        .progress-bar {
+            background: #ffdfe8;
+            border-radius: 30px;
+            height: 10px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: #d47a9e;
+            width: 0%;
+            height: 100%;
+            transition: width 0.3s;
+        }
+        .btn-reset {
+            background: #d47a9e;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 60px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .copyright { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ffccda; color: #c98aa8; font-size: 0.7rem; }
+        @media (max-width: 800px) {
+            .tab-btn { padding: 8px 14px; font-size: 0.75rem; }
+            .quiz-opt { padding: 8px 16px; font-size: 0.8rem; }
+            .combine-table th, .combine-table td { padding: 6px 4px; min-width: 50px; font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="https://nananptpc.github.io/kho-chu-cua-np" class="back-home">← Về thư viện</a>
+    <div class="header">
+        <h1>🎵 Hệ thống ngữ âm tiếng Hán</h1>
+        <div class="sub">Thanh mẫu · Vận mẫu · Biến điệu · Bảng Pinyin</div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="tab0">📘 Thanh mẫu</button>
+        <button class="tab-btn" data-tab="tab1">🎵 Vận mẫu</button>
+        <button class="tab-btn" data-tab="tab2">📜 Quy tắc i, u, ü</button>
+        <button class="tab-btn" data-tab="tab3">🔄 Biến điệu</button>
+        <button class="tab-btn" data-tab="tab4">📊 Bảng Pinyin hợp lệ</button>
+        <button class="tab-btn" data-tab="tab5">🎯 Bài tập biến điệu</button>
+    </div>
+
+    <!-- THANH MẪU -->
+    <div id="tab0" class="tab-pane active">
+        <div class="theory-card">
+            <h2>🗣️ Thanh mẫu (声母)</h2>
+            <h3>1. Âm tắc (Stop)</h3>
+            <table class="sound-table">
+                <tr><th>Âm</th><th>Bật hơi?</th><th>Cách phát âm</th><th>Ví dụ</th></tr>
+                <tr><td>b</td><td>❌</td><td>Hai môi chặn, bật nhẹ</td><td>爸 (bà)</td></tr>
+                <tr><td>p</td><td>✅</td><td>Hai môi chặn, bật mạnh</td><td>怕 (pà)</td></tr>
+                <tr><td>d</td><td>❌</td><td>Đầu lưỡi chạm lợi trên</td><td>大 (dà)</td></tr>
+                <tr><td>t</td><td>✅</td><td>Đầu lưỡi chạm lợi, bật hơi</td><td>他 (tā)</td></tr>
+                <tr><td>g</td><td>❌</td><td>Cuống lưỡi chạm ngạc mềm</td><td>哥 (gē)</td></tr>
+                <tr><td>k</td><td>✅</td><td>Cuống lưỡi chạm, bật mạnh</td><td>哭 (kū)</td></tr>
+            </table>
+            <h3>2. Âm xát (Fricative)</h3>
+            <table class="sound-table">
+                <tr><th>Âm</th><th>Cách phát âm</th><th>Ví dụ</th></tr>
+                <tr><td>f</td><td>Răng trên chạm môi dưới</td><td>发 (fā)</td></tr>
+                <tr><td>s</td><td>Đầu lưỡi thẳng, gần răng trên</td><td>四 (sì)</td></tr>
+                <tr><td>sh</td><td>Đầu lưỡi cuốn lên</td><td>十 (shí)</td></tr>
+                <tr><td>x</td><td>Mặt lưỡi nâng gần vòm cứng</td><td>西 (xī)</td></tr>
+                <tr><td>h</td><td>Cuống lưỡi nâng gần ngạc mềm</td><td>喝 (hē)</td></tr>
+                <tr><td>r</td><td>Cuốn lưỡi, dây thanh rung</td><td>日 (rì)</td></tr>
+            </table>
+            <h3>3. Âm tắc xát (Affricate)</h3>
+            <table class="sound-table">
+                <tr><th>Âm</th><th>Bật hơi?</th><th>Cách phát âm</th><th>Ví dụ</th></tr>
+                <tr><td>z</td><td>❌</td><td>Đầu lưỡi chạm răng trên</td><td>子 (zǐ)</td></tr>
+                <tr><td>c</td><td>✅</td><td>Như z, bật hơi mạnh</td><td>次 (cì)</td></tr>
+                <tr><td>zh</td><td>❌</td><td>Đầu lưỡi cuốn, chạm vòm</td><td>知 (zhī)</td></tr>
+                <tr><td>ch</td><td>✅</td><td>Như zh, bật hơi mạnh</td><td>吃 (chī)</td></tr>
+                <tr><td>j</td><td>❌</td><td>Mặt lưỡi nâng chạm vòm cứng</td><td>家 (jiā)</td></tr>
+                <tr><td>q</td><td>✅</td><td>Như j, bật hơi mạnh</td><td>去 (qù)</td></tr>
+            </table>
+            <h3>4. Âm mũi / cạnh lưỡi</h3>
+            <table class="sound-table">
+                <tr><th>Âm</th><th>Cách phát âm</th><th>Ví dụ</th></tr>
+                <tr><td>m</td><td>Hai môi chặn, hơi thoát mũi</td><td>妈 (mā)</td></tr>
+                <tr><td>n</td><td>Đầu lưỡi chạm lợi, hơi thoát mũi</td><td>你 (nǐ)</td></tr>
+                <tr><td>l</td><td>Đầu lưỡi chạm lợi, hơi thoát hai bên</td><td>了 (le)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- VẬN MẪU -->
+    <div id="tab1" class="tab-pane">
+        <div class="theory-card">
+            <h2>🎵 Vận mẫu (韵母)</h2>
+            <table class="sound-table">
+                <tr><th>Loại</th><th>Vận mẫu</th><th>Cách phát âm</th><th>Ví dụ</th></tr>
+                <tr><td>Đơn</td><td>a, o, e, i, u, ü</td><td>Giữ nguyên khẩu hình</td><td>妈 (mā), 波 (bō), 哥 (gē), 一 (yī), 五 (wǔ), 绿 (lǜ)</td></tr>
+                <tr><td>Kép</td><td>ai, ei, ao, ou, ia, ie, iao, iu, ua, uo, uai, ui, üe</td><td>Trượt từ âm đầu sang âm sau</td><td>爱 (ài), 北 (běi), 家 (jiā), 学 (xué)</td></tr>
+                <tr><td>Mũi -n</td><td>an, en, in, un, ün</td><td>Kết thúc bằng đầu lưỡi chạm lợi</td><td>安 (ān), 很 (hěn), 心 (xīn)</td></tr>
+                <tr><td>Mũi -ng</td><td>ang, eng, ing, ong, iang, iong, uang</td><td>Kết thúc bằng cuống lưỡi nâng</td><td>方 (fāng), 风 (fēng), 请 (qǐng)</td></tr>
+                <tr><td>Cuốn lưỡi</td><td>er</td><td>Đầu lưỡi cuốn ngược</td><td>二 (èr)</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- QUY TẮC i, u, ü -->
+    <div id="tab2" class="tab-pane">
+        <div class="theory-card">
+            <h2>📜 Quy tắc viết i, u, ü khi đứng đầu âm tiết</h2>
+            <div class="tip-box">
+                <strong>⚠️ LƯU Ý QUAN TRỌNG:</strong> <strong>w và y KHÔNG phải là phụ âm, chúng chỉ là KÝ TỰ VIẾT THAY</strong> để đảm bảo quy tắc chính tả. Cách đọc vẫn giữ nguyên là i, u, ü.
+            </div>
+            <table class="sound-table">
+                <tr><th>Trường hợp</th><th>Viết thành</th><th>Đọc</th><th>Ví dụ</th></tr>
+                <tr><td>i đứng một mình</td><td>yi</td><td>i</td><td>一 (yī)</td></tr>
+                <tr><td>i + vận (ia, ie, iao, iu, ian, iang, iong)</td><td>y + vận</td><td>i + vận</td><td>鸭 (yā), 要 (yào)</td></tr>
+                <tr><td>u đứng một mình</td><td>wu</td><td>u</td><td>五 (wǔ)</td></tr>
+                <tr><td>u + vận (ua, uo, uai, ui, uan, uang)</td><td>w + vận</td><td>u + vận</td><td>我 (wǒ), 外 (wài)</td></tr>
+                <tr><td>ü đứng một mình</td><td>yu</td><td>ü</td><td>于 (yú)</td></tr>
+                <tr><td>ü + vận (üe, üan, ün)</td><td>yu + vận (bỏ hai chấm)</td><td>ü + vận</td><td>月 (yuè), 云 (yún)</td></tr>
+            </table>
+            <div class="tip-box"><strong>📌 Đặc biệt:</strong> Sau j, q, x → ü viết thành u (bỏ hai chấm) nhưng ĐỌC LÀ Ü: ju (jü), qu (qü), xu (xü). Sau n, l giữ ü: nü, lü.</div>
+        </div>
+    </div>
+
+    <!-- BIẾN ĐIỆU (đã sửa dấu →) -->
+    <div id="tab3" class="tab-pane">
+        <div class="theory-card">
+            <h2>🔄 Biến điệu (变调)</h2>
+            <h3>1. Biến điệu của 一 (yī) và 不 (bù)</h3>
+            <table class="sound-table">
+                <tr><th>Từ</th><th>Trước thanh 1,2,3</th><th>Trước thanh 4</th><th>Trước thanh nhẹ</th><th>Ví dụ</th></tr>
+                <tr><td>一 (yī)</td><td>yì</td><td>yí</td><td>yi</td><td>一天 (yì tiān) · 一定 (yí dìng) · 看一看 (kàn yi kàn)</td></tr>
+                <tr><td>不 (bù)</td><td>bù</td><td>bú</td><td>bu</td><td>不好 (bù hǎo) · 不对 (bú duì) · 要不要 (yào bu yào)</td></tr>
+            </table>
+            <h3>2. Biến điệu của thanh 3</h3>
+            <ul class="numbered-list">
+                <li><strong>Hai thanh 3 → thanh 2 + thanh 3</strong><br>你好 (nǐ hǎo) → ní hǎo ; 很好 (hěn hǎo) → hén hǎo</li>
+                <li><strong>Ba thanh 3 → (2+2)+3</strong><br>我很好 (wǒ hěn hǎo) → wó hén hǎo</li>
+                <li><strong>Thanh 3 + thanh 1/2/4/thanh nhẹ → nửa thanh 3 (chỉ hạ, không bật)</strong><br>很忙 (hěn máng) → hě̌ máng ; 好吃 (hǎo chī) → hǎ̌ chī</li>
+            </ul>
+            <h3>3. Biến âm của từ láy AA (kiểu: 妈妈, 爸爸, 姐姐...)</h3>
+            <ul class="numbered-list">
+                <li><strong>Quy tắc chung:</strong> Trong từ láy AA (thường là danh từ chỉ người thân hoặc từ láy tình thân), âm tiết thứ hai đọc thành <strong>thanh nhẹ</strong>.</li>
+                <li><strong>Ví dụ:</strong><br>
+                    妈妈 (māma) → đọc mā ma (thanh nhẹ)<br>
+                    爸爸 (bàba) → bà ba<br>
+                    哥哥 (gēge) → gē ge<br>
+                    姐姐 (jiějie) → jiě jie</li>
+            </ul>
+            <h3>4. Phân biệt cách đọc của từ cùng chữ nhưng khác từ loại (danh từ / động từ / tính từ)</h3>
+            <ul class="numbered-list">
+                <li><strong>Danh từ:</strong> Thường âm tiết thứ hai đọc thanh nhẹ hoặc không biến đổi mạnh.<br>
+                    <em>Ví dụ: 妈妈 (mā ma), 爸爸 (bà ba), 星星 (xīng xing - ngôi sao)</em></li>
+                <li><strong>Động từ:</strong> Dạng láy AA của động từ thường âm tiết thứ hai đọc thanh nhẹ, thể hiện sự nhẹ nhàng, lặp lại.<br>
+                    <em>Ví dụ: 看看 (kàn kan - xem thử), 听听 (tīng ting - nghe thử)</em></li>
+                <li><strong>Tính từ:</strong> Dạng láy AA của tính từ thường đi kèm âm tiết thứ hai là thanh nhẹ, nhưng có thể kèm 儿 (er) để tăng sắc thái.<br>
+                    <em>Ví dụ: 慢慢 (màn man) → chậm rãi, 早早 (zǎo zao) → thật sớm</em></li>
+            </ul>
+<div class="tip-box">
+    <strong>📌 Lưu ý quan trọng:</strong><br>
+    • Không phải mọi từ AA đều đọc thanh nhẹ. Từ láy tượng thanh (汪汪 wāng wāng) thường giữ nguyên thanh.<br>
+    • Khi AA là từ chỉ người thân (bố, mẹ, anh, chị) → bắt buộc đọc thanh nhẹ ở âm thứ hai.<br>
+    • Trong tiếng Hán, việc đọc đúng thanh nhẹ ở từ láy AA giúp câu nói tự nhiên và gần gũi hơn.
+</div>
+        </div>
+    </div>
+
+    <!-- BẢNG PINYIN HỢP LỆ (FREEZE COLUMN + ROW) -->
+    <div id="tab4" class="tab-pane">
+        <div class="theory-card">
+            <h2>📊 Bảng tổ hợp thanh mẫu + vận mẫu (Pinyin hợp lệ)</h2>
+            <div class="combine-table-wrapper">
+                <table class="combine-table" id="combine-table">
+                    <thead id="combine-thead"></thead>
+                    <tbody id="combine-tbody"></tbody>
+                </table>
+            </div>
+            <div class="tip-box">
+    <strong>📌 Hướng dẫn:</strong>
+    <ol>
+        <li>Cuộn ngang/dọc để xem toàn bộ bảng. Cột thanh mẫu và hàng vận mẫu luôn cố định.</li>
+        <li>🟢 Ô xanh = hợp lệ.</li>
+        <li>🔴 Ô đỏ = không tồn tại.</li>
+    </ol>
+    <strong>Quy tắc chính:</strong>
+    <ol>
+        <li>j, q, x không đi với a, o, u trực tiếp.</li>
+        <li>g, k, h không đi với i, ü.</li>
+        <li>b, p, m, f không đi với ü.</li>
+        <li>Sau j, q, x: ü viết thành u nhưng đọc là ü (ju, qu, xu).</li>
+    </ol>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BÀI TẬP BIẾN ĐIỆU 15 CÂU (giữ nguyên cơ chế cũ) -->
+    <div id="tab5" class="tab-pane">
+        <div class="quiz-container">
+            <h2>🎯 Luyện tập biến điệu</h2>
+            <div class="progress-bar"><div class="progress-fill" id="quiz-progress"></div></div>
+            <div id="quiz-facts-area" class="fact-area">💡 Trả lời đúng 5 câu → 1 fact, 10 câu → 2 facts, 15 câu → 3 facts!</div>
+            <div id="quiz-question" class="quiz-question"></div>
+            <div id="quiz-options" class="quiz-options"></div>
+            <div id="quiz-feedback" class="quiz-feedback"></div>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button id="reset-quiz" class="btn-reset">🔄 Làm lại (shuffle mới)</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright">© nananp.tpc </div>
+</div>
+
+<script>
+    // ========== BẢNG PINYIN HỢP LỆ (CẬP NHẬT THEO BẢNG CHUẨN) ==========
+const initials = [
+    'b','p','m','f','d','t','n','l',
+    'z','c','s','zh','ch','sh','r',
+    'j','q','x','g','k','h','y','w'
+];
+
+const finals = [
+    'a','o','e','i','er','ai','ei','ao','ou',
+    'an','en','ang','eng','ong',
+    'ia','iao','ie','iu','ian','in','iang','ing','iong',
+    'u','ua','uo','uai','ui','uan','un','uang',
+    'ü','üe','üan','ün'
+];
+
+// Bảng hợp lệ dựa theo file ảnh bạn cung cấp
+const validMap = {
+    // Nhóm môi
+    'b': ['a','o','i','ai','ei','ao','an','en','ang','eng','in','ing','u'],
+    'p': ['a','o','i','ai','ei','ao','ou','an','en','ang','eng','in','ing','u'],
+    'm': ['a','o','i','ai','ei','ao','ou','an','en','ang','eng','in','ing','u'],
+    'f': ['a','o','ei','ou','an','en','ang','eng','u'],
+    
+    // Nhóm đầu lưỡi
+    'd': ['a','e','ai','ei','ao','ou','an','ang','eng','i','ia','iao','ie','ian','ing','u','uo','uan','un'],
+    't': ['a','e','ai','ao','ou','an','ang','eng','i','iao','ie','ian','ing','u','uo','uan','un'],
+    'n': ['a','e','i','ai','ei','ao','ou','an','en','ang','eng','ia','iao','ie','iu','ian','in','iang','ing','iong','u','uo','uan','un','ü','üe'],
+    'l': ['a','e','i','ai','ei','ao','ou','an','en','ang','eng','ia','iao','ie','iu','ian','in','iang','ing','u','uo','uan','un','ü','üe'],
+    
+    // Nhóm âm răng (z,c,s)
+    'z': ['a','e','i','ai','ei','ao','ou','an','en','ang','ong','u','uo','uan','un'],
+    'c': ['a','e','i','ai','ao','ou','an','en','ang','ong','u','uo','uan','un'],
+    's': ['a','e','i','ai','ao','ou','an','en','ang','ong','u','uo','uan','un'],
+    
+    // Nhóm quặt lưỡi (zh,ch,sh,r)
+    'zh': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+    'ch': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+    'sh': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+    'r': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','uo','uan','un'],
+    
+    // Nhóm mặt lưỡi (j,q,x)
+    'j': ['i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
+    'q': ['i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
+    'x': ['i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
+    
+    // Nhóm cuống lưỡi (g,k,h)
+    'g': ['a','e','ai','ei','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+    'k': ['a','e','ai','ei','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+    'h': ['a','e','ai','ei','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+    
+    // Âm không phụ âm đầu (y, w)
+    'y': ['a','e','ou','an','ang','ong','i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
+    'w': ['a','o','ai','ei','en','an','ang','eng','u','ua','uo','uai','ui','uan','un','uang']
+};
+
+function buildTable() {
+    const thead = document.getElementById('combine-thead');
+    const tbody = document.getElementById('combine-tbody');
+    if (!thead || !tbody) return;
+    
+    // Header row
+    const headerRow = document.createElement('tr');
+    const thFirst = document.createElement('th');
+    thFirst.textContent = 'Thanh mẫu \\ Vận';
+    headerRow.appendChild(thFirst);
+    for (let final of finals) {
+        const th = document.createElement('th');
+        th.textContent = final;
+        headerRow.appendChild(th);
+    }
+    thead.innerHTML = '';
+    thead.appendChild(headerRow);
+    
+    // Body rows
+    tbody.innerHTML = '';
+    for (let init of initials) {
+        const row = tbody.insertRow();
+        const cellInit = row.insertCell(0);
+        cellInit.textContent = init;
+        
+        for (let final of finals) {
+            const cell = row.insertCell();
+            const isValid = validMap[init] && validMap[init].includes(final);
+            
+            if (isValid) {
+                let syllable = init + final;
+                // Xử lý đặc biệt cho ü sau j,q,x
+                if ((init === 'j' || init === 'q' || init === 'x') && final === 'ü') {
+                    syllable = init + 'u';
+                }
+                if ((init === 'j' || init === 'q' || init === 'x') && final === 'üe') {
+                    syllable = init + 'ue';
+                }
+                if ((init === 'j' || init === 'q' || init === 'x') && final === 'üan') {
+                    syllable = init + 'uan';
+                }
+                if ((init === 'j' || init === 'q' || init === 'x') && final === 'ün') {
+                    syllable = init + 'un';
+                }
+                // Xử lý y, w đặc biệt
+                if (init === 'y' && final === 'i') syllable = 'yi';
+                if (init === 'y' && final === 'ü') syllable = 'yu';
+                if (init === 'w' && final === 'u') syllable = 'wu';
+                
+                cell.textContent = syllable;
+                cell.className = 'valid-cell';
+            } else {
+                cell.textContent = '❌';
+                cell.className = 'invalid-cell';
+            }
+        }
+    }
+}
+buildTable();
+
+    // ========== BÀI TẬP BIẾN ĐIỆU (giữ nguyên logic 50 câu, random 15, facts) ==========
+    const fullQuestionBank = [
+        { text: "你好 (nǐ hǎo) được đọc là?", correct: "ní hǎo", options: ["nǐ hǎo", "ní hǎo", "nì hǎo"] },
+        { text: "一定 (yī dìng) được đọc là?", correct: "yí dìng", options: ["yī dìng", "yí dìng", "yì dìng"] },
+        { text: "不对 (bù duì) được đọc là?", correct: "bú duì", options: ["bù duì", "bú duì", "bū duì"] },
+        { text: "很好 (hěn hǎo) được đọc là?", correct: "hén hǎo", options: ["hěn hǎo", "hén hǎo", "hèn hǎo"] },
+        { text: "看一看 (kàn yī kàn) đọc '一' là?", correct: "kàn yi kàn", options: ["kàn yī kàn", "kàn yí kàn", "kàn yi kàn"] },
+        { text: "我很好 (wǒ hěn hǎo) đọc là?", correct: "wó hén hǎo", options: ["wǒ hěn hǎo", "wó hén hǎo", "wǒ hén hǎo"] },
+        { text: "不要 (bù yào) đọc là?", correct: "bú yào", options: ["bù yào", "bú yào", "bū yào"] },
+        { text: "一起 (yī qǐ) đọc là?", correct: "yì qǐ", options: ["yī qǐ", "yí qǐ", "yì qǐ"] },
+        { text: "一把 (yī bǎ) đọc là?", correct: "yì bǎ", options: ["yī bǎ", "yí bǎ", "yì bǎ"] },
+        { text: "不是 (bù shì) đọc là?", correct: "bú shì", options: ["bù shì", "bú shì", "bū shì"] },
+        { text: "可以 (kě yǐ) đọc là?", correct: "ké yǐ", options: ["kě yǐ", "ké yǐ", "kè yǐ"] },
+        { text: "了解 (liǎo jiě) đọc là?", correct: "liáo jiě", options: ["liǎo jiě", "liáo jiě", "liào jiě"] },
+        { text: "一直 (yī zhí) đọc là?", correct: "yì zhí", options: ["yī zhí", "yí zhí", "yì zhí"] },
+        { text: "一般 (yī bān) đọc là?", correct: "yì bān", options: ["yī bān", "yí bān", "yì bān"] },
+        { text: "不懂 (bù dǒng) đọc là?", correct: "bù dǒng", options: ["bù dǒng", "bú dǒng", "bū dǒng"] },
+        { text: "不去 (bù qù) đọc là?", correct: "bú qù", options: ["bù qù", "bú qù", "bū qù"] },
+        { text: "一样 (yī yàng) đọc là?", correct: "yí yàng", options: ["yī yàng", "yí yàng", "yì yàng"] },
+        { text: "一次 (yī cì) đọc là?", correct: "yí cì", options: ["yī cì", "yí cì", "yì cì"] },
+        { text: "不要紧 (bù yào jǐn) đọc là?", correct: "bú yào jǐn", options: ["bù yào jǐn", "bú yào jǐn", "bū yào jǐn"] },
+        { text: "展览馆 (zhǎn lǎn guǎn) đọc là?", correct: "zhán lán guǎn", options: ["zhǎn lǎn guǎn", "zhán lán guǎn", "zhàn làn guǎn"] },
+        { text: "你也 (nǐ yě) đọc là?", correct: "ní yě", options: ["nǐ yě", "ní yě", "nì yě"] },
+        { text: "只有 (zhǐ yǒu) đọc là?", correct: "zhí yǒu", options: ["zhǐ yǒu", "zhí yǒu", "zhì yǒu"] },
+        { text: "所有 (suǒ yǒu) đọc là?", correct: "suó yǒu", options: ["suǒ yǒu", "suó yǒu", "suò yǒu"] },
+        { text: "买水果 (mǎi shuǐ guǒ), từ 买 đọc?", correct: "mái", options: ["mǎi", "mái", "mài"] },
+        { text: "打篮球 (dǎ lán qiú), từ打 đọc?", correct: "dá", options: ["dǎ", "dá", "dà"] },
+        { text: "一笔 (yī bǐ) đọc là?", correct: "yì bǐ", options: ["yī bǐ", "yí bǐ", "yì bǐ"] },
+        { text: "一本 (yī běn) đọc là?", correct: "yì běn", options: ["yī běn", "yí běn", "yì běn"] },
+        { text: "听了 (tīng le), từ 了 đọc là?", correct: "le", options: ["le", "lē", "lè"] },
+        { text: "走了 (zǒu le), từ 了 đọc là?", correct: "le", options: ["le", "lē", "lè"] },
+        { text: "好吧 (hǎo ba), từ 吧 đọc là?", correct: "ba", options: ["ba", "bā", "bà"] },
+        { text: "妈妈 (mā ma), chữ 妈 thứ hai đọc là?", correct: "ma", options: ["ma", "mā", "mà"] },
+        { text: "漂亮 (piào liang), từ 亮 đọc là?", correct: "liang", options: ["liang", "liàng", "liāng"] },
+        { text: "石头 (shí tou), từ 头 đọc là?", correct: "tou", options: ["tou", "tóu", "tòu"] },
+        { text: "我们 (wǒ men), từ 们 đọc là?", correct: "men", options: ["men", "mén", "mèn"] },
+        { text: "椅子 (yǐ zi), từ 子 đọc là?", correct: "zi", options: ["zi", "zǐ", "zì"] },
+        { text: "桌子 (zhuō zi), từ 子 đọc là?", correct: "zi", options: ["zi", "zǐ", "zì"] },
+        { text: "哥哥 (gē ge), chữ 哥 thứ hai đọc là?", correct: "ge", options: ["ge", "gē", "gè"] },
+        { text: "姐姐 (jiě jie), chữ 姐 thứ hai đọc là?", correct: "jie", options: ["jie", "jiě", "jiè"] },
+        { text: "慢慢 (màn man), chữ 慢 thứ hai đọc là?", correct: "man", options: ["man", "màn", "mān"] },
+        { text: "狠狠 (hěn hen), chữ 狠 thứ hai đọc là?", correct: "hen", options: ["hen", "hěn", "hèn"] }
+    ];
+
+    const factDatabase = [
+        "📖 Biến điệu thanh 3 xảy ra khi hai thanh 3 đứng cạnh nhau, thanh 3 đầu biến thành thanh 2.",
+        "📖 Chữ '一' (yī) có nhiều biến thể: yī, yí, yì, yi.",
+        "📖 Trong tiếng Hán, thanh nhẹ không có dấu, thường xuất hiện ở từ láy hoặc đuôi từ.",
+        "📖 Chữ '不' chỉ biến thành thanh 2 (bú) khi đứng trước thanh 4.",
+        "📖 Nửa thanh 3 được tạo ra khi thanh 3 đứng trước thanh 1,2,4 hoặc thanh nhẹ.",
+        "📖 Ba thanh 3 liên tiếp thường biến thành (2+2)+3 để dễ phát âm.",
+        "📖 Bắc Kinh là nơi phát âm chuẩn nhất của tiếng Hán hiện đại.",
+        "📖 Chữ '永' (yǒng) chứa đủ 8 nét cơ bản của chữ Hán.",
+        "📖 Tiếng Hán có hơn 400 âm tiết cơ bản, với thanh điệu có khoảng 1300 âm khác nhau.",
+        "📖 Thanh 1: cao và bằng phẳng, giống như hát nốt cao.",
+        "📖 Thanh 2 cảm giác như đang hỏi 'gì?', giọng đi lên.",
+        "📖 Thanh 3 giống như bạn đang xuống giọng rồi bật lên.",
+        "📖 Thanh 4 dứt khoát, mạnh mẽ như ra lệnh.",
+        "📖 Người Trung Quốc thường nói '你好' rất nhanh, nghe như 'níhǎo'.",
+        "📖 'Zh, ch, sh' là âm quặt lưỡi, người miền Nam Trung Quốc thường phát âm thành 'z,c,s'.",
+        "📖 'J, q, x' là âm mặt lưỡi, người Việt dễ nhầm với 'ch, tr, s'.",
+        "📖 'Ü' là âm độc đáo, không có trong nhiều ngôn ngữ châu Âu.",
+        "📖 Sau 'j, q, x', chữ 'ü' luôn được viết thành 'u' nhưng vẫn đọc là 'ü'.",
+        "📖 'Yu' là cách viết của 'ü' khi đứng đầu âm tiết.",
+        "📖 'Yi' và 'wu' chỉ là cách viết, vẫn đọc là 'i' và 'u'.",
+        "📖 Pinyin được phát minh năm 1958, giúp người nước ngoài học tiếng Hán dễ dàng hơn.",
+        "📖 'Er' khi thêm vào cuối từ thường làm thay đổi nghĩa (儿化音).",
+        "📖 Tiếng Hán có 5 thanh (4 thanh + 1 nhẹ), tiếng Việt có 6 thanh.",
+        "📖 Học phát âm đúng thanh điệu quan trọng hơn học từ vựng vì sai thanh sẽ sai nghĩa."
+    ];
+
+    let currentQuestions = [], currentIndex = 0, correctCount = 0, answered = false, displayedFacts = [];
+
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function getRandomQuestions() {
+        return shuffleArray([...fullQuestionBank]).slice(0, 15);
+    }
+
+    function getRandomFacts(count) {
+        const available = factDatabase.filter(f => !displayedFacts.includes(f));
+        if (available.length < count) displayedFacts = [];
+        const shuffled = shuffleArray([...available]);
+        const selected = shuffled.slice(0, count);
+        displayedFacts.push(...selected);
+        return selected;
+    }
+
+    function updateFactsArea() {
+        const factDiv = document.getElementById('quiz-facts-area');
+        if (correctCount === 5) factDiv.innerHTML = `✨ <strong>Bạn biết không?</strong> ${getRandomFacts(1)[0]} ✨`;
+        else if (correctCount === 10) factDiv.innerHTML = `✨ <strong>📘 Sự thật:</strong><br> ${getRandomFacts(2).join('<br>✨ ')} ✨`;
+        else if (correctCount === 15) factDiv.innerHTML = `✨ <strong>🏆 ${getRandomFacts(3)[0]}</strong><br>📌 ${getRandomFacts(3)[1]}<br>📌 ${getRandomFacts(3)[2]} ✨`;
+        else factDiv.innerHTML = '💡 Trả lời đúng 5 câu → 1 fact, 10 câu → 2 facts, 15 câu → 3 facts!';
+    }
+
+    function updateProgress() { document.getElementById('quiz-progress').style.width = `${(correctCount / 15) * 100}%`; updateFactsArea(); }
+
+    function loadQuestion() {
+        if (currentIndex >= currentQuestions.length) {
+            document.getElementById('quiz-question').innerHTML = '🎉 Hoàn thành! 🎉';
+            document.getElementById('quiz-options').innerHTML = '';
+            document.getElementById('quiz-feedback').innerHTML = `<div class="success-msg">Kết quả: ${correctCount}/15 đúng.</div>`;
+            return;
+        }
+        const q = currentQuestions[currentIndex];
+        document.getElementById('quiz-question').innerHTML = `❓ ${q.text}`;
+        const optsDiv = document.getElementById('quiz-options');
+        optsDiv.innerHTML = '';
+        shuffleArray([...q.options]).forEach(opt => {
+            const btn = document.createElement('div');
+            btn.className = 'quiz-opt';
+            btn.textContent = opt;
+            btn.onclick = () => {
+                if (answered) return;
+                answered = true;
+                if (opt === q.correct) { btn.classList.add('correct'); correctCount++; updateProgress(); document.getElementById('quiz-feedback').innerHTML = '<span style="color:#2e7d32;">✅ Chính xác!</span>'; }
+                else { btn.classList.add('wrong'); document.getElementById('quiz-feedback').innerHTML = `<span style="color:#c62828;">❌ Sai! Đáp án đúng: ${q.correct}</span>`; }
+                setTimeout(() => { currentIndex++; answered = false; document.getElementById('quiz-feedback').innerHTML = ''; loadQuestion(); }, 800);
+            };
+            optsDiv.appendChild(btn);
+        });
+    }
+
+    function resetQuiz() { currentQuestions = getRandomQuestions(); currentIndex = 0; correctCount = 0; answered = false; displayedFacts = []; updateProgress(); loadQuestion(); }
+
+    // TAB SWITCH
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panes = document.querySelectorAll('.tab-pane');
+    tabs.forEach(tab => {
+        tab.onclick = () => {
+            const tabId = tab.getAttribute('data-tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            panes.forEach(pane => pane.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        };
+    });
+
+    resetQuiz();
+    document.getElementById('reset-quiz').onclick = resetQuiz;
+</script>
+</body>
+</html>
