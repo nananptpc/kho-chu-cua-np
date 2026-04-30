@@ -541,6 +541,13 @@
 
     // Bắt đầu
     loadCSV();
+    // Nút chuyển sang bài tập
+const exerciseBtn = document.getElementById("exerciseBtn");
+if (exerciseBtn) {
+    exerciseBtn.onclick = function() {
+        window.location.href = "exercises/index.html";
+    };
+}
 </script>
 </body>
 </html>
