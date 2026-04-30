@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Ngữ âm & biến điệu | Kho Chữ Của NP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fff5f7;
+            color: #5a3e4b;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .quiz-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 40px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(212, 122, 158, 0.15);
+            border: 1px solid #ffdfe8;
+            position: relative;
+        }
+        .back-home {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: white;
+            border: 1px solid #ffdfe8;
+            border-radius: 60px;
+            padding: 8px 20px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #d47a9e;
+            transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+        .back-home:hover {
+            background: #ffeef3;
+            border-color: #d47a9e;
+            transform: translateX(-3px);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f3c4d4;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #d47a9e;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .question-text {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            margin: 30px 0;
+            font-weight: 500;
+        }
+        .pinyin-example {
+            background: #f9eef2;
+            padding: 8px 16px;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+            color: #d47a9e;
+            margin: 0 3px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 25px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            background: #fffafb;
+            border: 2px solid #ffdfe8;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .option:hover {
+            border-color: #d47a9e;
+            background: #ffeef3;
+        }
+        .option.selected {
+            background: #f3c4d4;
+            border-color: #d47a9e;
+        }
+        .option-letter {
+            font-weight: 700;
+            width: 40px;
+            color: #d47a9e;
+            font-size: 1rem;
+        }
+        button {
+            background: #d47a9e;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 1rem;
+            border-radius: 60px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #b86284;
+        }
+        .feedback {
+            margin-top: 20px;
+            padding: 14px 18px;
+            border-radius: 60px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        .feedback.correct {
+            background: #d4edda;
+            color: #2e7d32;
+        }
+        .feedback.wrong {
+            background: #ffdfe8;
+            color: #c62828;
+        }
+        .hidden {
+            display: none;
+        }
+        .result {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .result h2 {
+            color: #d47a9e;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .result p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid #ffdfe8;
+            color: #c98aa8;
+            font-size: 0.75rem;
+            font-weight: 400;
+        }
+        .progress {
+            font-size: 0.8rem;
+            color: #b5838d;
+            margin-left: 10px;
+        }
+        @media (max-width: 550px) {
+            .quiz-container { padding: 25px; }
+            .question-text { font-size: 1.1rem; }
+            .back-home {
+                top: -10px;
+                left: -10px;
+                padding: 5px 15px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container">
+    <a href="https://nananptpc.github.io/kho-chu-cua-np" class="back-home">← Về thư viện</a>
+    <div class="header">
+        <span>🎵 NGỮ ÂM & BIẾN ĐIỆU</span>
+        <span>🎯 Điểm: <span id="score">0</span> <span class="progress">/ <span id="total"></span></span></span>
+    </div>
+    <div id="questionArea"></div>
+    <div class="copyright">© nananp.tpc</div>
+</div>
+
+<script>
+    (function() {
+        // ============================================
+        // ÂM THANH (nhẹ nhàng, không lỗi WebAudio)
+        // ============================================
+        function playSound(type) {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (!AudioContext) return;
+                const audioContext = new AudioContext();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.type = 'sine';
+                if (type === 'correct') {
+                    oscillator.frequency.value = 880;
+                    gainNode.gain.value = 0.2;
+                    oscillator.start();
+                    gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.4);
+                    setTimeout(() => oscillator.stop(), 400);
+                } else {
+                    oscillator.frequency.value = 220;
+                    gainNode.gain.value = 0.2;
+                    oscillator.start();
+                    gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.3);
+                    setTimeout(() => oscillator.stop(), 300);
+                }
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+            } catch(e) {
+                // im lặng nếu lỗi audio
+            }
+        }
+
+        // ============================================
+        // CÂU HỎI GỐC (30 câu)
+        // ============================================
+        const rawQuestions = [
+            // === PHẦN 1: THANH MẪU (10 câu) ===
+            {
+                text: "Thanh mẫu <span class='pinyin-example'>zh</span> có cách phát âm giống âm nào trong tiếng Việt?",
+                options: ["Ch (như trong 'cha')", "Tr (như trong 'tre')", "Gi (như trong 'gia')", "Đ (như trong 'đi')"],
+                correct: 0,
+                explanation: "✅ 'zh' phát âm gần giống 'ch' trong tiếng Việt, nhưng lưỡi cuốn lên (âm quặt lưỡi). Ví dụ: 知 (zhī)."
+            },
+            {
+                text: "Cặp thanh mẫu nào sau đây KHÔNG phải là âm quặt lưỡi (捲舌音)?",
+                options: ["zh - ch - sh", "z - c - s", "j - q - x", "g - k - h"],
+                correct: 1,
+                explanation: "✅ Âm quặt lưỡi: zh, ch, sh, r. Âm không quặt lưỡi: z, c, s. Phân biệt rõ để phát âm chuẩn."
+            },
+            {
+                text: "Thanh mẫu <span class='pinyin-example'>j</span> chỉ kết hợp được với những vận mẫu nào?",
+                options: ["i, ia, ie, iao, iu, ian, iang, iong, ü, üe, üan", "a, o, e, i, u, ü", "u, ua, uo, uai, ui, uan, uang", "Chỉ mình i"],
+                correct: 0,
+                explanation: "✅ j, q, x chỉ đi với vận mẫu bắt đầu bằng i hoặc ü (không đi với u, a, o trực tiếp)."
+            },
+            {
+                text: "Thanh mẫu <span class='pinyin-example'>x</span> phát âm giống âm nào gần nhất trong tiếng Việt?",
+                options: ["X (như trong 'xe')", "S (như trong 'sao')", "Th (như trong 'thu')", "Kh (như trong 'kho')"],
+                correct: 1,
+                explanation: "✅ 'x' trong pinyin gần giống 's' tiếng Việt, nhưng bật hơi nhẹ, lưỡi đưa lên gần vòm cứng."
+            },
+            {
+                text: "Các thanh mẫu nào có cách phát âm 'bật hơi' (aspirated)?",
+                options: ["b, d, g, j, zh, z", "p, t, k, q, ch, c", "m, n, l, r", "f, h, x, sh, s"],
+                correct: 1,
+                explanation: "✅ Âm bật hơi: p, t, k, q, ch, c (có luồng hơi mạnh khi phát âm)."
+            },
+            {
+                text: "Trong tiếng Hán, thanh mẫu <span class='pinyin-example'>r</span> khi đứng đầu âm tiết được phát âm thế nào?",
+                options: ["Giống 'r' trong 'ra' của Việt", "Giống 'd' trong 'da'", "Giống 'z' nhưng lưỡi cong", "Lưỡi cuốn lên, phát âm như 'r' nhẹ"],
+                correct: 3,
+                explanation: "✅ 'r' là âm quặt lưỡi (giống 'r' trong 'ra' nhưng lưỡi cuốn sát hơn). Ví dụ: 日 (rì)."
+            },
+            {
+                text: "Thanh mẫu <span class='pinyin-example'>c</span> phát âm giống với âm nào trong tiếng Việt?",
+                options: ["Ch (như 'cha')", "T (như 'ta')", "Th (như 'tha')", "Tr (như 'tra')"],
+                correct: 2,
+                explanation: "✅ 'c' trong pinyin gần giống 'th' tiếng Việt (bật hơi, không rung dây thanh). Ví dụ: 次 (cì)."
+            },
+            {
+                text: "Thanh mẫu nào KHÔNG phải là âm mặt lưỡi (舌面音 - j, q, x)?",
+                options: ["j", "q", "x", "zh"],
+                correct: 3,
+                explanation: "✅ Âm mặt lưỡi: j, q, x (lưỡi nâng lên vòm cứng). 'zh' là âm quặt lưỡi, thuộc nhóm khác."
+            },
+            {
+                text: "Các vận mẫu nào có thể đi với cả ba thanh mẫu <span class='pinyin-example'>j, q, x</span> và <span class='pinyin-example'>g, k, h</span>?",
+                options: ["i, ia, ie", "u, ua, uo", "ü, üe", "Không có vận mẫu nào"],
+                correct: 3,
+                explanation: "✅ j, q, x chỉ đi với i, ü; g, k, h chỉ đi với a, o, e, u. Không có vận mẫu chung."
+            },
+            {
+                text: "Thanh mẫu <span class='pinyin-example'>sh</span> và <span class='pinyin-example'>s</span> khác nhau ở điểm nào?",
+                options: ["sh là âm quặt lưỡi, s là âm không quặt lưỡi", "Sh bật hơi, s không bật hơi", "Sh rung dây thanh, s không rung", "Sh là âm môi, s là âm lưỡi"],
+                correct: 0,
+                explanation: "✅ sh: lưỡi cuốn lên (quặt lưỡi). s: lưỡi thẳng, không cuốn. Ví dụ: 是 (shì) vs 四 (sì)."
+            },
+            // === PHẦN 2: VẬN MẪU & LƯU Ý i/u/ü (10 câu) ===
+            {
+                text: "Vận mẫu <span class='pinyin-example'>ü</span> (u hai chấm) khi đứng sau thanh mẫu j, q, x được viết thế nào?",
+                options: ["Vẫn giữ nguyên ü", "Chuyển thành u (bỏ hai chấm)", "Chuyển thành i", "Thêm dấu phẩy"],
+                correct: 1,
+                explanation: "✅ Sau j, q, x, ü được viết thành u (bỏ hai chấm) nhưng vẫn đọc là ü. Ví dụ: 去 (qù) đọc là 'qü' không phải 'qu'."
+            },
+            {
+                text: "Vận mẫu <span class='pinyin-example'>i</span> khi đứng một mình (không có thanh mẫu) được viết và đọc thế nào?",
+                options: ["Viết là i, đọc là 'y'", "Viết là yi, đọc là 'i'", "Viết là y, đọc là 'i'", "Viết và đọc là i"],
+                correct: 2,
+                explanation: "✅ Khi i đứng một mình, viết thành 'y' và đọc là 'i'. Ví dụ: 一 (yī) — viết yī, đọc 'i'."
+            },
+            {
+                text: "Vận mẫu <span class='pinyin-example'>u</span> khi đứng một mình (không có thanh mẫu) được viết thế nào?",
+                options: ["Viết là wu", "Viết là u", "Viết là w", "Viết là iu"],
+                correct: 0,
+                explanation: "✅ u đứng một mình viết thành 'wu'. Ví dụ: 五 (wǔ) — viết wǔ, đọc 'u'."
+            },
+            {
+                text: "Khi vận mẫu <span class='pinyin-example'>i</span> đứng sau thanh mẫu <span class='pinyin-example'>z, c, s</span> được phát âm thế nào?",
+                options: ["Giống i bình thường (i)", "Giống 'ư' (không phải i)", "Giống 'ơ'", "Không phát âm"],
+                correct: 1,
+                explanation: "✅ Sau z, c, s, 'i' được đọc gần giống 'ư' (không phải i). Ví dụ: 子 (zǐ) đọc như 'zư', không phải 'zi'."
+            },
+            {
+                text: "Vận mẫu <span class='pinyin-example'>iu</span> thực chất là viết tắt của tổ hợp nào?",
+                options: ["i + u", "i + ou", "i + uo", "i + ü"],
+                correct: 1,
+                explanation: "✅ iu là viết tắt của iou (i + ou). Ví dụ: 六 (liù) = l + iou."
+            },
+            {
+                text: "Vận mẫu <span class='pinyin-example'>ui</span> thực chất là viết tắt của tổ hợp nào?",
+                options: ["u + i", "u + ei", "u + ai", "u + ie"],
+                correct: 1,
+                explanation: "✅ ui là viết tắt của uei (u + ei). Ví dụ: 对 (duì) = d + uei."
+            },
+            {
+                text: "Vận mẫu <span class='pinyin-example'>ün</span> khi đứng sau j, q, x được viết thế nào?",
+                options: ["Giữ nguyên ün", "Viết thành un (bỏ hai chấm)", "Viết thành in", "Viết thành uen"],
+                correct: 1,
+                explanation: "✅ Sau j, q, x, ün viết thành 'un' nhưng đọc là 'ün'. Ví dụ: 群 (qún) đọc là 'qün'."
+            },
+            {
+                text: "Vận mẫu nào KHÔNG bao giờ đứng một mình (luôn cần thanh mẫu đi kèm)?",
+                options: ["a", "o", "e", "i (viết thành yi)", "u (viết thành wu)", "Tất cả đều đứng được"],
+                correct: 5,
+                explanation: "✅ Tất cả vận mẫu đều có thể đứng một mình nhưng đổi cách viết: i→yi, u→wu, ü→yu."
+            },
+            {
+                text: "Vận mẫu <span class='pinyin-example'>ü</span> khi đứng một mình được viết thế nào?",
+                options: ["yi", "wu", "yu", "ü"],
+                correct: 2,
+                explanation: "✅ ü đứng một mình viết thành 'yu'. Ví dụ: 雨 (yǔ) — viết yǔ, đọc 'ü'."
+            },
+            {
+                text: "Phát âm của <span class='pinyin-example'>ian</span> và <span class='pinyin-example'>üan</span> khác nhau thế nào?",
+                options: ["ian: giống 'iên', üan: giống 'üên'", "Giống nhau", "ian đọc 'an', üan đọc 'oan'", "ian đọc 'i an', üan đọc 'u an'"],
+                correct: 0,
+                explanation: "✅ ian đọc gần giống 'iên' (ví dụ: 天 tiān). üan đọc gần 'üên' (ví dụ: 全 quán)."
+            },
+            // === PHẦN 3: BIẾN ĐIỆU THANH (10 câu) ===
+            {
+                text: "Hai thanh 3 (˘) đứng cạnh nhau trong một từ (ví dụ: 你好 nǐ hǎo) sẽ biến điệu thế nào?",
+                options: ["Thanh 3 đầu → thanh 2 (ní), thanh 3 sau giữ nguyên", "Cả hai đều thành thanh 4", "Cả hai đều thành thanh 1", "Không biến đổi"],
+                correct: 0,
+                explanation: "✅ Quy tắc: hai thanh 3 cạnh nhau, thanh thứ nhất chuyển thành thanh 2. 你好 nǐ hǎo → ní hǎo."
+            },
+            {
+                text: "Từ <span class='pinyin-example'>很友好</span> (hěn yǒu hǎo) có mấy thanh 3 đứng cạnh nhau? Cách đọc thực tế là?",
+                options: ["2 thanh 3: hěn yǒu → hén yǒu, yǒu hǎo → yóu hǎo", "3 thanh 3: cả ba chuyển thành thanh 2", "Chỉ biến từ thứ nhất", "Không biến"],
+                correct: 0,
+                explanation: "✅ 很 (hěn) + 友 (yǒu) → hén yǒu; 友 (yǒu) + 好 (hǎo) → yóu hǎo. Biến từng cặp."
+            },
+            {
+                text: "Khi từ <span class='pinyin-example'>不</span> (bù, thanh 4) đứng trước thanh 4, nó biến thành thanh mấy?",
+                options: ["Thanh 1", "Thanh 2", "Thanh 3", "Thanh 4 (giữ nguyên)"],
+                correct: 1,
+                explanation: "✅ 不 (bù) + thanh 4 → bú (thanh 2). Ví dụ: 不是 (bú shì), 不对 (bú duì)."
+            },
+            {
+                text: "Khi từ <span class='pinyin-example'>一</span> (yī, thanh 1) đứng trước thanh 4, nó biến thành thanh mấy?",
+                options: ["Thanh 1 (giữ nguyên)", "Thanh 2", "Thanh 3", "Thanh 4"],
+                correct: 1,
+                explanation: "✅ 一 + thanh 4 → yí (thanh 2). Ví dụ: 一定 (yí dìng)."
+            },
+            {
+                text: "Từ <span class='pinyin-example'>一</span> (yī) đứng trước thanh 1, 2, 3 sẽ biến thành thanh gì?",
+                options: ["Thanh 4", "Thanh 2", "Thanh 3", "Thanh 1 (giữ nguyên)"],
+                correct: 0,
+                explanation: "✅ 一 + thanh 1,2,3 → yì (thanh 4). Ví dụ: 一天 (yì tiān), 一年 (yì nián), 一起 (yì qǐ)."
+            },
+            {
+                text: "Trường hợp nào sau đây <span class='pinyin-example'>不</span> (bù) KHÔNG biến điệu?",
+                options: ["Trước thanh 4", "Trước thanh 1, 2, 3", "Cuối câu", "Trước thanh nhẹ"],
+                correct: 2,
+                explanation: "✅ 不 chỉ biến điệu thành bú khi trước thanh 4. Các trường hợp khác (kể cả cuối câu) vẫn đọc bù."
+            },
+            {
+                text: "Từ <span class='pinyin-example'>七</span> (qī) và <span class='pinyin-example'>八</span> (bā) có biến điệu không?",
+                options: ["Có, giống 一", "Có, giống 不", "Không, chỉ biến trong một số trường hợp", "Luôn giữ nguyên thanh 1"],
+                correct: 3,
+                explanation: "✅ 七 (qī) và 八 (bā) thường không biến điệu trong tiếng Hán hiện đại."
+            },
+            {
+                text: "Khi hai thanh 3 đứng cạnh nhau (A3 B3), thanh A3 biến thành thanh mấy?",
+                options: ["Thanh 1", "Thanh 2", "Thanh 4", "Thanh nhẹ"],
+                correct: 1,
+                explanation: "✅ A3 B3 → A2 B3. Đây là quy tắc biến điệu quan trọng nhất trong tiếng Hán."
+            },
+            {
+                text: "Với ba thanh 3 liên tiếp (A3 B3 C3), cách đọc phổ biến nhất là gì?",
+                options: ["A2 B2 C3", "A2 B3 C3", "A3 B2 C3", "A3 B3 C2"],
+                correct: 0,
+                explanation: "✅ A3 B3 C3 → A2 B2 C3. Ví dụ: 很友好 (hěn yǒu hǎo) → hén yóu hǎo."
+            },
+            {
+                text: "Từ <span class='pinyin-example'>一</span> (yī) khi đứng trước từ có thanh nhẹ (không dấu) thường được đọc thế nào?",
+                options: ["Giữ nguyên thanh 1", "Thanh 4", "Thanh 2 (nhẹ)", "Thanh 4 (nhẹ)"],
+                correct: 0,
+                explanation: "✅ 一 + thanh nhẹ: thường giữ nguyên yī. Ví dụ: 一个 (yī ge)."
+            }
+        ];
+
+        // ============================================
+        // HÀM XÁO TRỘN
+        // ============================================
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        // Xáo trộn đáp án của một câu hỏi
+        function shuffleOptions(question) {
+            const originalOptions = [...question.options];
+            const originalCorrectText = originalOptions[question.correct];
+            
+            const optionPairs = originalOptions.map((text, idx) => ({ text, originalIndex: idx }));
+            const shuffledPairs = shuffleArray([...optionPairs]);
+            
+            const newOptions = shuffledPairs.map(p => p.text);
+            const newCorrectIndex = shuffledPairs.findIndex(p => p.text === originalCorrectText);
+            
+            return {
+                options: newOptions,
+                correct: newCorrectIndex
+            };
+        }
+
+        // Tạo danh sách câu hỏi đã xáo trộn hoàn toàn
+        function getShuffledQuestions() {
+            const shuffledRaw = shuffleArray([...rawQuestions]);
+            return shuffledRaw.map(q => {
+                const shuffled = shuffleOptions(q);
+                return {
+                    text: q.text,
+                    options: shuffled.options,
+                    correct: shuffled.correct,
+                    explanation: q.explanation
+                };
+            });
+        }
+
+        // Khởi tạo câu hỏi đã xáo trộn
+        let questions = getShuffledQuestions();
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+        let selectedOption = null;
+
+        const questionArea = document.getElementById('questionArea');
+        const scoreSpan = document.getElementById('score');
+        const totalSpan = document.getElementById('total');
+        
+        function updateScoreUI() {
+            scoreSpan.innerText = score;
+        }
+
+        function showResult() {
+            let message = '';
+            if (score === questions.length) message = 'Siêu! Bạn nắm vững ngữ âm rồi!';
+            else if (score >= 25) message = 'Xuất sắc! Chỉ còn vài lỗi nhỏ!';
+            else if (score >= 20) message = 'Tốt, hãy xem lại câu sai nhé!';
+            else message = 'Học lại bảng âm và biến điệu nha!';
+            
+            questionArea.innerHTML = `
+                <div class="result">
+                    <h2>🏆 Hoàn thành! 🏆</h2>
+                    <p>Điểm của bạn: ${score}/${questions.length}</p>
+                    <p>🎵 ${message}</p>
+                    <button onclick="location.reload()">Làm lại</button>
+                </div>
+            `;
+        }
+
+        function loadQuestion() {
+            if (currentIndex >= questions.length) {
+                showResult();
+                return;
+            }
+            
+            answered = false;
+            selectedOption = null;
+            const q = questions[currentIndex];
+            if (!q) return;
+            
+            const letters = ['A', 'B', 'C', 'D'];
+            let optionsHtml = '';
+            q.options.forEach((opt, idx) => {
+                optionsHtml += `
+                    <div class="option" data-opt-index="${idx}">
+                        <div class="option-letter">${letters[idx]}.</div>
+                        <div>${opt}</div>
+                    </div>
+                `;
+            });
+            
+            const fullHtml = `
+                <div class="question-text">${q.text}</div>
+                <div class="options" id="optionsContainer">${optionsHtml}</div>
+                <button id="submitBtn">CHỐT ĐÁP ÁN</button>
+                <div id="feedback" class="feedback hidden"></div>
+                <button id="nextBtn" class="hidden">Câu tiếp theo →</button>
+            `;
+            questionArea.innerHTML = fullHtml;
+            
+            const optionDivs = document.querySelectorAll('.option');
+            optionDivs.forEach(optDiv => {
+                optDiv.addEventListener('click', (e) => {
+                    if (answered) return;
+                    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    optDiv.classList.add('selected');
+                    selectedOption = parseInt(optDiv.getAttribute('data-opt-index'), 10);
+                });
+            });
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const feedbackDiv = document.getElementById('feedback');
+            
+            if (submitBtn) {
+                const newSubmit = submitBtn.cloneNode(true);
+                submitBtn.parentNode.replaceChild(newSubmit, submitBtn);
+                newSubmit.addEventListener('click', () => {
+                    if (answered) return;
+                    if (selectedOption === null) {
+                        alert('🎵 Vui lòng chọn đáp án!');
+                        return;
+                    }
+                    answered = true;
+                    const isCorrect = (selectedOption === q.correct);
+                    if (isCorrect) {
+                        playSound('correct');
+                        score++;
+                        updateScoreUI();
+                    } else {
+                        playSound('wrong');
+                    }
+                    const correctLetter = String.fromCharCode(65 + q.correct);
+                    if (feedbackDiv) {
+                        feedbackDiv.innerHTML = isCorrect 
+                            ? `✅ ${q.explanation}`
+                            : `❌ Sai! Đáp án đúng là ${correctLetter}. ${q.explanation}`;
+                        feedbackDiv.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+                        feedbackDiv.classList.remove('hidden');
+                    }
+                    const submitButton = document.getElementById('submitBtn');
+                    const nextButton = document.getElementById('nextBtn');
+                    if (submitButton) submitButton.classList.add('hidden');
+                    if (nextButton) nextButton.classList.remove('hidden');
+                });
+            }
+            
+            if (nextBtn) {
+                const newNext = nextBtn.cloneNode(true);
+                nextBtn.parentNode.replaceChild(newNext, nextBtn);
+                newNext.addEventListener('click', () => {
+                    currentIndex++;
+                    loadQuestion();
+                });
+            }
+        }
+        
+        if (totalSpan) totalSpan.innerText = questions.length;
+        updateScoreUI();
+        loadQuestion();
+    })();
+</script>
+</body>
+</html>
