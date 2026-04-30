@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Bài tập tương tác - kho chữ của np</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        body {
+            background: #fff5f7;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0,0,0,0.05);
+            border: 1px solid #ffe2f0;
+        }
+        h1 {
+            color: #d47a9e;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .exercise-type {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .type-btn {
+            background: #ffeef4;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #b05d77;
+        }
+        .type-btn.active {
+            background: #f7a1b5;
+            color: white;
+        }
+        .question-box {
+            background: #fffafc;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #ffd9e6;
+        }
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #bc5f7c;
+            margin-bottom: 1.5rem;
+        }
+        /* Drag & Drop styles */
+        .drag-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .drag-item {
+            background: #fce4ec;
+            padding: 10px 16px;
+            border-radius: 60px;
+            cursor: grab;
+            user-select: none;
+        }
+        .drop-zone {
+            background: #fff0f5;
+            border: 2px dashed #ffb7cb;
+            border-radius: 60px;
+            padding: 10px 16px;
+            min-width: 120px;
+            text-align: center;
+        }
+        /* Matching styles */
+        .matching-pair {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: #fff0f5;
+            border-radius: 1rem;
+        }
+        /* Fill in blank & MCQ */
+        .answer-input {
+            padding: 10px;
+            border-radius: 60px;
+            border: 1px solid #ffcddc;
+            width: 100%;
+            max-width: 300px;
+        }
+        .option {
+            display: block;
+            margin: 8px 0;
+            padding: 10px;
+            background: #ffeef4;
+            border-radius: 60px;
+            cursor: pointer;
+        }
+        .option.selected {
+            background: #f7a1b5;
+            color: white;
+        }
+        .feedback {
+            margin-top: 1rem;
+            padding: 10px;
+            border-radius: 60px;
+            text-align: center;
+        }
+        .feedback.correct {
+            background: #d4edda;
+            color: #155724;
+        }
+        .feedback.wrong {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        button {
+            background: #f6b2c5;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 60px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+        }
+        .control {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+        .score {
+            text-align: center;
+            margin-top: 1rem;
+            color: #b88295;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🌸 Bài tập tương tác 🌸</h1>
+
+    <div class="exercise-type" id="typeSelector">
+        <button data-type="dragdrop" class="type-btn active">📦 Drag & Drop</button>
+        <button data-type="matching" class="type-btn">🔗 Matching (Ghép đôi)</button>
+        <button data-type="fillblank" class="type-btn">✏️ Fill in blank</button>
+        <button data-type="mcq" class="type-btn">📝 Multiple choice</button>
+    </div>
+
+    <div id="exerciseArea">Đang tải bài tập...</div>
+    <div class="control">
+        <button id="prevBtn">◀ Bài trước</button>
+        <button id="nextBtn">Bài tiếp ▶</button>
+    </div>
+    <div class="score" id="scoreDisplay"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script>
+    // ========== BIẾN TOÀN CỤC ==========
+    let questions = [];           // [{ type, question, options, answer, matchPairs, ... }]
+    let currentIndex = 0;
+    let currentType = "dragdrop";
+    let userAnswers = {};
+    let score = 0;
+
+    // DOM elements
+    const exerciseArea = document.getElementById("exerciseArea");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const scoreDisplay = document.getElementById("scoreDisplay");
+
+    // ========== ĐỌC CSV ==========
+    function loadQuestions() {
+        Papa.parse("questions.csv", {
+            download: true,
+            header: true,
+            encoding: "UTF-8",
+            skipEmptyLines: true,
+            complete: function(results) {
+                if (results.data && results.data.length > 0) {
+                    questions = results.data.map(row => ({
+                        type: row.type?.trim() || "dragdrop",
+                        question: row.question?.trim() || "",
+                        options: row.options ? row.options.split("|").map(s => s.trim()) : [],
+                        answer: row.answer?.trim() || "",
+                        matchLeft: row.matchLeft ? row.matchLeft.split("|").map(s => s.trim()) : [],
+                        matchRight: row.matchRight ? row.matchRight.split("|").map(s => s.trim()) : [],
+                        hint: row.hint?.trim() || ""
+                    })).filter(q => q.question !== "");
+                }
+                if (questions.length === 0) {
+                    exerciseArea.innerHTML = `<div>⚠️ Chưa có câu hỏi nào. Hãy thêm dữ liệu vào questions.csv</div>`;
+                    return;
+                }
+                renderCurrentExercise();
+            },
+            error: function() {
+                exerciseArea.innerHTML = `<div>❌ Không thể đọc file questions.csv. Hãy tạo file theo đúng cấu trúc!</div>`;
+            }
+        });
+    }
+
+    // ========== RENDER THEO LOẠI ==========
+    function renderCurrentExercise() {
+        if (!questions.length) return;
+        const q = questions[currentIndex];
+        currentType = q.type;
+        highlightTypeButton();
+
+        let html = `<div class="question-box"><div class="question-text">📌 Câu hỏi ${currentIndex+1}/${questions.length}: ${q.question}</div>`;
+
+        switch (q.type) {
+            case "dragdrop":
+                html += renderDragDrop(q);
+                break;
+            case "matching":
+                html += renderMatching(q);
+                break;
+            case "fillblank":
+                html += renderFillBlank(q);
+                break;
+            case "mcq":
+                html += renderMCQ(q);
+                break;
+            default:
+                html += `<p>Chưa hỗ trợ dạng bài này</p>`;
+        }
+
+        if (q.hint) html += `<div style="margin-top: 12px; font-size:0.8rem; color:#c2778a;">💡 Gợi ý: ${q.hint}</div>`;
+        html += `<div class="feedback" id="feedback"></div></div>`;
+        exerciseArea.innerHTML = html;
+
+        // Gắn sự kiện cho từng loại bài
+        if (q.type === "dragdrop") attachDragDropEvents(q);
+        if (q.type === "matching") attachMatchingEvents(q);
+        if (q.type === "fillblank") attachFillBlankEvents(q);
+        if (q.type === "mcq") attachMCQEvents(q);
+
+        updateScoreDisplay();
+    }
+
+    // 1. Drag & Drop
+    function renderDragDrop(q) {
+        const items = q.options;
+        const targets = q.answer.split("|").map(s => s.trim());
+        let html = `<div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;">`;
+        html += `<div style="flex:1"><h4>📦 Kéo thả:</h4><div id="dragItems">`;
+        items.forEach(item => {
+            html += `<div class="drag-item" draggable="true" data-value="${item}">${item}</div>`;
+        });
+        html += `</div></div><div style="flex:1"><h4>🎯 Thả vào đây:</h4><div id="dropZones">`;
+        targets.forEach((target, idx) => {
+            html += `<div class="drop-zone" data-index="${idx}" data-expected="${target}">⬜ ${target}</div>`;
+        });
+        html += `</div></div></div><button id="checkDragDrop">✅ Kiểm tra</button>`;
+        return html;
+    }
+
+    function attachDragDropEvents(q) {
+        const dragItems = document.querySelectorAll(".drag-item");
+        const dropZones = document.querySelectorAll(".drop-zone");
+        dragItems.forEach(item => {
+            item.addEventListener("dragstart", e => {
+                e.dataTransfer.setData("text/plain", e.target.getAttribute("data-value"));
+            });
+        });
+        dropZones.forEach(zone => {
+            zone.addEventListener("dragover", e => e.preventDefault());
+            zone.addEventListener("drop", e => {
+                e.preventDefault();
+                const draggedValue = e.dataTransfer.getData("text/plain");
+                zone.innerHTML = draggedValue;
+                zone.setAttribute("data-filled", draggedValue);
+            });
+        });
+        document.getElementById("checkDragDrop").onclick = () => {
+            let correct = true;
+            dropZones.forEach(zone => {
+                const expected = zone.getAttribute("data-expected");
+                const filled = zone.getAttribute("data-filled");
+                if (expected !== filled) correct = false;
+            });
+            const fb = document.getElementById("feedback");
+            if (correct) {
+                fb.innerHTML = "🎉 Chính xác! Bạn đã ghép đúng!";
+                fb.className = "feedback correct";
+                updateScore(true);
+            } else {
+                fb.innerHTML = "❌ Chưa đúng. Hãy thử lại!";
+                fb.className = "feedback wrong";
+                updateScore(false);
+            }
+        };
+    }
+
+    // 2. Matching (ghép đôi)
+    function renderMatching(q) {
+        const left = q.matchLeft;
+        const right = q.matchRight;
+        let html = `<div class="matching-pair"><div style="flex:1"><h4>Bên trái</h4>`;
+        left.forEach((item, idx) => {
+            html += `<div class="drag-item" draggable="true" data-left-idx="${idx}">${item}</div>`;
+        });
+        html += `</div><div style="flex:1"><h4>Ghép với</h4>`;
+        right.forEach((item, idx) => {
+            html += `<div class="drop-zone" data-right-idx="${idx}" data-expected="${item}">⬜ ${item}</div>`;
+        });
+        html += `</div></div><button id="checkMatching">✅ Kiểm tra</button>`;
+        return html;
+    }
+
+    function attachMatchingEvents(q) {
+        const leftItems = document.querySelectorAll(".drag-item");
+        const rightZones = document.querySelectorAll(".drop-zone");
+        leftItems.forEach(item => {
+            item.addEventListener("dragstart", e => {
+                e.dataTransfer.setData("text/plain", e.target.getAttribute("data-left-idx"));
+            });
+        });
+        rightZones.forEach(zone => {
+            zone.addEventListener("dragover", e => e.preventDefault());
+            zone.addEventListener("drop", e => {
+                e.preventDefault();
+                const leftIdx = e.dataTransfer.getData("text/plain");
+                zone.setAttribute("data-filled", leftIdx);
+                zone.innerHTML = q.matchRight[zone.getAttribute("data-right-idx")];
+            });
+        });
+        document.getElementById("checkMatching").onclick = () => {
+            let correct = true;
+            rightZones.forEach(zone => {
+                const filledIdx = zone.getAttribute("data-filled");
+                const rightIdx = zone.getAttribute("data-right-idx");
+                if (!filledIdx || q.matchLeft[filledIdx] !== q.matchRight[rightIdx]) correct = false;
+            });
+            const fb = document.getElementById("feedback");
+            if (correct) {
+                fb.innerHTML = "🎉 Ghép đôi hoàn hảo!";
+                fb.className = "feedback correct";
+                updateScore(true);
+            } else {
+                fb.innerHTML = "❌ Ghép sai rồi, thử lại nhé!";
+                fb.className = "feedback wrong";
+                updateScore(false);
+            }
+        };
+    }
+
+    // 3. Fill in blank
+    function renderFillBlank(q) {
+        return `<input type="text" id="blankAnswer" class="answer-input" placeholder="Nhập câu trả lời..."><br><button id="checkFill">✅ Kiểm tra</button>`;
+    }
+    function attachFillBlankEvents(q) {
+        document.getElementById("checkFill").onclick = () => {
+            const user = document.getElementById("blankAnswer").value.trim().toLowerCase();
+            const isCorrect = user === q.answer.toLowerCase();
+            const fb = document.getElementById("feedback");
+            if (isCorrect) {
+                fb.innerHTML = "🎉 Đúng rồi! Tốt lắm!";
+                fb.className = "feedback correct";
+                updateScore(true);
+            } else {
+                fb.innerHTML = `❌ Sai rồi. Đáp án đúng là: "${q.answer}". Học lại nhé!`;
+                fb.className = "feedback wrong";
+                updateScore(false);
+            }
+        };
+    }
+
+    // 4. Multiple Choice
+    function renderMCQ(q) {
+        let html = `<div>`;
+        q.options.forEach((opt, idx) => {
+            html += `<div class="option" data-opt="${opt}">${opt}</div>`;
+        });
+        html += `</div><button id="checkMCQ">✅ Kiểm tra</button>`;
+        return html;
+    }
+    function attachMCQEvents(q) {
+        let selected = null;
+        document.querySelectorAll(".option").forEach(opt => {
+            opt.onclick = () => {
+                document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+                opt.classList.add("selected");
+                selected = opt.getAttribute("data-opt");
+            };
+        });
+        document.getElementById("checkMCQ").onclick = () => {
+            if (!selected) {
+                document.getElementById("feedback").innerHTML = "⚠️ Hãy chọn một đáp án trước!";
+                return;
+            }
+            const isCorrect = selected === q.answer;
+            const fb = document.getElementById("feedback");
+            if (isCorrect) {
+                fb.innerHTML = "🎉 Chính xác! Giỏi quá!";
+                fb.className = "feedback correct";
+                updateScore(true);
+            } else {
+                fb.innerHTML = `❌ Sai. Đáp án đúng: ${q.answer}. Cố gắng lần sau nhé!`;
+                fb.className = "feedback wrong";
+                updateScore(false);
+            }
+        };
+    }
+
+    // Quản lý điểm & điều hướng
+    function updateScore(isCorrect) {
+        if (isCorrect) score++;
+        updateScoreDisplay();
+    }
+    function updateScoreDisplay() {
+        scoreDisplay.innerHTML = `🏆 Điểm số hiện tại: ${score}/${currentIndex+1}`;
+    }
+
+    function highlightTypeButton() {
+        document.querySelectorAll(".type-btn").forEach(btn => {
+            if (btn.getAttribute("data-type") === currentType) btn.classList.add("active");
+            else btn.classList.remove("active");
+        });
+    }
+
+    prevBtn.onclick = () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderCurrentExercise();
+        }
+    };
+    nextBtn.onclick = () => {
+        if (currentIndex < questions.length - 1) {
+            currentIndex++;
+            renderCurrentExercise();
+        } else {
+            alert("🎉 Hoàn thành tất cả bài tập!");
+        }
+    };
+
+    // Lọc theo loại (người dùng có thể chuyển đổi)
+    document.querySelectorAll(".type-btn").forEach(btn => {
+        btn.onclick = () => {
+            const newType = btn.getAttribute("data-type");
+            const filtered = questions.filter(q => q.type === newType);
+            if (filtered.length) {
+                questions = filtered;
+                currentIndex = 0;
+                renderCurrentExercise();
+            } else {
+                alert(`Chưa có bài tập dạng "${newType}". Hãy thêm vào CSV!`);
+            }
+        };
+    });
+
+    loadQuestions();
+</script>
+</body>
+</html>
