@@ -1,4 +1,4 @@
-/* ========== DARK PINK HIGH CONTRAST ========== */
+/* ========== DARK PINK HIGH CONTRAST - BẢN TO HƠN ========== */
 * {
   margin: 0;
   padding: 0;
@@ -25,13 +25,13 @@ body {
 }
 
 .app-container {
-  max-width: 1300px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
 /* Header */
 header h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
   background: linear-gradient(135deg, #FFB3D1, #FF5E9C);
   -webkit-background-clip: text;
@@ -43,7 +43,7 @@ header h1 {
 
 .subtitle {
   color: var(--text-pink-light);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   border-bottom: 1px solid var(--border-card);
   display: inline-block;
   padding-bottom: 0.5rem;
@@ -67,11 +67,11 @@ header h1 {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  min-width: 120px;
+  min-width: 130px;
 }
 
 .filter-group label {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--highlight-pink);
@@ -81,9 +81,9 @@ select {
   background: var(--bg-dark);
   border: 1px solid var(--border-card);
   color: var(--text-white);
-  padding: 0.5rem 0.8rem;
+  padding: 0.6rem 1rem;
   border-radius: 2rem;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   cursor: pointer;
   outline: none;
   transition: all 0.2s;
@@ -97,12 +97,13 @@ select:hover {
   background: var(--bg-dark);
   border: 1px solid var(--border-card);
   color: var(--highlight-pink);
-  padding: 0.5rem 1.2rem;
+  padding: 0.6rem 1.4rem;
   border-radius: 2rem;
   font-weight: 500;
   cursor: pointer;
   transition: 0.2s;
   margin-left: auto;
+  font-size: 0.9rem;
 }
 
 .clear-btn:hover {
@@ -114,18 +115,18 @@ select:hover {
 /* Tabs */
 .tabs {
   display: flex;
-  gap: 0.75rem;
-  margin-bottom: 1.8rem;
+  gap: 1rem;
+  margin-bottom: 2rem;
   border-bottom: 1px solid var(--border-card);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
 }
 
 .tab-btn {
   background: transparent;
   border: none;
   color: var(--text-pink-light);
-  font-size: 0.95rem;
-  padding: 0.5rem 1.2rem;
+  font-size: 1.05rem;
+  padding: 0.6rem 1.4rem;
   border-radius: 2rem;
   cursor: pointer;
   transition: 0.2s;
@@ -146,14 +147,14 @@ select:hover {
 /* Grid view */
 .grid-view {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.3rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
 }
 
 .card-item {
   background: var(--bg-card);
-  border-radius: 1.2rem;
-  padding: 1.2rem;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
   transition: all 0.2s ease;
   border: 1px solid var(--border-card);
   cursor: pointer;
@@ -165,53 +166,60 @@ select:hover {
   background: var(--bg-hover);
 }
 
+/* Chữ Hán to hơn */
 .hanzi {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 600;
   color: var(--text-white);
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
 }
 
+/* Pinyin to hơn */
 .pinyin {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--text-pink-light);
   letter-spacing: 0.5px;
 }
 
+/* Từ loại to hơn */
 .pos {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   background: rgba(255, 94, 156, 0.15);
   display: inline-block;
-  padding: 0.2rem 0.6rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 1rem;
-  margin: 0.5rem 0;
+  margin: 0.6rem 0;
   color: var(--highlight-pink);
 }
 
+/* COLLOCATIONS: chữ to, nổi bật, KHÔNG có vạch hồng bên trái */
 .collocations {
-  font-size: 0.85rem;
-  background: rgba(255, 179, 209, 0.1);
-  padding: 0.4rem 0.6rem;
+  font-size: 1rem;
+  background: rgba(255, 179, 209, 0.15);
+  padding: 0.5rem 0.8rem;
   border-radius: 0.8rem;
-  margin: 0.5rem 0;
-  border-left: 3px solid var(--accent-pink);
+  margin: 0.6rem 0;
   color: var(--highlight-pink);
+  font-weight: 500;
 }
 
+/* Ví dụ to hơn */
 .example {
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   color: var(--text-pink-light);
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
   font-style: italic;
+  line-height: 1.4;
 }
 
+/* Meta (trình độ, chủ đề) to hơn */
 .meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.7rem;
-  margin-top: 0.8rem;
-  color: #888;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  color: #aaa;
 }
 
 .sound-mini {
@@ -219,8 +227,8 @@ select:hover {
   border: none;
   color: var(--accent-pink);
   cursor: pointer;
-  font-size: 1rem;
-  padding: 0.2rem 0.4rem;
+  font-size: 1.1rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 1rem;
   transition: 0.2s;
 }
@@ -230,20 +238,20 @@ select:hover {
   color: white;
 }
 
-/* Flashcard view */
+/* ========== FLASHCARD VIEW - TO HƠN NHIỀU ========== */
 .flashcard-view {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 450px;
+  min-height: 550px;
 }
 
 .flip-card {
   background: transparent;
   width: 100%;
-  max-width: 500px;
-  height: 380px;
+  max-width: 650px;
+  height: 480px;
   perspective: 1000px;
   cursor: pointer;
 }
@@ -255,7 +263,7 @@ select:hover {
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  border-radius: 1.5rem;
+  border-radius: 1.8rem;
 }
 
 .flipped .flip-card-inner {
@@ -267,36 +275,63 @@ select:hover {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 1.5rem;
+  border-radius: 1.8rem;
   padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background: var(--bg-card);
   border: 1px solid var(--border-card);
-  box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.5);
 }
 
+/* Mặt trước flashcard: chữ to */
+.front .hanzi {
+  font-size: 3.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.front .pinyin {
+  font-size: 1.3rem;
+}
+
+.front .pos {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* Mặt sau flashcard: các mục to rõ */
 .back {
-  transform: rotateY(180deg);
-  overflow-y: auto;
+  text-align: left;
+  gap: 0.8rem;
+}
+
+.back strong {
+  color: var(--accent-pink);
+  font-size: 1rem;
+}
+
+.back div {
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .card-controls {
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   justify-content: center;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 .sound-btn {
   background: var(--bg-dark);
   border: 1px solid var(--accent-pink);
   color: var(--highlight-pink);
-  padding: 0.6rem 1.2rem;
-  border-radius: 2rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 2.5rem;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 500;
   transition: 0.2s;
 }
 
@@ -309,6 +344,7 @@ select:hover {
   text-align: center;
   padding: 3rem;
   color: var(--text-pink-light);
+  font-size: 1.1rem;
 }
 
 /* Responsive */
@@ -328,5 +364,15 @@ select:hover {
   }
   .tabs {
     flex-wrap: wrap;
+  }
+  .flip-card {
+    max-width: 100%;
+    height: 420px;
+  }
+  .front .hanzi {
+    font-size: 2.8rem;
+  }
+  .front .pinyin {
+    font-size: 1.1rem;
   }
 }
