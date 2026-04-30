@@ -4,16 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kho chữ của np – Học tiếng Trung</title>
-  <!-- Google Fonts Montserrat -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
-      background: #fff5f7;
+      background: #0D0F14;
       font-family: 'Montserrat', sans-serif;
-      color: #5a3e4b;
-      padding: 40px 20px;
+      color: #FFFFFF;
+      padding: 2rem 1rem;
     }
 
     .container {
@@ -21,43 +24,46 @@
       margin: 0 auto;
     }
 
-    /* hero header */
+    /* ===== HERO ===== */
     .hero {
       text-align: center;
-      background: #ffe9ef;
-      border-radius: 60px;
-      padding: 30px 20px;
-      margin-bottom: 30px;
-      box-shadow: 0 6px 14px rgba(212, 122, 158, 0.1);
+      background: #1E1620;
+      border-radius: 2rem;
+      padding: 2rem 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid #3A2A38;
     }
 
     h1 {
-      font-size: 3.5rem;
-      color: #d47a9e;
-      letter-spacing: 2px;
+      font-size: 2.5rem;
+      color: #FFB3D1;
       font-weight: 700;
+      letter-spacing: 1px;
     }
 
     .gamification {
-      font-size: 1rem;
+      font-size: 0.85rem;
       font-weight: 500;
-      color: #b5838d;
-      background: #fff2f5;
+      color: #FF5E9C;
+      background: rgba(255, 94, 156, 0.15);
       display: inline-block;
-      padding: 6px 20px;
-      border-radius: 40px;
-      margin-top: 12px;
-      letter-spacing: 0.5px;
+      padding: 0.3rem 1.2rem;
+      border-radius: 2rem;
+      margin-top: 0.8rem;
     }
 
-    /* level boxes */
+    /* ===== LEVEL CARDS ===== */
     .level {
-      background: white;
-      border-radius: 32px;
-      margin-bottom: 25px;
-      padding: 15px 25px 20px 25px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.03);
-      border: 1px solid #ffdfe8;
+      background: #1E1620;
+      border-radius: 1.5rem;
+      margin-bottom: 1.2rem;
+      padding: 1rem 1.5rem;
+      border: 1px solid #3A2A38;
+      transition: all 0.2s;
+    }
+
+    .level:hover {
+      border-color: #FF5E9C;
     }
 
     .level-header {
@@ -65,137 +71,149 @@
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      padding: 8px 0;
+      padding: 0.5rem 0;
     }
 
     .level-title {
-      font-size: 2rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      color: #d47a9e;
+      color: #FFB3D1;
     }
 
     .toggle-icon {
-      font-size: 1.6rem;
+      font-size: 1.2rem;
+      color: #FF5E9C;
       transition: transform 0.2s;
-      color: #d47a9e;
     }
 
-    /* Section bên trong (Quiz / Tài liệu) */
+    /* Flashcard link riêng */
+    .flashcard-main-link {
+      text-decoration: none;
+      display: block;
+      margin-bottom: 1.2rem;
+    }
+
+    /* ===== SECTION (QUIZ / TÀI LIỆU) ===== */
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       cursor: pointer;
-      padding: 10px 0 8px 10px;
-      margin-top: 10px;
-      background: #fffafb;
-      border-radius: 50px;
+      padding: 0.7rem 0 0.7rem 0.5rem;
+      margin-top: 0.8rem;
+      border-radius: 2rem;
       transition: 0.2s;
     }
+
     .section-header:hover {
-      background: #ffeef3;
-    }
-    .section-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #b5838d;
-    }
-    .section-icon {
-      font-size: 1rem;
-      color: #b5838d;
-    }
-    .section-content {
-      margin-top: 8px;
-      margin-left: 15px;
-      padding-left: 15px;
-      border-left: 2px solid #f3c4d4;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      background: rgba(255, 94, 156, 0.1);
     }
 
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #E0B0D5;
+      letter-spacing: 0.5px;
+    }
+
+    .section-icon {
+      font-size: 0.8rem;
+      color: #FF5E9C;
+    }
+
+    .section-content {
+      margin-top: 0.5rem;
+      margin-left: 1rem;
+      padding-left: 1rem;
+      border-left: 2px solid #3A2A38;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    /* Quiz links */
     .quiz-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 0.6rem;
     }
 
     .quiz-link {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #fffafb;
-      border-radius: 60px;
-      padding: 12px 20px;
+      background: #0D0F14;
+      border-radius: 3rem;
+      padding: 0.7rem 1.2rem;
       text-decoration: none;
-      border: 1px solid #ffdfe8;
-      color: #5a3e4b;
+      border: 1px solid #3A2A38;
+      color: #FFFFFF;
       font-weight: 500;
-      transition: 0.2s;
-      font-family: 'Montserrat', sans-serif;
+      transition: all 0.2s;
+      font-size: 0.85rem;
     }
 
     .quiz-link:hover {
-      background: #ffeef3;
-      border-color: #d47a9e;
-      transform: translateX(6px);
+      background: #2E1F2A;
+      border-color: #FF5E9C;
+      transform: translateX(4px);
     }
 
     .quiz-name {
-      font-size: 0.95rem;
-      font-weight: 600;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #FFB3D1;
     }
 
     .badge {
-      background: #f3c4d4;
-      padding: 4px 12px;
-      border-radius: 40px;
+      background: rgba(255, 94, 156, 0.15);
+      padding: 0.2rem 0.8rem;
+      border-radius: 2rem;
       font-size: 0.65rem;
-      color: #8b5e6b;
+      color: #E0B0D5;
       font-weight: 500;
-      letter-spacing: 0.3px;
     }
 
+    /* Utility */
     .hidden {
       display: none;
     }
 
     .footer {
       text-align: center;
-      margin-top: 50px;
-      padding: 20px 0 10px;
-      border-top: 1px solid #ffdfe8;
-      color: #c98aa8;
-      font-size: 0.8rem;
-      font-weight: 400;
+      margin-top: 2.5rem;
+      padding: 1.2rem 0;
+      border-top: 1px solid #3A2A38;
+      color: #888;
+      font-size: 0.7rem;
     }
   </style>
 </head>
 <body>
 <div class="container">
-  <!-- header -->
+  <!-- HERO -->
   <div class="hero">
     <h1>🌸 kho chữ của np 🌸</h1>
-    <div class="gamification">🎮 Gamification 🎮</div>
+    <div class="gamification">🎮 Gamification</div>
   </div>
-<!-- ===== FLASHCARD THÔNG MINH - MỤC RIÊNG NGANG HÀNG ===== -->
-<a href="https://nananptpc.github.io/kho-chu-cua-np/flashcard-app/" class="flashcard-main-link" style="text-decoration: none;">
-      <div class="level">
-          <div class="level-header" style="cursor: pointer;">
-              <span class="level-title">📇 Flashcard thông minh</span>
-          </div>
+
+  <!-- FLASHCARD THÔNG MINH (link sang app chính) -->
+  <a href="https://nananptpc.github.io/kho-chu-cua-np/flashcard-app/" class="flashcard-main-link">
+    <div class="level">
+      <div class="level-header" style="cursor: pointer;">
+        <span class="level-title">📇 Flashcard thông minh</span>
       </div>
+    </div>
   </a>
 
-  <!-- HSK1 -->
+  <!-- HSK 1 -->
   <div class="level">
     <div class="level-header" onclick="toggleList('hsk1')">
       <span class="level-title">📘 HSK 1</span>
       <span class="toggle-icon" id="hsk1-icon">▼</span>
     </div>
     <div id="hsk1-content" class="quiz-list">
-      
-      <!-- MỤC QUIZ -->
+      <!-- QUIZ section -->
       <div class="section-header" onclick="toggleSection('quiz')">
         <span class="section-title">📝 QUIZ</span>
         <span class="section-icon" id="quiz-icon">▼</span>
@@ -219,7 +237,7 @@
         </a>
       </div>
 
-      <!-- MỤC TÀI LIỆU -->
+      <!-- TÀI LIỆU TƯƠNG TÁC -->
       <div class="section-header" onclick="toggleSection('tailieu')">
         <span class="section-title">📁 TÀI LIỆU TƯƠNG TÁC</span>
         <span class="section-icon" id="tailieu-icon">▼</span>
@@ -232,47 +250,43 @@
         <a href="https://nananptpc.github.io/bang-thanh-mau-van-mau" class="quiz-link">
           <span class="quiz-name">🎵 Bảng thanh mẫu - vận mẫu</span>
           <span class="badge">âm tắc · âm xát · ghép âm · quy tắc</span>
-      </a>
-        <!-- Thêm tài liệu khác vào đây -->
+        </a>
       </div>
-
     </div>
   </div>
 
-  <!-- HSK2 -->
+  <!-- HSK 2 -->
   <div class="level">
     <div class="level-header" onclick="toggleList('hsk2')">
       <span class="level-title">📗 HSK 2</span>
       <span class="toggle-icon" id="hsk2-icon">▶</span>
     </div>
     <div id="hsk2-content" class="quiz-list hidden">
-      <div class="quiz-link" style="cursor:default; background:#faf0f3; justify-content:center;">
+      <div class="quiz-link" style="cursor:default; justify-content:center;">
         ✨ Sắp ra mắt
       </div>
     </div>
   </div>
 
-  <!-- HSK3 -->
+  <!-- HSK 3 -->
   <div class="level">
     <div class="level-header" onclick="toggleList('hsk3')">
       <span class="level-title">📙 HSK 3</span>
       <span class="toggle-icon" id="hsk3-icon">▶</span>
     </div>
     <div id="hsk3-content" class="quiz-list hidden">
-      <div class="quiz-link" style="cursor:default; background:#faf0f3; justify-content:center;">
+      <div class="quiz-link" style="cursor:default; justify-content:center;">
         🌿 Đang xây dựng
       </div>
     </div>
   </div>
 
-  <!-- footer -->
   <div class="footer">
     © nananp.tpc
   </div>
 </div>
 
 <script>
-  // Toggle HSK level (HSK1, HSK2, HSK3)
   function toggleList(level) {
     const content = document.getElementById(level + '-content');
     const icon = document.getElementById(level + '-icon');
@@ -285,7 +299,6 @@
     }
   }
 
-  // Toggle section bên trong (Quiz / Tài liệu)
   function toggleSection(section) {
     const content = document.getElementById(section + '-section');
     const icon = document.getElementById(section + '-icon');
@@ -298,7 +311,7 @@
     }
   }
 
-  // Mặc định: mở sẵn cả QUIZ và TÀI LIỆU (không bị ẩn)
+  // Mặc định mở sẵn QUIZ và TÀI LIỆU
   document.getElementById('quiz-section').classList.remove('hidden');
   document.getElementById('tailieu-section').classList.remove('hidden');
 </script>
