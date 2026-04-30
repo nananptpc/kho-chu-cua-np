@@ -4,109 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cấu tạo chữ Hán | Kho Chữ Của NP</title>
-    <!-- Google Fonts Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #fff5f7;
-            color: #5a3e4b;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 40px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+        
+        /* ===== THEME TOGGLE BUTTON ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            border-radius: 3rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            border: 1px solid;
+        }
+        .theme-toggle:hover { transform: scale(1.05); }
+        
         .quiz-container {
             max-width: 800px;
             width: 100%;
-            background: white;
             border-radius: 40px;
             padding: 35px;
-            box-shadow: 0 15px 35px rgba(212, 122, 158, 0.15);
-            border: 1px solid #ffdfe8;
+            transition: all 0.3s ease;
             position: relative;
         }
+        
         .back-home {
             position: absolute;
             top: -15px;
             left: -15px;
-            background: white;
-            border: 1px solid #ffdfe8;
             border-radius: 60px;
             padding: 8px 20px;
             text-decoration: none;
             font-size: 0.8rem;
             font-weight: 500;
-            color: #d47a9e;
             transition: 0.2s;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             z-index: 10;
         }
-        .back-home:hover {
-            background: #ffeef3;
-            border-color: #d47a9e;
-            transform: translateX(-3px);
-        }
+        .back-home:hover { transform: translateX(-3px); }
+        
         .header {
             display: flex;
             justify-content: space-between;
             padding-bottom: 20px;
-            border-bottom: 2px solid #f3c4d4;
+            border-bottom: 2px solid;
             margin-bottom: 25px;
             font-weight: 600;
-            color: #d47a9e;
             font-size: 0.9rem;
         }
+        
         .question-text {
             font-size: 1.45rem;
             line-height: 1.45;
             margin: 30px 0;
             font-weight: 500;
         }
+        
         .chinese-char {
             font-size: 1.9rem;
             font-weight: 700;
-            color: #d47a9e;
             display: inline-block;
             margin: 0 3px;
         }
+        
         .options {
             display: flex;
             flex-direction: column;
             gap: 12px;
             margin: 25px 0;
         }
+        
         .option {
             display: flex;
             align-items: center;
             padding: 14px 18px;
-            background: #fffafb;
-            border: 2px solid #ffdfe8;
+            border: 2px solid;
             border-radius: 60px;
             cursor: pointer;
             transition: all 0.2s;
             font-size: 0.95rem;
             font-weight: 500;
         }
-        .option:hover {
-            border-color: #d47a9e;
-            background: #ffeef3;
-        }
-        .option.selected {
-            background: #f3c4d4;
-            border-color: #d47a9e;
-        }
+        
         .option-letter {
             font-weight: 700;
             width: 40px;
-            color: #d47a9e;
             font-size: 1rem;
         }
+        
         button {
-            background: #d47a9e;
-            color: white;
             border: none;
             padding: 14px 25px;
             font-size: 1rem;
@@ -118,9 +120,7 @@
             transition: background 0.2s;
             margin-top: 10px;
         }
-        button:hover {
-            background: #b86284;
-        }
+        
         .feedback {
             margin-top: 20px;
             padding: 14px 18px;
@@ -130,61 +130,209 @@
             font-size: 1rem;
             line-height: 1.4;
         }
+        
         .feedback.correct, .feedback.wrong {
             font-size: 1.05rem;
             font-weight: 500;
         }
-        .feedback.correct {
-            background: #d4edda;
-            color: #2e7d32;
-        }
-        .feedback.wrong {
-            background: #ffdfe8;
-            color: #c62828;
-        }
+        
         .hidden {
             display: none;
         }
+        
         .result {
             text-align: center;
             padding: 30px 20px;
         }
+        
         .result h2 {
-            color: #d47a9e;
             font-size: 1.8rem;
             margin-bottom: 20px;
             font-weight: 700;
         }
+        
         .result p {
             font-size: 1.2rem;
             margin-bottom: 25px;
         }
+        
         .copyright {
             text-align: center;
             margin-top: 35px;
             padding-top: 20px;
-            border-top: 1px solid #ffdfe8;
-            color: #c98aa8;
             font-size: 0.75rem;
             font-weight: 400;
         }
+        
+        /* ===== DARK THEME (mặc định) ===== */
+        body.dark {
+            background: #0D0F14;
+            color: #FFFFFF;
+        }
+        body.dark .quiz-container {
+            background: #1E1620;
+            border: 1px solid #3A2A38;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+        body.dark .back-home {
+            background: #1E1620;
+            border: 1px solid #3A2A38;
+            color: #FFB3D1;
+        }
+        body.dark .back-home:hover {
+            background: #2E1F2A;
+            border-color: #FF5E9C;
+        }
+        body.dark .header {
+            border-bottom-color: #3A2A38;
+            color: #FFB3D1;
+        }
+        body.dark .chinese-char {
+            color: #FF5E9C;
+        }
+        body.dark .option {
+            background: #2E1F2A;
+            border-color: #3A2A38;
+            color: #E0B0D5;
+        }
+        body.dark .option:hover {
+            border-color: #FF5E9C;
+            background: #3A2A4A;
+        }
+        body.dark .option.selected {
+            background: #FF5E9C;
+            border-color: #FF5E9C;
+            color: white;
+        }
+        body.dark .option.selected .option-letter {
+            color: white;
+        }
+        body.dark .option-letter {
+            color: #FFB3D1;
+        }
+        body.dark button {
+            background: #FF5E9C;
+            color: white;
+        }
+        body.dark button:hover {
+            background: #ff3d7a;
+        }
+        body.dark .feedback.correct {
+            background: #1B5E20;
+            color: #A5D6A7;
+        }
+        body.dark .feedback.wrong {
+            background: #4A1E1E;
+            color: #EF9A9A;
+        }
+        body.dark .result h2 {
+            color: #FFB3D1;
+        }
+        body.dark .copyright {
+            border-top-color: #3A2A38;
+            color: #888;
+        }
+        body.dark .theme-toggle {
+            background: rgba(255, 94, 156, 0.2);
+            border-color: #FF5E9C;
+            color: #FFB3D1;
+        }
+        
+        /* ===== LIGHT THEME ===== */
+        body.light {
+            background: #fff5f7;
+            color: #5a3e4b;
+        }
+        body.light .quiz-container {
+            background: white;
+            border: 1px solid #ffdfe8;
+            box-shadow: 0 15px 35px rgba(212, 122, 158, 0.15);
+        }
+        body.light .back-home {
+            background: white;
+            border: 1px solid #ffdfe8;
+            color: #d47a9e;
+        }
+        body.light .back-home:hover {
+            background: #ffeef3;
+            border-color: #d47a9e;
+        }
+        body.light .header {
+            border-bottom-color: #f3c4d4;
+            color: #d47a9e;
+        }
+        body.light .chinese-char {
+            color: #d47a9e;
+        }
+        body.light .option {
+            background: #fffafb;
+            border-color: #ffdfe8;
+            color: #5a3e4b;
+        }
+        body.light .option:hover {
+            border-color: #d47a9e;
+            background: #ffeef3;
+        }
+        body.light .option.selected {
+            background: #f3c4d4;
+            border-color: #d47a9e;
+        }
+        body.light .option-letter {
+            color: #d47a9e;
+        }
+        body.light button {
+            background: #d47a9e;
+            color: white;
+        }
+        body.light button:hover {
+            background: #b86284;
+        }
+        body.light .feedback.correct {
+            background: #d4edda;
+            color: #2e7d32;
+        }
+        body.light .feedback.wrong {
+            background: #ffdfe8;
+            color: #c62828;
+        }
+        body.light .result h2 {
+            color: #d47a9e;
+        }
+        body.light .copyright {
+            border-top-color: #ffdfe8;
+            color: #c98aa8;
+        }
+        body.light .theme-toggle {
+            background: rgba(212, 122, 158, 0.15);
+            border-color: #d47a9e;
+            color: #d47a9e;
+        }
+        
         @media (max-width: 550px) {
             .quiz-container { padding: 25px; }
             .question-text { font-size: 1.2rem; }
-            .feedback.correct, .feedback.wrong {
-                font-size: 0.95rem;
-            }
+            .feedback.correct, .feedback.wrong { font-size: 0.95rem; }
             .back-home {
                 top: -10px;
                 left: -10px;
                 padding: 5px 15px;
                 font-size: 0.7rem;
             }
+            .theme-toggle {
+                top: 0.5rem;
+                right: 0.5rem;
+                padding: 0.3rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            body { padding: 1rem; }
         }
     </style>
 </head>
-<body>
+<body class="dark">
 <div class="quiz-container" id="quizContainer">
+    <!-- Theme toggle button -->
+    <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙 Dark</div>
+    
     <a href="https://nananptpc.github.io/kho-chu-cua-np" class="back-home">← Về thư viện</a>
     <div class="header">
         <span>🌸 CẤU TẠO CHỮ HÁN</span>
@@ -203,6 +351,33 @@
 </div>
 
 <script>
+    // ========== THEME HANDLING ==========
+    function setTheme(theme) {
+        document.body.classList.remove('dark', 'light');
+        document.body.classList.add(theme);
+        localStorage.setItem('theme_chinese_char', theme);
+        const toggleBtn = document.getElementById('themeToggle');
+        if (theme === 'dark') {
+            toggleBtn.innerHTML = '🌙 Dark';
+        } else {
+            toggleBtn.innerHTML = '☀️ Light';
+        }
+    }
+    
+    function toggleTheme() {
+        const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+    }
+    
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme_chinese_char');
+    if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light')) {
+        setTheme(savedTheme);
+    } else {
+        setTheme('dark');
+    }
+    
     // Âm thanh đúng/sai
     function playSound(type) {
         try {
@@ -309,12 +484,10 @@
         return arr;
     }
 
-    // Xáo trộn đáp án của một câu hỏi
     function shuffleOptions(question) {
         const originalOptions = [...question.options];
         const originalCorrectText = originalOptions[question.correct];
         
-        // Tạo mảng các cặp {text, originalIndex} và xáo trộn
         const optionPairs = originalOptions.map((text, idx) => ({ text, originalIndex: idx }));
         const shuffledPairs = shuffleArray([...optionPairs]);
         
@@ -327,12 +500,9 @@
         };
     }
 
-    // Tạo danh sách câu hỏi đã xáo trộn hoàn toàn
     function getShuffledQuestions() {
-        // Xáo thứ tự câu hỏi
         const shuffledRaw = shuffleArray([...rawQuestions]);
         
-        // Với mỗi câu, xáo thứ tự đáp án
         return shuffledRaw.map(q => {
             const shuffled = shuffleOptions(q);
             return {
@@ -344,7 +514,6 @@
         });
     }
 
-    // Khởi tạo câu hỏi đã xáo trộn
     let questions = getShuffledQuestions();
     let currentIndex = 0, score = 0, answered = false, selectedOption = null;
     const totalQ = questions.length;
