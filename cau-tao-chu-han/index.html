@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cấu tạo chữ Hán | Kho Chữ Của NP</title>
+    <!-- Google Fonts Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fff5f7;
+            color: #5a3e4b;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .quiz-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 40px;
+            padding: 35px;
+            box-shadow: 0 15px 35px rgba(212, 122, 158, 0.15);
+            border: 1px solid #ffdfe8;
+            position: relative;
+        }
+        .back-home {
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            background: white;
+            border: 1px solid #ffdfe8;
+            border-radius: 60px;
+            padding: 8px 20px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #d47a9e;
+            transition: 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+        .back-home:hover {
+            background: #ffeef3;
+            border-color: #d47a9e;
+            transform: translateX(-3px);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f3c4d4;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: #d47a9e;
+            font-size: 0.9rem;
+        }
+        .question-text {
+            font-size: 1.45rem;
+            line-height: 1.45;
+            margin: 30px 0;
+            font-weight: 500;
+        }
+        .chinese-char {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #d47a9e;
+            display: inline-block;
+            margin: 0 3px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 25px 0;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            background: #fffafb;
+            border: 2px solid #ffdfe8;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .option:hover {
+            border-color: #d47a9e;
+            background: #ffeef3;
+        }
+        .option.selected {
+            background: #f3c4d4;
+            border-color: #d47a9e;
+        }
+        .option-letter {
+            font-weight: 700;
+            width: 40px;
+            color: #d47a9e;
+            font-size: 1rem;
+        }
+        button {
+            background: #d47a9e;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 1rem;
+            border-radius: 60px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #b86284;
+        }
+        .feedback {
+            margin-top: 20px;
+            padding: 14px 18px;
+            border-radius: 60px;
+            text-align: center;
+            font-weight: 500;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+        .feedback.correct, .feedback.wrong {
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+        .feedback.correct {
+            background: #d4edda;
+            color: #2e7d32;
+        }
+        .feedback.wrong {
+            background: #ffdfe8;
+            color: #c62828;
+        }
+        .hidden {
+            display: none;
+        }
+        .result {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .result h2 {
+            color: #d47a9e;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .result p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid #ffdfe8;
+            color: #c98aa8;
+            font-size: 0.75rem;
+            font-weight: 400;
+        }
+        @media (max-width: 550px) {
+            .quiz-container { padding: 25px; }
+            .question-text { font-size: 1.2rem; }
+            .feedback.correct, .feedback.wrong {
+                font-size: 0.95rem;
+            }
+            .back-home {
+                top: -10px;
+                left: -10px;
+                padding: 5px 15px;
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="quiz-container" id="quizContainer">
+    <a href="https://nananptpc.github.io/kho-chu-cua-np" class="back-home">← Về thư viện</a>
+    <div class="header">
+        <span>🌸 CẤU TẠO CHỮ HÁN</span>
+        <span>🎯 Điểm: <span id="score">0</span></span>
+    </div>
+    <div id="questionArea">
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsContainer"></div>
+        <button id="submitBtn">CHỐT ĐÁP ÁN</button>
+        <div id="feedback" class="feedback hidden"></div>
+        <button id="nextBtn" class="hidden">Câu tiếp theo →</button>
+    </div>
+    <div class="copyright">
+        © nananp.tpc
+    </div>
+</div>
+
+<script>
+    // Âm thanh đúng/sai
+    function playSound(type) {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.type = 'sine';
+            
+            if (type === 'correct') {
+                oscillator.frequency.value = 880;
+                gainNode.gain.value = 0.3;
+                oscillator.start();
+                gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.5);
+                setTimeout(() => oscillator.stop(), 500);
+            } else {
+                oscillator.frequency.value = 220;
+                gainNode.gain.value = 0.25;
+                oscillator.start();
+                gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.4);
+                setTimeout(() => oscillator.stop(), 400);
+            }
+        } catch(e) {
+            console.log("Audio not supported");
+        }
+    }
+
+    // ============================================
+    // CÂU HỎI GỐC
+    // ============================================
+    const rawQuestions = [
+        {
+            text: "Loại chữ <span class='chinese-char'>⽇</span> (mặt trời), <span class='chinese-char'>⼭</span> (núi) là loại chữ gì?",
+            options: ["Chữ tượng hình", "Chữ chỉ sự", "Chữ hội ý", "Chữ hình thanh"],
+            correct: 0,
+            explanation: "✅ Chữ tượng hình vẽ lại hình dáng sự vật. Ví dụ: 日 (mặt trời), 山 (núi), 水 (nước), 火 (lửa)."
+        },
+        {
+            text: "Chữ <span class='chinese-char'>上</span> (trên) và <span class='chinese-char'>下</span> (dưới) thuộc loại chữ nào?",
+            options: ["Tượng hình", "Chỉ sự", "Hội ý", "Hình thanh"],
+            correct: 1,
+            explanation: "✅ Chữ chỉ sự dùng ký hiệu trừu tượng để biểu thị ý niệm. 上: nét ngang + nét nhỏ phía trên chỉ 'trên', 下 chỉ 'dưới'."
+        },
+        {
+            text: "Chữ <span class='chinese-char'>休</span> (nghỉ ngơi) = 人 (người) + 木 (cây) là ví dụ của loại chữ gì?",
+            options: ["Tượng hình", "Chỉ sự", "Hội ý", "Hình thanh"],
+            correct: 2,
+            explanation: "✅ Hội ý: kết hợp 2 hoặc nhiều chữ đơn để tạo nghĩa mới. 休 = người dựa vào cây → nghỉ ngơi."
+        },
+        {
+            text: "Chữ <span class='chinese-char'>妈</span> (mẹ) gồm bộ <span class='chinese-char'>女</span> (nữ) và <span class='chinese-char'>马</span> (mã). Đây là loại chữ gì?",
+            options: ["Tượng hình", "Chỉ sự", "Hội ý", "Hình thanh"],
+            correct: 3,
+            explanation: "✅ Hình thanh: bộ ý nghĩa (女 - liên quan phụ nữ) + bộ chỉ âm đọc gần đúng (马 - mã)."
+        },
+        {
+            text: "Trong chữ hình thanh, bộ phận nào thường biểu thị ý nghĩa?",
+            options: ["Bộ chỉ âm", "Bộ chỉ nghĩa (bộ thủ)", "Cả hai đều biểu thị ý nghĩa", "Không bộ nào"],
+            correct: 1,
+            explanation: "✅ Bộ thủ (bộ chỉ nghĩa) thường nằm ở bên trái, trên hoặc dưới, giúp hiểu nghĩa của chữ."
+        },
+        {
+            text: "Chữ <span class='chinese-char'>林</span> (rừng) = 木 (cây) + 木 (cây) được tạo theo cách nào?",
+            options: ["Tượng hình", "Chỉ sự", "Hội ý", "Hình thanh"],
+            correct: 2,
+            explanation: "✅ Hội ý: hai cây đứng cạnh nhau tạo thành rừng."
+        },
+        {
+            text: "Đặc điểm của chữ tượng hình là gì?",
+            options: ["Biểu thị ý niệm trừu tượng", "Vẽ hình dáng sự vật", "Kết hợp nhiều chữ đơn", "Có bộ chỉ âm và nghĩa"],
+            correct: 1,
+            explanation: "✅ Chữ tượng hình mô phỏng hình dáng bên ngoài của sự vật."
+        },
+        {
+            text: "Bộ thủ <span class='chinese-char'>氵</span> trong chữ <span class='chinese-char'>河</span> (sông), <span class='chinese-char'>海</span> (biển) cho biết điều gì?",
+            options: ["Liên quan lửa", "Liên quan nước", "Liên quan đất", "Liên quan kim loại"],
+            correct: 1,
+            explanation: "✅ 氵 là dạng rút gọn của 水 (nước) → chữ liên quan đến nước."
+        },
+        {
+            text: "Chữ nào sau đây KHÔNG phải là chữ tượng hình?",
+            options: ["山 (núi)", "水 (nước)", "休 (nghỉ)", "火 (lửa)"],
+            correct: 2,
+            explanation: "✅ '休' (nghỉ) là chữ hội ý (người + cây), không phải tượng hình."
+        },
+        {
+            text: "Loại chữ nào chiếm tỷ lệ nhiều nhất trong chữ Hán (khoảng 80-90%)?",
+            options: ["Tượng hình", "Chỉ sự", "Hội ý", "Hình thanh"],
+            correct: 3,
+            explanation: "✅ Chữ hình thanh chiếm phần lớn chữ Hán (khoảng 80-90%)."
+        }
+    ];
+
+    // ============================================
+    // HÀM XÁO TRỘN
+    // ============================================
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    // Xáo trộn đáp án của một câu hỏi
+    function shuffleOptions(question) {
+        const originalOptions = [...question.options];
+        const originalCorrectText = originalOptions[question.correct];
+        
+        // Tạo mảng các cặp {text, originalIndex} và xáo trộn
+        const optionPairs = originalOptions.map((text, idx) => ({ text, originalIndex: idx }));
+        const shuffledPairs = shuffleArray([...optionPairs]);
+        
+        const newOptions = shuffledPairs.map(p => p.text);
+        const newCorrectIndex = shuffledPairs.findIndex(p => p.text === originalCorrectText);
+        
+        return {
+            options: newOptions,
+            correct: newCorrectIndex
+        };
+    }
+
+    // Tạo danh sách câu hỏi đã xáo trộn hoàn toàn
+    function getShuffledQuestions() {
+        // Xáo thứ tự câu hỏi
+        const shuffledRaw = shuffleArray([...rawQuestions]);
+        
+        // Với mỗi câu, xáo thứ tự đáp án
+        return shuffledRaw.map(q => {
+            const shuffled = shuffleOptions(q);
+            return {
+                text: q.text,
+                options: shuffled.options,
+                correct: shuffled.correct,
+                explanation: q.explanation
+            };
+        });
+    }
+
+    // Khởi tạo câu hỏi đã xáo trộn
+    let questions = getShuffledQuestions();
+    let currentIndex = 0, score = 0, answered = false, selectedOption = null;
+    const totalQ = questions.length;
+    document.getElementById('score').innerText = score;
+
+    function loadQuestion() {
+        if (currentIndex >= totalQ) {
+            document.getElementById('questionArea').innerHTML = `
+                <div class="result">
+                    <h2>🏆 Hoàn thành! 🏆</h2>
+                    <p>Điểm của bạn: ${score}/${totalQ}</p>
+                    <p style="font-size: 1rem; margin-top: 10px;">💡 ${score === totalQ ? 'Xuất sắc!' : score >= 7 ? 'Tốt lắm!' : 'Đừng nản, học lại nhé!'}</p>
+                    <button onclick="location.reload()">Làm lại</button>
+                </div>
+            `;
+            return;
+        }
+        answered = false;
+        selectedOption = null;
+        const q = questions[currentIndex];
+        document.getElementById('questionText').innerHTML = q.text;
+        const container = document.getElementById('optionsContainer');
+        container.innerHTML = '';
+        const letters = ['A', 'B', 'C', 'D'];
+        q.options.forEach((opt, idx) => {
+            const div = document.createElement('div');
+            div.className = 'option';
+            div.innerHTML = `<div class="option-letter">${letters[idx]}.</div><div>${opt}</div>`;
+            div.onclick = () => {
+                if (answered) return;
+                document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                div.classList.add('selected');
+                selectedOption = idx;
+            };
+            container.appendChild(div);
+        });
+        document.getElementById('submitBtn').classList.remove('hidden');
+        document.getElementById('nextBtn').classList.add('hidden');
+        document.getElementById('feedback').classList.add('hidden');
+    }
+
+    document.getElementById('submitBtn').onclick = () => {
+        if (answered) return;
+        if (selectedOption === null) {
+            alert('🌸 Vui lòng chọn một đáp án!');
+            return;
+        }
+        answered = true;
+        const q = questions[currentIndex];
+        const isCorrect = (selectedOption === q.correct);
+        
+        if (isCorrect) {
+            playSound('correct');
+            score++;
+            document.getElementById('score').innerText = score;
+        } else {
+            playSound('wrong');
+        }
+        
+        const fb = document.getElementById('feedback');
+        const correctLetter = String.fromCharCode(65 + q.correct);
+        const correctText = q.options[q.correct];
+        fb.innerHTML = isCorrect 
+            ? `✅ ${q.explanation}`
+            : `❌ Sai rồi! Đáp án đúng là ${correctLetter}. ${correctText}. ${q.explanation}`;
+        fb.className = `feedback ${isCorrect ? 'correct' : 'wrong'}`;
+        fb.classList.remove('hidden');
+        document.getElementById('submitBtn').classList.add('hidden');
+        document.getElementById('nextBtn').classList.remove('hidden');
+    };
+
+    document.getElementById('nextBtn').onclick = () => {
+        currentIndex++;
+        loadQuestion();
+    };
+
+    loadQuestion();
+</script>
+</body>
+</html>
