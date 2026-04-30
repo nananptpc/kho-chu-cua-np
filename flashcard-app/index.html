@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Flashcard thông minh - Học từ vựng tiếng Trung</title>
+  <title>THẺ TỪ VỰNG - Học tiếng Trung</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="app-container">
-    <!-- Header -->
-    <header>
-      <h1>📚 Flashcard thông minh</h1>
-      <p class="subtitle">học từ vựng theo chủ đề · trình độ · từ loại · các cụm thường gặp</p>
+    <!-- Header: THẺ TỪ VỰNG ở giữa -->
+    <header style="text-align: center;">
+      <h1>📚 THẺ TỪ VỰNG</h1>
+      <p class="subtitle" style="text-align: center;">học theo chủ đề · trình độ · từ loại · cụm từ kết hợp</p>
     </header>
 
     <!-- Bộ lọc -->
@@ -28,7 +28,7 @@
       <div class="filter-group">
         <label>Từ loại</label>
         <select id="posFilter">
-          <option value="all">Tất cả từ loại</option>
+          <option value="all">Tất cả</option>
           <option value="danh từ">Danh từ</option>
           <option value="động từ">Động từ</option>
           <option value="tính từ">Tính từ</option>
@@ -37,30 +37,25 @@
       <div class="filter-group">
         <label>Chủ đề</label>
         <select id="topicFilter">
-          <option value="all">Tất cả chủ đề</option>
+          <option value="all">Tất cả</option>
           <option value="Học tập">Học tập</option>
           <option value="Đồ dùng">Đồ dùng</option>
           <option value="Đồ uống">Đồ uống</option>
           <option value="Kinh doanh">Kinh doanh</option>
         </select>
       </div>
-      <button id="clearFilters" class="clear-btn">🗑️ Xóa lọc</button>
+      <button id="clearFilters" class="clear-btn">🗑️ Xoá lọc</button>
     </div>
 
-    <!-- Tab điều hướng -->
+    <!-- Tab điều hướng (tiếng Việt hoàn toàn) -->
     <div class="tabs">
       <button class="tab-btn active" data-view="grid">📇 Dạng lưới</button>
-      <button class="tab-btn" data-view="flashcard">🃏 Dạng thể ghi nhớ</button>
+      <button class="tab-btn" data-view="flashcard">🃏 Thẻ ghi nhớ</button>
       <button class="tab-btn" data-view="exercise">📝 Bài tập</button>
     </div>
 
     <!-- Khu vực hiển thị chính -->
-    <div id="contentArea" class="content-area">
-      <!-- Grid hoặc flashcard sẽ được JS render -->
-    </div>
-
-    <!-- Nút phát âm thanh nổi (dùng Web Speech API) -->
-    <div class="audio-helper" style="display: none;"></div>
+    <div id="contentArea" class="content-area"></div>
   </div>
 
   <script src="script.js"></script>
