@@ -7,56 +7,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+        
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #fff5f7;
-            color: #5a3e4b;
             padding: 30px 20px;
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+        
         .container {
             max-width: 1100px;
             margin: 0 auto;
         }
+        
+        /* ===== THEME TOGGLE BUTTON ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            border-radius: 3rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            border: 1px solid;
+        }
+        .theme-toggle:hover { transform: scale(1.05); }
+        
         .back-home {
             display: inline-block;
             margin-bottom: 20px;
-            color: #d47a9e;
             text-decoration: none;
             font-weight: 500;
-            background: white;
             padding: 8px 20px;
             border-radius: 60px;
-            border: 1px solid #ffdfe8;
             font-size: 0.85rem;
+            transition: 0.2s;
         }
-        .back-home:hover {
-            background: #ffeef3;
-            border-color: #d47a9e;
-        }
+        
         .header {
             text-align: center;
-            background: #ffe9ef;
             border-radius: 60px;
             padding: 20px;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
         }
-        h1 { color: #d47a9e; font-size: 2rem; margin-bottom: 5px; }
-        .sub { color: #b5838d; font-size: 0.85rem; }
+        
+        h1 { font-size: 2rem; margin-bottom: 5px; }
+        .sub { font-size: 0.85rem; }
         
         .stats {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: white;
             padding: 12px 25px;
             border-radius: 60px;
             margin-bottom: 25px;
-            border: 1px solid #ffdfe8;
             font-weight: 600;
+            transition: all 0.3s ease;
         }
-        .score { color: #2e7d32; background: #d4edda; padding: 5px 15px; border-radius: 40px; }
-        .errors { color: #c62828; background: #ffdfe8; padding: 5px 15px; border-radius: 40px; }
+        
+        .score { padding: 5px 15px; border-radius: 40px; }
+        .errors { padding: 5px 15px; border-radius: 40px; }
         
         .game-board {
             display: flex;
@@ -64,30 +79,30 @@
             gap: 30px;
             justify-content: center;
         }
+        
         .column {
             flex: 1;
             min-width: 300px;
-            background: white;
             border-radius: 35px;
             padding: 25px;
-            border: 1px solid #ffdfe8;
+            transition: all 0.3s ease;
         }
+        
         .column h3 {
             text-align: center;
-            color: #d47a9e;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #f3c4d4;
             font-size: 1.2rem;
         }
+        
         .card-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
+        
         .card {
-            background: #fffafb;
-            border: 2px solid #ffdfe8;
+            border: 2px solid;
             border-radius: 20px;
             padding: 14px 18px;
             cursor: pointer;
@@ -97,48 +112,37 @@
             font-size: 0.95rem;
             line-height: 1.45;
         }
-        .card:hover {
-            background: #ffeef3;
-            border-color: #d47a9e;
-            transform: translateX(5px);
-        }
-        .card.selected {
-            background: #f3c4d4;
-            border-color: #d47a9e;
-            box-shadow: 0 0 0 2px rgba(212,122,158,0.3);
-        }
+        
+        .card:hover { transform: translateX(5px); }
         .card.matched {
-            background: #c8e6c9;
-            border-color: #4caf50;
             text-decoration: line-through;
             opacity: 0.8;
             cursor: default;
             pointer-events: none;
         }
-        .definition-card { border-left: 6px solid #d47a9e; }
-        .concept-card { border-right: 6px solid #f3c4d4; }
+        .definition-card { border-left: 6px solid; }
+        .concept-card { border-right: 6px solid; }
         
         .matched-pairs {
             margin-top: 25px;
-            background: #fff0f3;
             border-radius: 25px;
             padding: 15px 20px;
-            border: 1px solid #f3c4d4;
+            transition: all 0.3s ease;
         }
+        
         .matched-title {
             font-size: 0.8rem;
-            color: #b5838d;
             margin-bottom: 10px;
             font-weight: 600;
         }
+        
         .matched-list {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
+        
         .matched-item {
-            background: #d4edda;
-            color: #2e7d32;
             padding: 6px 14px;
             border-radius: 40px;
             font-size: 0.75rem;
@@ -147,10 +151,9 @@
         
         .fun-fact {
             margin-top: 25px;
-            background: #fff8e1;
             border-radius: 25px;
             padding: 18px 22px;
-            border-left: 6px solid #ffb74d;
+            border-left: 6px solid;
             display: none;
         }
         .fun-fact.show {
@@ -162,19 +165,15 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .fun-fact h4 {
-            color: #e65100;
             margin-bottom: 10px;
             font-size: 0.9rem;
         }
         .fun-fact p {
             font-size: 0.85rem;
             line-height: 1.5;
-            color: #5a3e4b;
         }
         
         .reset-btn {
-            background: #d47a9e;
-            color: white;
             border: none;
             padding: 10px 25px;
             border-radius: 60px;
@@ -185,29 +184,219 @@
             font-size: 0.85rem;
             transition: 0.2s;
         }
-        .reset-btn:hover {
-            background: #b86284;
-            transform: scale(1.02);
-        }
+        .reset-btn:hover { transform: scale(1.02); }
         
         .copyright {
             text-align: center;
             margin-top: 30px;
             padding-top: 15px;
+            font-size: 0.7rem;
+        }
+        
+        /* ===== DARK THEME (mặc định) ===== */
+        body.dark {
+            background: #0D0F14;
+            color: #FFFFFF;
+        }
+        body.dark .back-home {
+            background: #1E1620;
+            color: #FFB3D1;
+            border: 1px solid #3A2A38;
+        }
+        body.dark .back-home:hover {
+            background: #2E1F2A;
+            border-color: #FF5E9C;
+        }
+        body.dark .header {
+            background: #1E1620;
+            border: 1px solid #3A2A38;
+        }
+        body.dark h1 { color: #FFB3D1; }
+        body.dark .sub { color: #E0B0D5; }
+        body.dark .stats {
+            background: #1E1620;
+            border: 1px solid #3A2A38;
+        }
+        body.dark .score {
+            background: #1B5E20;
+            color: #A5D6A7;
+        }
+        body.dark .errors {
+            background: #4A1E1E;
+            color: #EF9A9A;
+        }
+        body.dark .column {
+            background: #1E1620;
+            border: 1px solid #3A2A38;
+        }
+        body.dark .column h3 {
+            color: #FFB3D1;
+            border-bottom: 2px solid #3A2A38;
+        }
+        body.dark .card {
+            background: #2E1F2A;
+            border-color: #3A2A38;
+            color: #E0B0D5;
+        }
+        body.dark .card:hover {
+            background: #3A2A4A;
+            border-color: #FF5E9C;
+        }
+        body.dark .card.selected {
+            background: #FF5E9C;
+            border-color: #FF5E9C;
+            color: white;
+        }
+        body.dark .card.matched {
+            background: #1B5E20;
+            border-color: #4CAF50;
+            color: #A5D6A7;
+        }
+        body.dark .definition-card { border-left-color: #FF5E9C; }
+        body.dark .concept-card { border-right-color: #4A2C3A; }
+        body.dark .matched-pairs {
+            background: #2E1F2A;
+            border: 1px solid #3A2A38;
+        }
+        body.dark .matched-title { color: #FFB3D1; }
+        body.dark .matched-item {
+            background: #1B5E20;
+            color: #A5D6A7;
+        }
+        body.dark .fun-fact {
+            background: #2E1F2A;
+            border-left-color: #FF5E9C;
+        }
+        body.dark .fun-fact h4 { color: #FFB3D1; }
+        body.dark .fun-fact p { color: #E0B0D5; }
+        body.dark .reset-btn {
+            background: #FF5E9C;
+            color: white;
+        }
+        body.dark .reset-btn:hover {
+            background: #ff3d7a;
+        }
+        body.dark .copyright {
+            border-top: 1px solid #3A2A38;
+            color: #888;
+        }
+        body.dark .theme-toggle {
+            background: rgba(255, 94, 156, 0.2);
+            border-color: #FF5E9C;
+            color: #FFB3D1;
+        }
+        
+        /* ===== LIGHT THEME ===== */
+        body.light {
+            background: #fff5f7;
+            color: #5a3e4b;
+        }
+        body.light .back-home {
+            background: white;
+            color: #d47a9e;
+            border: 1px solid #ffdfe8;
+        }
+        body.light .back-home:hover {
+            background: #ffeef3;
+            border-color: #d47a9e;
+        }
+        body.light .header {
+            background: #ffe9ef;
+            border: none;
+        }
+        body.light h1 { color: #d47a9e; }
+        body.light .sub { color: #b5838d; }
+        body.light .stats {
+            background: white;
+            border: 1px solid #ffdfe8;
+        }
+        body.light .score {
+            background: #d4edda;
+            color: #2e7d32;
+        }
+        body.light .errors {
+            background: #ffdfe8;
+            color: #c62828;
+        }
+        body.light .column {
+            background: white;
+            border: 1px solid #ffdfe8;
+        }
+        body.light .column h3 {
+            color: #d47a9e;
+            border-bottom: 2px solid #f3c4d4;
+        }
+        body.light .card {
+            background: #fffafb;
+            border-color: #ffdfe8;
+            color: #5a3e4b;
+        }
+        body.light .card:hover {
+            background: #ffeef3;
+            border-color: #d47a9e;
+        }
+        body.light .card.selected {
+            background: #f3c4d4;
+            border-color: #d47a9e;
+        }
+        body.light .card.matched {
+            background: #c8e6c9;
+            border-color: #4caf50;
+            color: #2e7d32;
+        }
+        body.light .definition-card { border-left-color: #d47a9e; }
+        body.light .concept-card { border-right-color: #f3c4d4; }
+        body.light .matched-pairs {
+            background: #fff0f3;
+            border: 1px solid #f3c4d4;
+        }
+        body.light .matched-title { color: #b5838d; }
+        body.light .matched-item {
+            background: #d4edda;
+            color: #2e7d32;
+        }
+        body.light .fun-fact {
+            background: #fff8e1;
+            border-left-color: #ffb74d;
+        }
+        body.light .fun-fact h4 { color: #e65100; }
+        body.light .fun-fact p { color: #5a3e4b; }
+        body.light .reset-btn {
+            background: #d47a9e;
+            color: white;
+        }
+        body.light .reset-btn:hover {
+            background: #b86284;
+        }
+        body.light .copyright {
             border-top: 1px solid #ffdfe8;
             color: #c98aa8;
-            font-size: 0.7rem;
+        }
+        body.light .theme-toggle {
+            background: rgba(212, 122, 158, 0.15);
+            border-color: #d47a9e;
+            color: #d47a9e;
         }
         
         @media (max-width: 700px) {
             .game-board { flex-direction: column; }
             .card { font-size: 0.85rem; padding: 12px 15px; }
             .column { min-width: 280px; }
+            .theme-toggle {
+                top: 0.5rem;
+                right: 0.5rem;
+                padding: 0.3rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            body { padding: 1rem; }
         }
     </style>
 </head>
-<body>
+<body class="dark">
 <div class="container">
+    <!-- Theme toggle button -->
+    <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙 Dark</div>
+    
     <a href="https://nananptpc.github.io/kho-chu-cua-np" class="back-home">← Về thư viện</a>
     
     <div class="header">
@@ -248,6 +437,33 @@
 </div>
 
 <script>
+    // ========== THEME HANDLING ==========
+    function setTheme(theme) {
+        document.body.classList.remove('dark', 'light');
+        document.body.classList.add(theme);
+        localStorage.setItem('theme_liushu', theme);
+        const toggleBtn = document.getElementById('themeToggle');
+        if (theme === 'dark') {
+            toggleBtn.innerHTML = '🌙 Dark';
+        } else {
+            toggleBtn.innerHTML = '☀️ Light';
+        }
+    }
+    
+    function toggleTheme() {
+        const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+    }
+    
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme_liushu');
+    if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light')) {
+        setTheme(savedTheme);
+    } else {
+        setTheme('dark');
+    }
+    
     // ============================================
     // DỮ LIỆU LỤC THƯ (6 cặp)
     // ============================================
@@ -261,7 +477,7 @@
     ];
 
     // ============================================
-    // KIẾN THỨC "CÓ THỂ BẠN CHƯA BIẾT" (18 facts)
+    // KIẾN THỨC "CÓ THỂ BẠN CHƯA BIẾT"
     // ============================================
     const funFacts = [
         "📊 Khoảng 80-90% chữ Hán là chữ Hình thanh (形声) — gồm bộ chỉ nghĩa và bộ chỉ âm! Ví dụ: 妈 (mẹ) có bộ 女 (nữ) chỉ nghĩa, 马 (mã) chỉ âm.",
@@ -284,7 +500,6 @@
         "⏳ Chữ '一' (nhất) là chữ Hán đơn giản nhất, chỉ có 1 nét. Chữ '齉' (nàng - nghẹt mũi) có 36 nét, là một trong những chữ phức tạp nhất."
     ];
 
-    // Hàm trộn mảng (random)
     function shuffleArray(arr) {
         for (let i = arr.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
