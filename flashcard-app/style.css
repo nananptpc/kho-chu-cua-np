@@ -1,263 +1,299 @@
-// ==================== MẬT KHẨU TRUY CẬP ====================
-// ⚠️ HÃY ĐỔI 123456 THÀNH 6 SỐ CỦA BẠN ⚠️
-const CORRECT_CODE = "123456";
-
-// Tạo lớp phủ mật khẩu ngay khi trang tải
-const overlayDiv = document.createElement('div');
-overlayDiv.id = 'access-overlay';
-overlayDiv.innerHTML = `
-    <div class="access-box">
-        <h3>🔐 NHẬP MÃ TRUY CẬP</h3>
-        <p>Nhập 6 số để vào học</p>
-        <input type="password" id="access-code" maxlength="6" pattern="\\d*" inputmode="numeric" placeholder="******">
-        <br>
-        <button id="verify-btn">Xác nhận</button>
-        <div id="access-error" class="error-msg"></div>
-    </div>
-`;
-document.body.prepend(overlayDiv);
-
-function checkAccess() {
-    const verifyBtn = document.getElementById('verify-btn');
-    const accessInput = document.getElementById('access-code');
-    const errorDiv = document.getElementById('access-error');
-    
-    verifyBtn.onclick = function() {
-        if (accessInput.value === CORRECT_CODE) {
-            document.getElementById('access-overlay').style.display = 'none';
-            document.getElementById('mainApp').style.display = 'block';
-        } else {
-            errorDiv.innerHTML = '❌ Mã sai! Vui lòng thử lại.';
-            accessInput.value = '';
-        }
-    };
-    accessInput.onkeypress = function(e) {
-        if (e.key === 'Enter') verifyBtn.click();
-    };
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-// ==================== DỮ LIỆU TỪ VỰNG (HSK 1-9) ====================
-let masterVocabulary = [];
-let filteredVocabulary = [];
-let currentView = "grid";
-let flashcardIndex = 0;
-let isFlipped = false;
-
-const contentArea = document.getElementById("contentArea");
-const gridBtn = document.getElementById("gridViewBtn");
-const flashcardBtn = document.getElementById("flashcardViewBtn");
-const filterHsk = document.getElementById("filterHsk");
-const filterType = document.getElementById("filterType");
-const filterTheme = document.getElementById("filterTheme");
-const resetBtn = document.getElementById("resetFiltersBtn");
-
-// Dữ liệu mẫu đầy đủ HSK 1-9
-function loadSampleData() {
-    masterVocabulary = [
-        { word: "书", pinyin: "shū", meaning: "sách", type: "danh từ", theme: "Học tập", hsk: "HSK 1", image_url: "" },
-        { word: "桌子", pinyin: "zhuōzi", meaning: "bàn", type: "danh từ", theme: "Đồ dùng", hsk: "HSK 1", image_url: "" },
-        { word: "咖啡", pinyin: "kāfēi", meaning: "cà phê", type: "danh từ", theme: "Đồ uống", hsk: "HSK 1", image_url: "" },
-        { word: "水", pinyin: "shuǐ", meaning: "nước", type: "danh từ", theme: "Đồ uống", hsk: "HSK 1", image_url: "" },
-        { word: "商店", pinyin: "shāngdiàn", meaning: "cửa hàng", type: "danh từ", theme: "Địa điểm", hsk: "HSK 2", image_url: "" },
-        { word: "水果", pinyin: "shuǐguǒ", meaning: "hoa quả", type: "danh từ", theme: "Thực phẩm", hsk: "HSK 1", image_url: "" },
-        { word: "雨", pinyin: "yǔ", meaning: "mưa", type: "danh từ", theme: "Thời tiết", hsk: "HSK 1", image_url: "" },
-        { word: "电视", pinyin: "diànshì", meaning: "tivi", type: "danh từ", theme: "Đồ dùng", hsk: "HSK 2", image_url: "" },
-        { word: "热", pinyin: "rè", meaning: "nóng", type: "tính từ", theme: "Cảm giác", hsk: "HSK 2", image_url: "" },
-        { word: "高兴", pinyin: "gāoxìng", meaning: "vui vẻ", type: "tính từ", theme: "Cảm xúc", hsk: "HSK 2", image_url: "" },
-        { word: "爱", pinyin: "ài", meaning: "yêu", type: "động từ", theme: "Cảm xúc", hsk: "HSK 1", image_url: "" },
-        { word: "学习", pinyin: "xuéxí", meaning: "học tập", type: "động từ", theme: "Học tập", hsk: "HSK 1", image_url: "" },
-        { word: "老师", pinyin: "lǎoshī", meaning: "giáo viên", type: "danh từ", theme: "Công việc", hsk: "HSK 1", image_url: "" },
-        { word: "很", pinyin: "hěn", meaning: "rất", type: "phó từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
-        { word: "个", pinyin: "gè", meaning: "cái (lượng từ)", type: "lượng từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
-        { word: "一", pinyin: "yī", meaning: "một", type: "số từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
-        { word: "和", pinyin: "hé", meaning: "và", type: "liên từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
-        { word: "的", pinyin: "de", meaning: "(trợ từ)", type: "trợ từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
-        { word: "在", pinyin: "zài", meaning: "ở tại", type: "giới từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" },
-        { word: "啊", pinyin: "ā", meaning: "(thán từ)", type: "thán từ", theme: "Ngữ pháp", hsk: "HSK 1", image_url: "" }
-    ];
-    
-    // Thêm các cấp độ HSK 3-9 (mẫu)
-    for (let i = 3; i <= 9; i++) {
-        for (let j = 1; j <= 3; j++) {
-            masterVocabulary.push({
-                word: `Từ_HSK${i}_${j}`,
-                pinyin: `pinyin_${i}_${j}`,
-                meaning: `Nghĩa cấp độ ${i}`,
-                type: ["danh từ", "động từ", "tính từ"][j % 3],
-                theme: "Đa dạng",
-                hsk: `HSK ${i}`,
-                image_url: ""
-            });
-        }
-    }
+body {
+  background-color: #1a1a2e;  /* nền tối như Anki nhưng sâu hơn */
+  font-family: 'Segoe UI', 'Noto Sans SC', system-ui, -apple-system, sans-serif;
+  color: #eef2ff;
+  line-height: 1.5;
+  padding: 1.5rem;
 }
 
-function initFilters() {
-    const hskSet = new Set(masterVocabulary.map(v => v.hsk).filter(Boolean));
-    const typeSet = new Set(masterVocabulary.map(v => v.type).filter(Boolean));
-    const themeSet = new Set(masterVocabulary.map(v => v.theme).filter(Boolean));
-    
-    populateSelect(filterHsk, ["Tất cả HSK", ...Array.from(hskSet).sort()]);
-    populateSelect(filterType, ["Tất cả từ loại", ...Array.from(typeSet).sort()]);
-    populateSelect(filterTheme, ["Tất cả chủ đề", ...Array.from(themeSet).sort()]);
+.app-container {
+  max-width: 1300px;
+  margin: 0 auto;
 }
 
-function populateSelect(selectElement, optionsArray) {
-    selectElement.innerHTML = "";
-    optionsArray.forEach(opt => {
-        const option = document.createElement("option");
-        option.value = opt;
-        option.textContent = opt;
-        selectElement.appendChild(option);
-    });
+/* Header */
+header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #f0f0ff, #b8b8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 0.25rem;
 }
 
-function applyFiltersAndRender() {
-    const selectedHsk = filterHsk.value;
-    const selectedType = filterType.value;
-    const selectedTheme = filterTheme.value;
-    
-    filteredVocabulary = masterVocabulary.filter(item => {
-        if (selectedHsk !== "Tất cả HSK" && item.hsk !== selectedHsk) return false;
-        if (selectedType !== "Tất cả từ loại" && item.type !== selectedType) return false;
-        if (selectedTheme !== "Tất cả chủ đề" && item.theme !== selectedTheme) return false;
-        return true;
-    });
-    flashcardIndex = 0;
-    isFlipped = false;
-    renderCurrentView();
+.subtitle {
+  color: #a5b4fc;
+  font-size: 0.9rem;
+  border-left: 3px solid #7c3aed;
+  padding-left: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
-function renderCurrentView() {
-    if (currentView === "grid") {
-        renderGridView();
-    } else {
-        renderFlashcardView();
-    }
+/* Bộ lọc */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: #25253a;
+  padding: 1rem 1.2rem;
+  border-radius: 1.25rem;
+  margin-bottom: 1.8rem;
+  align-items: flex-end;
 }
 
-function renderGridView() {
-    if (!filteredVocabulary.length) {
-        contentArea.innerHTML = `<div class="loading-message">🌸 Chưa có từ nào phù hợp với bộ lọc 🌸</div>`;
-        return;
-    }
-    let html = `<div class="vocab-grid">`;
-    filteredVocabulary.forEach(v => {
-        html += `
-            <div class="word-card" onclick="speakWord('${v.word}')">
-                <div class="card-img">📖</div>
-                <div class="card-info">
-                    <div class="hanzi">${v.word}</div>
-                    <div class="pinyin">${v.pinyin}</div>
-                    <div class="word-type">${v.type}</div>
-                    <div class="meaning">✨ ${v.meaning}</div>
-                    <div class="theme-badge">${v.theme} · ${v.hsk}</div>
-                </div>
-            </div>
-        `;
-    });
-    html += `</div>`;
-    contentArea.innerHTML = html;
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 130px;
 }
 
-function renderFlashcardView() {
-    if (!filteredVocabulary.length) {
-        contentArea.innerHTML = `<div class="loading-message">🌸 Không có thẻ nào, hãy thay đổi bộ lọc 🌸</div>`;
-        return;
-    }
-    if (flashcardIndex >= filteredVocabulary.length) flashcardIndex = 0;
-    const word = filteredVocabulary[flashcardIndex];
-    const total = filteredVocabulary.length;
-    let cardInner = '';
-    if (!isFlipped) {
-        cardInner = `
-            <div class="flashcard-front">
-                <div class="front-han">${word.word}</div>
-                <div class="front-pinyin">${word.pinyin}</div>
-                <div class="word-type" style="margin-top:12px;">${word.type}  ·  ${word.hsk}</div>
-                <div class="flip-hint" style="margin-top:1rem; font-size:0.7rem;">👉 Nhấn vào thẻ để xem nghĩa</div>
-            </div>
-        `;
-    } else {
-        cardInner = `
-            <div class="flashcard-back">
-                <div class="back-meaning">${word.meaning}</div>
-                <div class="back-desc" style="margin-top:12px;">📚 Chủ đề: ${word.theme}</div>
-                <div style="margin-top:1rem; font-size:0.75rem;">🔊 Bấm vào thẻ để nghe phát âm</div>
-            </div>
-        `;
-    }
-    const flashHtml = `
-        <div class="flashcard-mode">
-            <div class="progress-text" style="text-align:center; margin-bottom:12px;">${flashcardIndex+1} / ${total}  •  ${word.theme}</div>
-            <div class="flashcard" id="flashcardCore">
-                ${cardInner}
-            </div>
-            <div class="flashcard-nav">
-                <button id="prevFlashBtn">◀ Trước</button>
-                <button id="nextFlashBtn">Sau ▶</button>
-            </div>
-            <div style="text-align:center; margin-top:10px;"><small>💖 Học chủ động - Nhớ lâu hơn</small></div>
-        </div>
-    `;
-    contentArea.innerHTML = flashHtml;
-    const flashDiv = document.getElementById("flashcardCore");
-    if(flashDiv) {
-        flashDiv.addEventListener("click", () => {
-            isFlipped = !isFlipped;
-            renderFlashcardView();
-        });
-    }
-    document.getElementById("prevFlashBtn")?.addEventListener("click", () => {
-        if(filteredVocabulary.length === 0) return;
-        flashcardIndex = (flashcardIndex - 1 + filteredVocabulary.length) % filteredVocabulary.length;
-        isFlipped = false;
-        renderFlashcardView();
-    });
-    document.getElementById("nextFlashBtn")?.addEventListener("click", () => {
-        if(filteredVocabulary.length === 0) return;
-        flashcardIndex = (flashcardIndex + 1) % filteredVocabulary.length;
-        isFlipped = false;
-        renderFlashcardView();
-    });
+.filter-group label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #9ca3ff;
 }
 
-window.speakWord = function(wordText) {
-    if(!wordText) return;
-    const utterance = new SpeechSynthesisUtterance(wordText);
-    utterance.lang = "zh-CN";
-    utterance.rate = 0.8;
-    speechSynthesis.cancel();
-    speechSynthesis.speak(utterance);
-};
+select {
+  background: #1e1e2f;
+  border: 1px solid #3f3f5e;
+  color: #f0f0ff;
+  padding: 0.5rem 0.8rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+}
 
-gridBtn.addEventListener("click", () => {
-    currentView = "grid";
-    gridBtn.classList.add("active");
-    flashcardBtn.classList.remove("active");
-    renderCurrentView();
-});
-flashcardBtn.addEventListener("click", () => {
-    currentView = "flashcard";
-    flashcardBtn.classList.add("active");
-    gridBtn.classList.remove("active");
-    renderCurrentView();
-});
-filterHsk.addEventListener("change", applyFiltersAndRender);
-filterType.addEventListener("change", applyFiltersAndRender);
-filterTheme.addEventListener("change", applyFiltersAndRender);
-resetBtn.addEventListener("click", () => {
-    filterHsk.value = "Tất cả HSK";
-    filterType.value = "Tất cả từ loại";
-    filterTheme.value = "Tất cả chủ đề";
-    applyFiltersAndRender();
-});
+select:hover {
+  border-color: #7c3aed;
+}
 
-// Khởi tạo
-loadSampleData();
-initFilters();
-applyFiltersAndRender();
-checkAccess();
+.clear-btn {
+  background: #2d2d44;
+  border: none;
+  color: #f87171;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-left: auto;
+}
 
-// Ẩn app ban đầu cho đến khi nhập đúng mật khẩu
-document.getElementById('mainApp')?.setAttribute('style', 'display: none;');
+.clear-btn:hover {
+  background: #f87171;
+  color: white;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.8rem;
+  border-bottom: 1px solid #33334e;
+  padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: #a5b4fc;
+  font-size: 1rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 500;
+}
+
+.tab-btn.active {
+  background: #7c3aed;
+  color: white;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3);
+}
+
+.tab-btn:hover:not(.active) {
+  background: #333352;
+  color: white;
+}
+
+/* Content area */
+.content-area {
+  min-height: 450px;
+}
+
+/* Dạng lưới (grid) */
+.grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.3rem;
+}
+
+.card-item {
+  background: #2d2d3f;
+  border-radius: 1.2rem;
+  padding: 1.2rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #3f3f5a;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-item:hover {
+  transform: translateY(-3px);
+  border-color: #7c3aed;
+  background: #33334c;
+}
+
+.hanzi {
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.2rem;
+}
+
+.pinyin {
+  font-size: 0.85rem;
+  color: #c4b5fd;
+  letter-spacing: 0.5px;
+}
+
+.pos {
+  font-size: 0.7rem;
+  background: #1f1f30;
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  margin: 0.5rem 0;
+  color: #a78bfa;
+}
+
+.collocations {
+  font-size: 0.85rem;
+  background: #1e1e2e;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.8rem;
+  margin: 0.5rem 0;
+  border-left: 3px solid #facc15;
+  color: #fde047;
+}
+
+.example {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  margin-top: 0.8rem;
+  color: #94a3b8;
+}
+
+/* Dạng flashcard */
+.flashcard-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 450px;
+}
+
+.flip-card {
+  background: transparent;
+  width: 100%;
+  max-width: 500px;
+  height: 380px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  border-radius: 1.5rem;
+}
+
+.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #2d2d3f;
+  border: 1px solid #4b4b6e;
+  box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.4);
+}
+
+.front {
+  background: linear-gradient(145deg, #2d2d3f, #252538);
+}
+
+.back {
+  background: #25253a;
+  transform: rotateY(180deg);
+  overflow-y: auto;
+}
+
+/* Nút điều khiển */
+.card-controls {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.sound-btn {
+  background: #1e1e2f;
+  border: 1px solid #7c3aed;
+  color: #c4b5fd;
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin: 0 0.3rem;
+  transition: 0.2s;
+}
+
+.sound-btn:hover {
+  background: #7c3aed;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  body {
+    padding: 1rem;
+  }
+  .grid-view {
+    grid-template-columns: 1fr;
+  }
+  .filter-group {
+    min-width: 100px;
+  }
+  .clear-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+}
