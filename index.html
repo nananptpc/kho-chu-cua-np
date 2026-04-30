@@ -24,7 +24,6 @@
       margin: 0 auto;
     }
 
-    /* ===== HERO ===== */
     .hero {
       text-align: center;
       background: #1E1620;
@@ -52,7 +51,6 @@
       margin-top: 0.8rem;
     }
 
-    /* ===== LEVEL CARDS ===== */
     .level {
       background: #1E1620;
       border-radius: 1.5rem;
@@ -86,14 +84,12 @@
       transition: transform 0.2s;
     }
 
-    /* Flashcard link riêng */
     .flashcard-main-link {
       text-decoration: none;
       display: block;
       margin-bottom: 1.2rem;
     }
 
-    /* ===== SECTION (QUIZ / TÀI LIỆU) ===== */
     .section-header {
       display: flex;
       justify-content: space-between;
@@ -131,7 +127,6 @@
       gap: 0.6rem;
     }
 
-    /* Quiz links */
     .quiz-list {
       display: flex;
       flex-direction: column;
@@ -174,7 +169,6 @@
       font-weight: 500;
     }
 
-    /* Utility */
     .hidden {
       display: none;
     }
@@ -191,14 +185,13 @@
 </head>
 <body>
 <div class="container">
-  <!-- HERO -->
   <div class="hero">
-    <h1>🌸 kho chữ của np 🌸</h1>
+    <h1>🌸 kho chữ của np</h1>
     <div class="gamification">🎮 Gamification</div>
   </div>
 
-  <!-- FLASHCARD THÔNG MINH (link sang app chính) -->
-  <a href="https://nananptpc.github.io/kho-chu-cua-np/flashcard-app/" class="flashcard-main-link">
+  <!-- FLASHCARD THÔNG MINH -->
+  <a href="/kho-chu-cua-np/flashcard-app/" class="flashcard-main-link">
     <div class="level">
       <div class="level-header" style="cursor: pointer;">
         <span class="level-title">📇 Flashcard thông minh</span>
@@ -213,25 +206,26 @@
       <span class="toggle-icon" id="hsk1-icon">▼</span>
     </div>
     <div id="hsk1-content" class="quiz-list">
+      
       <!-- QUIZ section -->
       <div class="section-header" onclick="toggleSection('quiz')">
         <span class="section-title">📝 QUIZ</span>
         <span class="section-icon" id="quiz-icon">▼</span>
       </div>
       <div id="quiz-section" class="section-content">
-        <a href="https://nananptpc.github.io/cau-tao-chu-han" class="quiz-link">
+        <a href="/kho-chu-cua-np/HSK1/cau-tao-chu-han/" class="quiz-link">
           <span class="quiz-name">📖 Cấu tạo chữ Hán</span>
           <span class="badge">tượng hình · chỉ sự · hội ý · hình thanh</span>
         </a>
-        <a href="https://nananptpc.github.io/quy-tac-viet-chu-han" class="quiz-link">
+        <a href="/kho-chu-cua-np/HSK1/quy-tac-viet-chu-han/" class="quiz-link">
           <span class="quiz-name">✍️ Quy tắc viết chữ Hán</span>
           <span class="badge">8 nét cơ bản · bút thuận</span>
         </a>
-        <a href="https://nananptpc.github.io/ngu-am-bien-dieu" class="quiz-link">
+        <a href="/kho-chu-cua-np/HSK1/ngu-am-bien-dieu/" class="quiz-link">
           <span class="quiz-name">🎵 Ngữ âm & biến điệu</span>
           <span class="badge">thanh mẫu · vận mẫu · i/u/ü · biến thanh</span>
         </a>
-        <a href="https://nananptpc.github.io/phat-am-va-dat-luoi/" class="quiz-link">
+        <a href="/kho-chu-cua-np/HSK1/phat-am-va-dat-luoi/" class="quiz-link">
           <span class="quiz-name">🎤 Phát âm & Đặt lưỡi</span>
           <span class="badge">thanh mẫu · vận mẫu · thanh điệu</span>
         </a>
@@ -243,15 +237,16 @@
         <span class="section-icon" id="tailieu-icon">▼</span>
       </div>
       <div id="tailieu-section" class="section-content">
-        <a href="https://nananptpc.github.io/luc-thu-matching" class="quiz-link">
+        <a href="/kho-chu-cua-np/HSK1/luc-thu-matching/" class="quiz-link">
           <span class="quiz-name">🔗 Lục thư – Ghép định nghĩa & khái niệm</span>
           <span class="badge">kéo thả · tương tác</span>
         </a>
-        <a href="https://nananptpc.github.io/bang-thanh-mau-van-mau" class="quiz-link">
+        <a href="/kho-chu-cua-np/HSK1/bang-thanh-mau-van-mau/" class="quiz-link">
           <span class="quiz-name">🎵 Bảng thanh mẫu - vận mẫu</span>
           <span class="badge">âm tắc · âm xát · ghép âm · quy tắc</span>
         </a>
       </div>
+
     </div>
   </div>
 
