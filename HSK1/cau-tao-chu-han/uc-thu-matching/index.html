@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lục thư - Ghép cặp | Kho Chữ Của NP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fff5f7;
+            color: #5a3e4b;
+            padding: 30px 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .back-home {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #d47a9e;
+            text-decoration: none;
+            font-weight: 500;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 60px;
+            border: 1px solid #ffdfe8;
+            font-size: 0.85rem;
+        }
+        .back-home:hover {
+            background: #ffeef3;
+            border-color: #d47a9e;
+        }
+        .header {
+            text-align: center;
+            background: #ffe9ef;
+            border-radius: 60px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h1 { color: #d47a9e; font-size: 2rem; margin-bottom: 5px; }
+        .sub { color: #b5838d; font-size: 0.85rem; }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 12px 25px;
+            border-radius: 60px;
+            margin-bottom: 25px;
+            border: 1px solid #ffdfe8;
+            font-weight: 600;
+        }
+        .score { color: #2e7d32; background: #d4edda; padding: 5px 15px; border-radius: 40px; }
+        .errors { color: #c62828; background: #ffdfe8; padding: 5px 15px; border-radius: 40px; }
+        
+        .game-board {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        .column {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 35px;
+            padding: 25px;
+            border: 1px solid #ffdfe8;
+        }
+        .column h3 {
+            text-align: center;
+            color: #d47a9e;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f3c4d4;
+            font-size: 1.2rem;
+        }
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .card {
+            background: #fffafb;
+            border: 2px solid #ffdfe8;
+            border-radius: 20px;
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+        .card:hover {
+            background: #ffeef3;
+            border-color: #d47a9e;
+            transform: translateX(5px);
+        }
+        .card.selected {
+            background: #f3c4d4;
+            border-color: #d47a9e;
+            box-shadow: 0 0 0 2px rgba(212,122,158,0.3);
+        }
+        .card.matched {
+            background: #c8e6c9;
+            border-color: #4caf50;
+            text-decoration: line-through;
+            opacity: 0.8;
+            cursor: default;
+            pointer-events: none;
+        }
+        .definition-card { border-left: 6px solid #d47a9e; }
+        .concept-card { border-right: 6px solid #f3c4d4; }
+        
+        .matched-pairs {
+            margin-top: 25px;
+            background: #fff0f3;
+            border-radius: 25px;
+            padding: 15px 20px;
+            border: 1px solid #f3c4d4;
+        }
+        .matched-title {
+            font-size: 0.8rem;
+            color: #b5838d;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .matched-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .matched-item {
+            background: #d4edda;
+            color: #2e7d32;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .fun-fact {
+            margin-top: 25px;
+            background: #fff8e1;
+            border-radius: 25px;
+            padding: 18px 22px;
+            border-left: 6px solid #ffb74d;
+            display: none;
+        }
+        .fun-fact.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fun-fact h4 {
+            color: #e65100;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        .fun-fact p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #5a3e4b;
+        }
+        
+        .reset-btn {
+            background: #d47a9e;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .reset-btn:hover {
+            background: #b86284;
+            transform: scale(1.02);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #ffdfe8;
+            color: #c98aa8;
+            font-size: 0.7rem;
+        }
+        
+        @media (max-width: 700px) {
+            .game-board { flex-direction: column; }
+            .card { font-size: 0.85rem; padding: 12px 15px; }
+            .column { min-width: 280px; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="https://nananptpc.github.io/kho-chu-cua-np" class="back-home">← Về thư viện</a>
+    
+    <div class="header">
+        <h1>🌸 LỤC THƯ</h1>
+        <div class="sub">Chọn ĐỊNH NGHĨA → chọn KHÁI NIỆM để ghép cặp</div>
+    </div>
+
+    <div class="stats">
+        <span class="score">✅ Đã ghép đúng: <span id="matchedCount">0</span>/6</span>
+        <span class="errors">❌ Sai: <span id="errorCount">0</span>/3</span>
+    </div>
+
+    <div class="game-board">
+        <div class="column">
+            <h3>📖 ĐỊNH NGHĨA</h3>
+            <div class="card-list" id="definitionsList"></div>
+        </div>
+        <div class="column">
+            <h3>🔖 KHÁI NIỆM (LỤC THƯ)</h3>
+            <div class="card-list" id="conceptsList"></div>
+        </div>
+    </div>
+
+    <div class="matched-pairs">
+        <div class="matched-title">🏆 Các cặp đã ghép đúng 🏆</div>
+        <div class="matched-list" id="matchedList"></div>
+    </div>
+
+    <div class="fun-fact" id="funFact">
+        <h4>📚 CÓ THỂ BẠN CHƯA BIẾT?</h4>
+        <p id="funFactText"></p>
+    </div>
+
+    <div style="text-align: center;">
+        <button class="reset-btn" id="resetBtn">🔄 Làm lại / Học lại</button>
+    </div>
+    <div class="copyright">© nananp.tpc</div>
+</div>
+
+<script>
+    // ============================================
+    // DỮ LIỆU LỤC THƯ (6 cặp)
+    // ============================================
+    const rawPairs = [
+        { id: 0, definition: "Vẽ lại hình dáng của sự vật", concept: "Tượng hình (象形)" },
+        { id: 1, definition: "Dùng ký hiệu trừu tượng để biểu thị ý niệm", concept: "Chỉ sự (指事)" },
+        { id: 2, definition: "Kết hợp hai hoặc nhiều chữ đơn để tạo nghĩa mới", concept: "Hội ý (会意)" },
+        { id: 3, definition: "Gồm bộ chỉ nghĩa và bộ chỉ âm", concept: "Hình thanh (形声)" },
+        { id: 4, definition: "Mượn chữ này để ghi âm chữ khác (cùng âm, khác nghĩa)", concept: "Giả tá (假借)" },
+        { id: 5, definition: "Đổi nghĩa của chữ dựa trên nghĩa gốc (mở rộng nghĩa)", concept: "Chuyển chú (转注)" }
+    ];
+
+    // ============================================
+    // KIẾN THỨC "CÓ THỂ BẠN CHƯA BIẾT" (18 facts)
+    // ============================================
+    const funFacts = [
+        "📊 Khoảng 80-90% chữ Hán là chữ Hình thanh (形声) — gồm bộ chỉ nghĩa và bộ chỉ âm! Ví dụ: 妈 (mẹ) có bộ 女 (nữ) chỉ nghĩa, 马 (mã) chỉ âm.",
+        "🔤 Chữ Tượng hình (象形) là những chữ sớm nhất, được vẽ theo hình dáng sự vật như 日 (mặt trời), 山 (núi), 水 (nước), 火 (lửa).",
+        "🧩 Chữ Hội ý (会意) ghép 2-3 chữ đơn để tạo nghĩa mới: 休 (nghỉ) = người 人 dựa vào cây 木; 林 (rừng) = hai cây 木 + 木.",
+        "📍 Chữ Chỉ sự (指事) dùng ký hiệu trừu tượng: 上 (trên), 下 (dưới) — không vẽ được bằng hình ảnh cụ thể, chỉ diễn tả ý niệm.",
+        "🔄 Chữ Chuyển chú (转注) là mở rộng nghĩa: chữ 老 (già) → 考 (cha già, khảo nghiệm). Cùng nghĩa gốc nhưng khác cách dùng.",
+        "📖 Chữ Giả tá (假借) là mượn chữ này để viết chữ khác cùng âm: 来 (lúa mạch) bị mượn làm 'đến'; 北 (bắc) vốn là 'quay lưng'.",
+        "🎯 Thứ tự ra đời của Lục thư: Tượng hình → Chỉ sự → Hội ý → Hình thanh → Chuyển chú → Giả tá. Hình thanh xuất hiện muộn nhưng chiếm số lượng lớn nhất.",
+        "🇨🇳 Chữ Hán là một trong những hệ thống chữ viết lâu đời nhất thế giới, còn được sử dụng liên tục cho đến ngày nay (hơn 3000 năm).",
+        "✍️ Bộ thủ (部首) là thành phần quan trọng để tra cứu chữ Hán. Có khoảng 214 bộ thủ trong Từ điển Khang Hy.",
+        "🔊 Cùng một chữ Hán nhưng có thể phát âm khác nhau ở các vùng: Quan thoại (Bắc Kinh), Quảng Đông, Đài Loan, Triều Châu...",
+        "📝 Chữ Hán giản thể (Trung Quốc đại lục) và chữ Hán phồn thể (Đài Loan, Hồng Kông) khác nhau về cách viết nhưng cùng nghĩa. Ví dụ: 国 (giản) vs 國 (phồn).",
+        "🧠 Học chữ Hán qua Lục thư giúp bạn NHỚ LÂU HƠN vì hiểu được LOGIC cấu tạo, không phải học vẹt!",
+        "🏆 Chữ Hán phức tạp nhất thế giới là 'biáng' (biang biang mì) với 57 nét — không có trong bộ mã Unicode chuẩn!",
+        "📚 Người Trung Quốc cần nhớ khoảng 3000-4000 chữ Hán để đọc báo, còn người bản xứ có thể biết 6000-8000 chữ.",
+        "🎨 Nghệ thuật viết chữ Hán đẹp gọi là Thư pháp (书法) — được coi là một bộ môn nghệ thuật cao quý ở Trung Quốc, Nhật Bản, Hàn Quốc.",
+        "🤝 Tiếng Nhật và tiếng Hàn cũng sử dụng chữ Hán (Kanji trong tiếng Nhật, Hanja trong tiếng Hàn) nhưng cách đọc khác hoàn toàn.",
+        "💡 Mẹo học Lục thư: Vẽ hình (tượng hình) → Hiểu ý niệm (chỉ sự) → Ghép nghĩa (hội ý) → Nhớ bộ (hình thanh) — càng học càng dễ!",
+        "⏳ Chữ '一' (nhất) là chữ Hán đơn giản nhất, chỉ có 1 nét. Chữ '齉' (nàng - nghẹt mũi) có 36 nét, là một trong những chữ phức tạp nhất."
+    ];
+
+    // Hàm trộn mảng (random)
+    function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    let definitionsList = [];
+    let conceptsList = [];
+    let matched = new Array(6).fill(false);
+    let errorCount = 0;
+    let selectedType = null;
+    let selectedId = null;
+    let selectedElement = null;
+
+    function initRandom() {
+        const defs = rawPairs.map(p => ({ id: p.id, text: p.definition }));
+        const cons = rawPairs.map(p => ({ id: p.id, text: p.concept }));
+        definitionsList = shuffleArray([...defs]);
+        conceptsList = shuffleArray([...cons]);
+    }
+    initRandom();
+
+    function playSound(type) {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            oscillator.type = 'sine';
+            if (type === 'correct') {
+                oscillator.frequency.value = 880;
+                gainNode.gain.value = 0.15;
+                oscillator.start();
+                gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.3);
+                setTimeout(() => oscillator.stop(), 300);
+            } else {
+                oscillator.frequency.value = 220;
+                gainNode.gain.value = 0.15;
+                oscillator.start();
+                gainNode.gain.exponentialRampToValueAtTime(0.00001, audioContext.currentTime + 0.25);
+                setTimeout(() => oscillator.stop(), 250);
+            }
+        } catch(e) {}
+    }
+
+    function render() {
+        const defContainer = document.getElementById('definitionsList');
+        defContainer.innerHTML = '';
+        definitionsList.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'card definition-card';
+            if (matched[item.id]) div.classList.add('matched');
+            div.textContent = item.text;
+            div.setAttribute('data-type', 'definition');
+            div.setAttribute('data-id', item.id);
+            if (!matched[item.id]) div.onclick = () => selectCard('definition', item.id, div);
+            defContainer.appendChild(div);
+        });
+
+        const conceptContainer = document.getElementById('conceptsList');
+        conceptContainer.innerHTML = '';
+        conceptsList.forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'card concept-card';
+            if (matched[item.id]) div.classList.add('matched');
+            div.textContent = item.text;
+            div.setAttribute('data-type', 'concept');
+            div.setAttribute('data-id', item.id);
+            if (!matched[item.id]) div.onclick = () => selectCard('concept', item.id, div);
+            conceptContainer.appendChild(div);
+        });
+
+        const matchedList = document.getElementById('matchedList');
+        matchedList.innerHTML = '';
+        rawPairs.forEach(pair => {
+            if (matched[pair.id]) {
+                const span = document.createElement('span');
+                span.className = 'matched-item';
+                span.textContent = `✅ ${pair.definition.substring(0, 35)} → ${pair.concept}`;
+                matchedList.appendChild(span);
+            }
+        });
+
+        const matchedCount = matched.filter(m => m === true).length;
+        document.getElementById('matchedCount').innerText = matchedCount;
+        document.getElementById('errorCount').innerText = errorCount;
+
+        if (matchedCount === 6) {
+            const randomFact = funFacts[Math.floor(Math.random() * funFacts.length)];
+            document.getElementById('funFactText').innerHTML = randomFact;
+            document.getElementById('funFact').classList.add('show');
+        } else {
+            document.getElementById('funFact').classList.remove('show');
+        }
+
+        if (errorCount >= 3 && matchedCount < 6) {
+            document.querySelectorAll('.card').forEach(card => {
+                if (!card.classList.contains('matched')) {
+                    card.style.pointerEvents = 'none';
+                    card.style.opacity = '0.5';
+                }
+            });
+        } else {
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.pointerEvents = '';
+                card.style.opacity = '';
+            });
+        }
+    }
+
+    function selectCard(type, id, element) {
+        if (errorCount >= 3) return;
+        if (matched[id]) return;
+
+        if (selectedType === null) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+            selectedType = type;
+            selectedId = id;
+            selectedElement = element;
+            element.classList.add('selected');
+            return;
+        }
+
+        const firstType = selectedType;
+        const firstId = selectedId;
+        const secondType = type;
+        const secondId = id;
+
+        if (firstType === secondType) {
+            selectedElement.classList.remove('selected');
+            selectedType = type;
+            selectedId = id;
+            selectedElement = element;
+            element.classList.add('selected');
+            return;
+        }
+
+        const isMatch = (firstId === secondId);
+
+        if (isMatch) {
+            playSound('correct');
+            matched[firstId] = true;
+            selectedElement.classList.remove('selected');
+            element.classList.remove('selected');
+            selectedType = null;
+            selectedId = null;
+            selectedElement = null;
+            render();
+        } else {
+            playSound('wrong');
+            errorCount++;
+            selectedElement.style.background = '#ffdfe8';
+            element.style.background = '#ffdfe8';
+            setTimeout(() => {
+                selectedElement.style.background = '';
+                element.style.background = '';
+            }, 200);
+            selectedElement.classList.remove('selected');
+            element.classList.remove('selected');
+            selectedType = null;
+            selectedId = null;
+            selectedElement = null;
+            render();
+        }
+    }
+
+    function resetGame() {
+        matched = new Array(6).fill(false);
+        errorCount = 0;
+        selectedType = null;
+        selectedId = null;
+        selectedElement = null;
+        initRandom();
+        render();
+    }
+
+    document.getElementById('resetBtn').onclick = resetGame;
+    render();
+</script>
+</body>
+</html>
