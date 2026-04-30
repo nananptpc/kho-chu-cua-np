@@ -7,37 +7,248 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(145deg, #ffe4ec 0%, #ffd9e4 100%);
-            color: #5a3e4b;
             padding: 30px 20px;
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+        
         .container { max-width: 1500px; margin: 0 auto; }
+        
+        /* ===== THEME TOGGLE BUTTON ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            border-radius: 3rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            border: 1px solid;
+        }
+        .theme-toggle:hover { transform: scale(1.05); }
+        
+        /* ===== DARK THEME (mặc định) ===== */
+        body.dark {
+            background: #0D0F14;
+            color: #FFFFFF;
+        }
+        body.dark .back-home {
+            background: #1E1620;
+            color: #FFB3D1;
+            border-color: #3A2A38;
+        }
+        body.dark .back-home:hover { background: #2E1F2A; }
+        body.dark .header {
+            background: #1E1620;
+            border-color: #3A2A38;
+        }
+        body.dark h1 { color: #FFB3D1; }
+        body.dark .sub { color: #E0B0D5; }
+        body.dark .tab-btn {
+            background: #1E1620;
+            border-color: #3A2A38;
+            color: #E0B0D5;
+        }
+        body.dark .tab-btn.active {
+            background: #FF5E9C;
+            color: white;
+            border-color: #FF5E9C;
+        }
+        body.dark .theory-card {
+            background: #1E1620;
+            border-color: #3A2A38;
+        }
+        body.dark .theory-card h2 { color: #FFB3D1; border-left-color: #FF5E9C; }
+        body.dark .theory-card h3 { color: #FFB3D1; }
+        body.dark .sound-table th, body.dark .sound-table td {
+            border-color: #3A2A38;
+        }
+        body.dark .sound-table th { background: #2E1F2A; color: #FFB3D1; }
+        body.dark .tip-box {
+            background: #2E1F2A;
+            border-left-color: #FF5E9C;
+            color: #E0B0D5;
+        }
+        body.dark .combine-table-wrapper {
+            border-color: #3A2A38;
+        }
+        body.dark .combine-table {
+            background: #1E1620;
+        }
+        body.dark .combine-table th, body.dark .combine-table td {
+            border-color: #3A2A38;
+        }
+        body.dark .combine-table th {
+            background: #FF5E9C;
+            color: white;
+        }
+        body.dark .combine-table td:first-child {
+            background: #2E1F2A;
+            color: #FFB3D1;
+        }
+        body.dark .valid-cell { background: #1B3A2A; color: #81C784; }
+        body.dark .invalid-cell { background: #3A1E1E; color: #EF9A9A; }
+        body.dark .quiz-container {
+            background: #1E1620;
+        }
+        body.dark .quiz-question {
+            background: #2E1F2A;
+            color: #FFB3D1;
+        }
+        body.dark .quiz-opt {
+            background: #2E1F2A;
+            border-color: #3A2A38;
+            color: #E0B0D5;
+        }
+        body.dark .quiz-opt:hover { background: #3A2A4A; }
+        body.dark .quiz-opt.correct { background: #1B5E20; color: white; }
+        body.dark .quiz-opt.wrong { background: #B71C1C; color: white; }
+        body.dark .fact-area {
+            background: #2E1F2A;
+            border-left-color: #FF5E9C;
+            color: #E0B0D5;
+        }
+        body.dark .progress-bar { background: #3A2A38; }
+        body.dark .progress-fill { background: #FF5E9C; }
+        body.dark .btn-reset {
+            background: #FF5E9C;
+            color: white;
+        }
+        body.dark .btn-reset:hover { background: #ff3d7a; }
+        body.dark .copyright {
+            border-top-color: #3A2A38;
+            color: #888;
+        }
+        body.dark .theme-toggle {
+            background: rgba(255, 94, 156, 0.2);
+            border-color: #FF5E9C;
+            color: #FFB3D1;
+        }
+        
+        /* ===== LIGHT THEME (hồng pastel nhẹ) ===== */
+        body.light {
+            background: linear-gradient(145deg, #ffe4ec 0%, #ffd9e4 100%);
+            color: #5a3e4b;
+        }
+        body.light .back-home {
+            background: white;
+            color: #d47a9e;
+            border-color: #ffccda;
+        }
+        body.light .back-home:hover { background: #ffeef3; }
+        body.light .header {
+            background: white;
+            border-color: #ffccda;
+        }
+        body.light h1 { color: #d47a9e; }
+        body.light .sub { color: #b5838d; }
+        body.light .tab-btn {
+            background: white;
+            border-color: #ffdfe8;
+            color: #5a3e4b;
+        }
+        body.light .tab-btn.active {
+            background: #d47a9e;
+            color: white;
+            border-color: #d47a9e;
+        }
+        body.light .theory-card {
+            background: white;
+            border-color: #ffdfe8;
+        }
+        body.light .theory-card h2 { color: #d47a9e; border-left-color: #d47a9e; }
+        body.light .theory-card h3 { color: #b86284; }
+        body.light .sound-table th, body.light .sound-table td {
+            border-color: #ffdfe8;
+        }
+        body.light .sound-table th { background: #ffeef3; color: #d47a9e; }
+        body.light .tip-box {
+            background: #fff8e1;
+            border-left-color: #ffb74d;
+            color: #5a3e4b;
+        }
+        body.light .combine-table-wrapper {
+            border-color: #ffccda;
+        }
+        body.light .combine-table {
+            background: white;
+        }
+        body.light .combine-table th, body.light .combine-table td {
+            border-color: #ffccda;
+        }
+        body.light .combine-table th {
+            background: #d47a9e;
+            color: white;
+        }
+        body.light .combine-table td:first-child {
+            background: #ffeef3;
+            color: #d47a9e;
+        }
+        body.light .valid-cell { background: #e8f5e9; color: #2e7d32; }
+        body.light .invalid-cell { background: #ffebee; color: #c62828; }
+        body.light .quiz-container {
+            background: white;
+        }
+        body.light .quiz-question {
+            background: #ffeef3;
+            color: #d47a9e;
+        }
+        body.light .quiz-opt {
+            background: #f9f0f3;
+            border-color: #ffccda;
+            color: #5a3e4b;
+        }
+        body.light .quiz-opt:hover { background: #ffe0e8; }
+        body.light .quiz-opt.correct { background: #c8e6c9; color: #2e7d32; }
+        body.light .quiz-opt.wrong { background: #ffcdd2; color: #c62828; }
+        body.light .fact-area {
+            background: linear-gradient(135deg, #fff0f5, #ffe0e8);
+            border-left-color: #d47a9e;
+            color: #5a3e4b;
+        }
+        body.light .progress-bar { background: #ffdfe8; }
+        body.light .progress-fill { background: #d47a9e; }
+        body.light .btn-reset {
+            background: #d47a9e;
+            color: white;
+        }
+        body.light .btn-reset:hover { background: #b86284; }
+        body.light .copyright {
+            border-top-color: #ffccda;
+            color: #c98aa8;
+        }
+        body.light .theme-toggle {
+            background: rgba(212, 122, 158, 0.15);
+            border-color: #d47a9e;
+            color: #d47a9e;
+        }
+        
+        /* ===== CÁC STYLE CHUNG ===== */
         .back-home {
             display: inline-block;
             margin-bottom: 20px;
-            color: #d47a9e;
             text-decoration: none;
             font-weight: 500;
-            background: white;
             padding: 8px 20px;
             border-radius: 60px;
-            border: 1px solid #ffccda;
             transition: 0.2s;
         }
-        .back-home:hover { background: #ffeef3; transform: translateX(-3px); }
         .header {
             text-align: center;
-            background: white;
             border-radius: 60px;
             padding: 25px;
             margin-bottom: 30px;
-            border: 1px solid #ffccda;
+            transition: all 0.3s ease;
         }
-        h1 { color: #d47a9e; font-size: 1.8rem; margin-bottom: 8px; }
-        .sub { color: #b5838d; font-size: 0.85rem; }
+        h1 { font-size: 1.8rem; margin-bottom: 8px; }
+        .sub { font-size: 0.85rem; }
         .tabs {
             display: flex;
             gap: 12px;
@@ -46,8 +257,7 @@
             flex-wrap: wrap;
         }
         .tab-btn {
-            background: white;
-            border: 2px solid #ffdfe8;
+            border: 2px solid;
             padding: 10px 18px;
             border-radius: 60px;
             cursor: pointer;
@@ -56,25 +266,22 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 0.85rem;
         }
-        .tab-btn.active { background: #d47a9e; color: white; border-color: #d47a9e; }
         .tab-pane { display: none; }
         .tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .theory-card {
-            background: white;
             border-radius: 40px;
             padding: 25px;
             margin-bottom: 25px;
-            border: 1px solid #ffdfe8;
+            transition: all 0.3s ease;
         }
         .theory-card h2 {
-            color: #d47a9e;
             font-size: 1.3rem;
             margin-bottom: 15px;
-            border-left: 4px solid #d47a9e;
+            border-left: 4px solid;
             padding-left: 15px;
         }
-        .theory-card h3 { color: #b86284; font-size: 1.05rem; margin: 20px 0 8px 0; }
+        .theory-card h3 { font-size: 1.05rem; margin: 20px 0 8px 0; }
         .sound-table {
             width: 100%;
             border-collapse: collapse;
@@ -83,17 +290,14 @@
         }
         .sound-table th, .sound-table td {
             padding: 10px 8px;
-            border: 1px solid #ffdfe8;
             text-align: left;
             vertical-align: top;
         }
-        .sound-table th { background: #ffeef3; color: #d47a9e; }
         .tip-box {
-            background: #fff8e1;
             padding: 15px;
             border-radius: 30px;
             margin: 15px 0;
-            border-left: 5px solid #ffb74d;
+            border-left: 5px solid;
         }
         .combine-table-wrapper {
             position: relative;
@@ -102,24 +306,20 @@
             max-height: 550px;
             margin: 20px 0;
             border-radius: 20px;
-            border: 1px solid #ffccda;
+            border: 1px solid;
         }
         .combine-table {
             width: max-content;
             min-width: 100%;
             border-collapse: collapse;
             font-size: 0.8rem;
-            background: white;
         }
         .combine-table th, .combine-table td {
-            border: 1px solid #ffccda;
             padding: 10px 8px;
             text-align: center;
             min-width: 60px;
         }
         .combine-table th {
-            background: #d47a9e;
-            color: white;
             font-weight: 600;
             position: sticky;
             top: 0;
@@ -132,20 +332,17 @@
         .combine-table td:first-child {
             position: sticky;
             left: 0;
-            background: #ffeef3;
             font-weight: bold;
             z-index: 10;
         }
-        .invalid-cell { background: #ffebee; color: #c62828; font-weight: bold; }
-        .valid-cell { background: #e8f5e9; color: #2e7d32; }
         .numbered-list { list-style: none; padding-left: 0; counter-reset: step-counter; }
         .numbered-list li { margin: 6px 0; counter-increment: step-counter; }
         .numbered-list li::before { content: counter(step-counter) ". "; font-weight: bold; color: #d47a9e; }
         .quiz-container {
-            background: white;
             border-radius: 40px;
             padding: 25px;
             margin-top: 20px;
+            transition: all 0.3s ease;
         }
         .quiz-question {
             font-size: 1.2rem;
@@ -153,7 +350,6 @@
             text-align: center;
             margin: 20px 0;
             padding: 20px;
-            background: #ffeef3;
             border-radius: 60px;
         }
         .quiz-options {
@@ -164,60 +360,56 @@
             margin: 20px 0;
         }
         .quiz-opt {
-            background: #f9f0f3;
             padding: 12px 25px;
             border-radius: 60px;
             cursor: pointer;
             transition: 0.2s;
-            border: 1px solid #ffccda;
             font-weight: 500;
         }
-        .quiz-opt:hover { background: #ffe0e8; transform: scale(1.02); }
-        .quiz-opt.correct { background: #c8e6c9; border-color: #4caf50; }
-        .quiz-opt.wrong { background: #ffcdd2; border-color: #f44336; }
+        .quiz-opt:hover { transform: scale(1.02); }
         .quiz-feedback { text-align: center; margin: 15px 0; font-size: 0.9rem; }
         .fact-area {
-            background: linear-gradient(135deg, #fff0f5, #ffe0e8);
             border-radius: 30px;
             padding: 15px;
             margin: 15px 0;
             text-align: center;
             font-size: 0.85rem;
-            border-left: 4px solid #d47a9e;
+            border-left: 4px solid;
         }
         .progress-bar {
-            background: #ffdfe8;
             border-radius: 30px;
             height: 10px;
             margin: 15px 0;
             overflow: hidden;
         }
         .progress-fill {
-            background: #d47a9e;
             width: 0%;
             height: 100%;
             transition: width 0.3s;
         }
         .btn-reset {
-            background: #d47a9e;
-            color: white;
             border: none;
             padding: 10px 25px;
             border-radius: 60px;
             cursor: pointer;
-            margin-top: 15px;
             font-family: 'Montserrat', sans-serif;
+            transition: 0.2s;
         }
-        .copyright { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ffccda; color: #c98aa8; font-size: 0.7rem; }
+        .copyright { text-align: center; margin-top: 40px; padding-top: 20px; font-size: 0.7rem; }
         @media (max-width: 800px) {
             .tab-btn { padding: 8px 14px; font-size: 0.75rem; }
             .quiz-opt { padding: 8px 16px; font-size: 0.8rem; }
             .combine-table th, .combine-table td { padding: 6px 4px; min-width: 50px; font-size: 0.7rem; }
+            .theme-toggle { top: 0.5rem; right: 0.5rem; padding: 0.3rem 0.8rem; font-size: 0.8rem; }
+            body { padding: 1rem; }
         }
     </style>
 </head>
-<body>
+<body class="dark">
 <div class="container">
+    <!-- Theme toggle button -->
+    <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙 Dark</div>
+    
     <a href="https://nananptpc.github.io/kho-chu-cua-np" class="back-home">← Về thư viện</a>
     <div class="header">
         <h1>🎵 Hệ thống ngữ âm tiếng Hán</h1>
@@ -312,7 +504,7 @@
         </div>
     </div>
 
-    <!-- BIẾN ĐIỆU (đã sửa dấu →) -->
+    <!-- BIẾN ĐIỆU -->
     <div id="tab3" class="tab-pane">
         <div class="theory-card">
             <h2>🔄 Biến điệu (变调)</h2>
@@ -331,31 +523,24 @@
             <h3>3. Biến âm của từ láy AA (kiểu: 妈妈, 爸爸, 姐姐...)</h3>
             <ul class="numbered-list">
                 <li><strong>Quy tắc chung:</strong> Trong từ láy AA (thường là danh từ chỉ người thân hoặc từ láy tình thân), âm tiết thứ hai đọc thành <strong>thanh nhẹ</strong>.</li>
-                <li><strong>Ví dụ:</strong><br>
-                    妈妈 (māma) → đọc mā ma (thanh nhẹ)<br>
-                    爸爸 (bàba) → bà ba<br>
-                    哥哥 (gēge) → gē ge<br>
-                    姐姐 (jiějie) → jiě jie</li>
+                <li><strong>Ví dụ:</strong><br>妈妈 (māma) → đọc mā ma (thanh nhẹ)<br>爸爸 (bàba) → bà ba<br>哥哥 (gēge) → gē ge<br>姐姐 (jiějie) → jiě jie</li>
             </ul>
             <h3>4. Phân biệt cách đọc của từ cùng chữ nhưng khác từ loại (danh từ / động từ / tính từ)</h3>
             <ul class="numbered-list">
-                <li><strong>Danh từ:</strong> Thường âm tiết thứ hai đọc thanh nhẹ hoặc không biến đổi mạnh.<br>
-                    <em>Ví dụ: 妈妈 (mā ma), 爸爸 (bà ba), 星星 (xīng xing - ngôi sao)</em></li>
-                <li><strong>Động từ:</strong> Dạng láy AA của động từ thường âm tiết thứ hai đọc thanh nhẹ, thể hiện sự nhẹ nhàng, lặp lại.<br>
-                    <em>Ví dụ: 看看 (kàn kan - xem thử), 听听 (tīng ting - nghe thử)</em></li>
-                <li><strong>Tính từ:</strong> Dạng láy AA của tính từ thường đi kèm âm tiết thứ hai là thanh nhẹ, nhưng có thể kèm 儿 (er) để tăng sắc thái.<br>
-                    <em>Ví dụ: 慢慢 (màn man) → chậm rãi, 早早 (zǎo zao) → thật sớm</em></li>
+                <li><strong>Danh từ:</strong> Thường âm tiết thứ hai đọc thanh nhẹ hoặc không biến đổi mạnh.<br><em>Ví dụ: 妈妈 (mā ma), 爸爸 (bà ba), 星星 (xīng xing - ngôi sao)</em></li>
+                <li><strong>Động từ:</strong> Dạng láy AA của động từ thường âm tiết thứ hai đọc thanh nhẹ, thể hiện sự nhẹ nhàng, lặp lại.<br><em>Ví dụ: 看看 (kàn kan - xem thử), 听听 (tīng ting - nghe thử)</em></li>
+                <li><strong>Tính từ:</strong> Dạng láy AA của tính từ thường đi kèm âm tiết thứ hai là thanh nhẹ, nhưng có thể kèm 儿 (er) để tăng sắc thái.<br><em>Ví dụ: 慢慢 (màn man) → chậm rãi, 早早 (zǎo zao) → thật sớm</em></li>
             </ul>
-<div class="tip-box">
-    <strong>📌 Lưu ý quan trọng:</strong><br>
-    • Không phải mọi từ AA đều đọc thanh nhẹ. Từ láy tượng thanh (汪汪 wāng wāng) thường giữ nguyên thanh.<br>
-    • Khi AA là từ chỉ người thân (bố, mẹ, anh, chị) → bắt buộc đọc thanh nhẹ ở âm thứ hai.<br>
-    • Trong tiếng Hán, việc đọc đúng thanh nhẹ ở từ láy AA giúp câu nói tự nhiên và gần gũi hơn.
-</div>
+            <div class="tip-box">
+                <strong>📌 Lưu ý quan trọng:</strong><br>
+                • Không phải mọi từ AA đều đọc thanh nhẹ. Từ láy tượng thanh (汪汪 wāng wāng) thường giữ nguyên thanh.<br>
+                • Khi AA là từ chỉ người thân (bố, mẹ, anh, chị) → bắt buộc đọc thanh nhẹ ở âm thứ hai.<br>
+                • Trong tiếng Hán, việc đọc đúng thanh nhẹ ở từ láy AA giúp câu nói tự nhiên và gần gũi hơn.
+            </div>
         </div>
     </div>
 
-    <!-- BẢNG PINYIN HỢP LỆ (FREEZE COLUMN + ROW) -->
+    <!-- BẢNG PINYIN HỢP LỆ -->
     <div id="tab4" class="tab-pane">
         <div class="theory-card">
             <h2>📊 Bảng tổ hợp thanh mẫu + vận mẫu (Pinyin hợp lệ)</h2>
@@ -366,25 +551,24 @@
                 </table>
             </div>
             <div class="tip-box">
-    <strong>📌 Hướng dẫn:</strong>
-    <ol>
-        <li>Cuộn ngang/dọc để xem toàn bộ bảng. Cột thanh mẫu và hàng vận mẫu luôn cố định.</li>
-        <li>🟢 Ô xanh = hợp lệ.</li>
-        <li>🔴 Ô đỏ = không tồn tại.</li>
-    </ol>
-    <strong>Quy tắc chính:</strong>
-    <ol>
-        <li>j, q, x không đi với a, o, u trực tiếp.</li>
-        <li>g, k, h không đi với i, ü.</li>
-        <li>b, p, m, f không đi với ü.</li>
-        <li>Sau j, q, x: ü viết thành u nhưng đọc là ü (ju, qu, xu).</li>
-    </ol>
-</div>
+                <strong>📌 Hướng dẫn:</strong>
+                <ol>
+                    <li>Cuộn ngang/dọc để xem toàn bộ bảng. Cột thanh mẫu và hàng vận mẫu luôn cố định.</li>
+                    <li>🟢 Ô xanh = hợp lệ.</li>
+                    <li>🔴 Ô đỏ = không tồn tại.</li>
+                </ol>
+                <strong>Quy tắc chính:</strong>
+                <ol>
+                    <li>j, q, x không đi với a, o, u trực tiếp.</li>
+                    <li>g, k, h không đi với i, ü.</li>
+                    <li>b, p, m, f không đi với ü.</li>
+                    <li>Sau j, q, x: ü viết thành u nhưng đọc là ü (ju, qu, xu).</li>
+                </ol>
             </div>
         </div>
     </div>
 
-    <!-- BÀI TẬP BIẾN ĐIỆU 15 CÂU (giữ nguyên cơ chế cũ) -->
+    <!-- BÀI TẬP BIẾN ĐIỆU -->
     <div id="tab5" class="tab-pane">
         <div class="quiz-container">
             <h2>🎯 Luyện tập biến điệu</h2>
@@ -399,126 +583,135 @@
         </div>
     </div>
 
-    <div class="copyright">© nananp.tpc </div>
+    <div class="copyright">© nananp.tpc</div>
 </div>
 
 <script>
-    // ========== BẢNG PINYIN HỢP LỆ (CẬP NHẬT THEO BẢNG CHUẨN) ==========
-const initials = [
-    'b','p','m','f','d','t','n','l',
-    'z','c','s','zh','ch','sh','r',
-    'j','q','x','g','k','h','y','w'
-];
-
-const finals = [
-    'a','o','e','i','er','ai','ei','ao','ou',
-    'an','en','ang','eng','ong',
-    'ia','iao','ie','iu','ian','in','iang','ing','iong',
-    'u','ua','uo','uai','ui','uan','un','uang',
-    'ü','üe','üan','ün'
-];
-
-// Bảng hợp lệ dựa theo file ảnh bạn cung cấp
-const validMap = {
-    // Nhóm môi
-    'b': ['a','o','i','ai','ei','ao','an','en','ang','eng','in','ing','u'],
-    'p': ['a','o','i','ai','ei','ao','ou','an','en','ang','eng','in','ing','u'],
-    'm': ['a','o','i','ai','ei','ao','ou','an','en','ang','eng','in','ing','u'],
-    'f': ['a','o','ei','ou','an','en','ang','eng','u'],
-    
-    // Nhóm đầu lưỡi
-    'd': ['a','e','ai','ei','ao','ou','an','ang','eng','i','ia','iao','ie','ian','ing','u','uo','uan','un'],
-    't': ['a','e','ai','ao','ou','an','ang','eng','i','iao','ie','ian','ing','u','uo','uan','un'],
-    'n': ['a','e','i','ai','ei','ao','ou','an','en','ang','eng','ia','iao','ie','iu','ian','in','iang','ing','iong','u','uo','uan','un','ü','üe'],
-    'l': ['a','e','i','ai','ei','ao','ou','an','en','ang','eng','ia','iao','ie','iu','ian','in','iang','ing','u','uo','uan','un','ü','üe'],
-    
-    // Nhóm âm răng (z,c,s)
-    'z': ['a','e','i','ai','ei','ao','ou','an','en','ang','ong','u','uo','uan','un'],
-    'c': ['a','e','i','ai','ao','ou','an','en','ang','ong','u','uo','uan','un'],
-    's': ['a','e','i','ai','ao','ou','an','en','ang','ong','u','uo','uan','un'],
-    
-    // Nhóm quặt lưỡi (zh,ch,sh,r)
-    'zh': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
-    'ch': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
-    'sh': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
-    'r': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','uo','uan','un'],
-    
-    // Nhóm mặt lưỡi (j,q,x)
-    'j': ['i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
-    'q': ['i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
-    'x': ['i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
-    
-    // Nhóm cuống lưỡi (g,k,h)
-    'g': ['a','e','ai','ei','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
-    'k': ['a','e','ai','ei','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
-    'h': ['a','e','ai','ei','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
-    
-    // Âm không phụ âm đầu (y, w)
-    'y': ['a','e','ou','an','ang','ong','i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
-    'w': ['a','o','ai','ei','en','an','ang','eng','u','ua','uo','uai','ui','uan','un','uang']
-};
-
-function buildTable() {
-    const thead = document.getElementById('combine-thead');
-    const tbody = document.getElementById('combine-tbody');
-    if (!thead || !tbody) return;
-    
-    // Header row
-    const headerRow = document.createElement('tr');
-    const thFirst = document.createElement('th');
-    thFirst.textContent = 'Thanh mẫu \\ Vận';
-    headerRow.appendChild(thFirst);
-    for (let final of finals) {
-        const th = document.createElement('th');
-        th.textContent = final;
-        headerRow.appendChild(th);
+    // ========== THEME HANDLING ==========
+    function setTheme(theme) {
+        document.body.classList.remove('dark', 'light');
+        document.body.classList.add(theme);
+        localStorage.setItem('theme_pinyin', theme);
+        const toggleBtn = document.getElementById('themeToggle');
+        if (theme === 'dark') {
+            toggleBtn.innerHTML = '🌙 Dark';
+        } else {
+            toggleBtn.innerHTML = '☀️ Light';
+        }
     }
-    thead.innerHTML = '';
-    thead.appendChild(headerRow);
     
-    // Body rows
-    tbody.innerHTML = '';
-    for (let init of initials) {
-        const row = tbody.insertRow();
-        const cellInit = row.insertCell(0);
-        cellInit.textContent = init;
+    function toggleTheme() {
+        const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+    }
+    
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme_pinyin');
+    if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light')) {
+        setTheme(savedTheme);
+    } else {
+        setTheme('dark');
+    }
+    
+    // ========== BẢNG PINYIN HỢP LỆ ==========
+    const initials = [
+        'b','p','m','f','d','t','n','l',
+        'z','c','s','zh','ch','sh','r',
+        'j','q','x','g','k','h','y','w'
+    ];
+
+    const finals = [
+        'a','o','e','i','er','ai','ei','ao','ou',
+        'an','en','ang','eng','ong',
+        'ia','iao','ie','iu','ian','in','iang','ing','iong',
+        'u','ua','uo','uai','ui','uan','un','uang',
+        'ü','üe','üan','ün'
+    ];
+
+    const validMap = {
+        'b': ['a','o','i','ai','ei','ao','an','en','ang','eng','in','ing','u'],
+        'p': ['a','o','i','ai','ei','ao','ou','an','en','ang','eng','in','ing','u'],
+        'm': ['a','o','i','ai','ei','ao','ou','an','en','ang','eng','in','ing','u'],
+        'f': ['a','o','ei','ou','an','en','ang','eng','u'],
+        'd': ['a','e','ai','ei','ao','ou','an','ang','eng','i','ia','iao','ie','ian','ing','u','uo','uan','un'],
+        't': ['a','e','ai','ao','ou','an','ang','eng','i','iao','ie','ian','ing','u','uo','uan','un'],
+        'n': ['a','e','i','ai','ei','ao','ou','an','en','ang','eng','ia','iao','ie','iu','ian','in','iang','ing','iong','u','uo','uan','un','ü','üe'],
+        'l': ['a','e','i','ai','ei','ao','ou','an','en','ang','eng','ia','iao','ie','iu','ian','in','iang','ing','u','uo','uan','un','ü','üe'],
+        'z': ['a','e','i','ai','ei','ao','ou','an','en','ang','ong','u','uo','uan','un'],
+        'c': ['a','e','i','ai','ao','ou','an','en','ang','ong','u','uo','uan','un'],
+        's': ['a','e','i','ai','ao','ou','an','en','ang','ong','u','uo','uan','un'],
+        'zh': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+        'ch': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+        'sh': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+        'r': ['a','e','i','ai','ao','ou','an','en','ang','eng','ong','u','uo','uan','un'],
+        'j': ['i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
+        'q': ['i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
+        'x': ['i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
+        'g': ['a','e','ai','ei','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+        'k': ['a','e','ai','ei','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+        'h': ['a','e','ai','ei','ao','ou','an','en','ang','eng','ong','u','ua','uo','uai','ui','uan','un','uang'],
+        'y': ['a','e','ou','an','ang','ong','i','ia','iao','ie','iu','ian','in','iang','ing','iong','ü','üe','üan','ün'],
+        'w': ['a','o','ai','ei','en','an','ang','eng','u','ua','uo','uai','ui','uan','un','uang']
+    };
+
+    function buildTable() {
+        const thead = document.getElementById('combine-thead');
+        const tbody = document.getElementById('combine-tbody');
+        if (!thead || !tbody) return;
         
+        const headerRow = document.createElement('tr');
+        const thFirst = document.createElement('th');
+        thFirst.textContent = 'Thanh mẫu \\ Vận';
+        headerRow.appendChild(thFirst);
         for (let final of finals) {
-            const cell = row.insertCell();
-            const isValid = validMap[init] && validMap[init].includes(final);
+            const th = document.createElement('th');
+            th.textContent = final;
+            headerRow.appendChild(th);
+        }
+        thead.innerHTML = '';
+        thead.appendChild(headerRow);
+        
+        tbody.innerHTML = '';
+        for (let init of initials) {
+            const row = tbody.insertRow();
+            const cellInit = row.insertCell(0);
+            cellInit.textContent = init;
             
-            if (isValid) {
-                let syllable = init + final;
-                // Xử lý đặc biệt cho ü sau j,q,x
-                if ((init === 'j' || init === 'q' || init === 'x') && final === 'ü') {
-                    syllable = init + 'u';
-                }
-                if ((init === 'j' || init === 'q' || init === 'x') && final === 'üe') {
-                    syllable = init + 'ue';
-                }
-                if ((init === 'j' || init === 'q' || init === 'x') && final === 'üan') {
-                    syllable = init + 'uan';
-                }
-                if ((init === 'j' || init === 'q' || init === 'x') && final === 'ün') {
-                    syllable = init + 'un';
-                }
-                // Xử lý y, w đặc biệt
-                if (init === 'y' && final === 'i') syllable = 'yi';
-                if (init === 'y' && final === 'ü') syllable = 'yu';
-                if (init === 'w' && final === 'u') syllable = 'wu';
+            for (let final of finals) {
+                const cell = row.insertCell();
+                const isValid = validMap[init] && validMap[init].includes(final);
                 
-                cell.textContent = syllable;
-                cell.className = 'valid-cell';
-            } else {
-                cell.textContent = '❌';
-                cell.className = 'invalid-cell';
+                if (isValid) {
+                    let syllable = init + final;
+                    if ((init === 'j' || init === 'q' || init === 'x') && final === 'ü') {
+                        syllable = init + 'u';
+                    }
+                    if ((init === 'j' || init === 'q' || init === 'x') && final === 'üe') {
+                        syllable = init + 'ue';
+                    }
+                    if ((init === 'j' || init === 'q' || init === 'x') && final === 'üan') {
+                        syllable = init + 'uan';
+                    }
+                    if ((init === 'j' || init === 'q' || init === 'x') && final === 'ün') {
+                        syllable = init + 'un';
+                    }
+                    if (init === 'y' && final === 'i') syllable = 'yi';
+                    if (init === 'y' && final === 'ü') syllable = 'yu';
+                    if (init === 'w' && final === 'u') syllable = 'wu';
+                    
+                    cell.textContent = syllable;
+                    cell.className = 'valid-cell';
+                } else {
+                    cell.textContent = '❌';
+                    cell.className = 'invalid-cell';
+                }
             }
         }
     }
-}
-buildTable();
+    buildTable();
 
-    // ========== BÀI TẬP BIẾN ĐIỆU (giữ nguyên logic 50 câu, random 15, facts) ==========
+    // ========== BÀI TẬP BIẾN ĐIỆU ==========
     const fullQuestionBank = [
         { text: "你好 (nǐ hǎo) được đọc là?", correct: "ní hǎo", options: ["nǐ hǎo", "ní hǎo", "nì hǎo"] },
         { text: "一定 (yī dìng) được đọc là?", correct: "yí dìng", options: ["yī dìng", "yí dìng", "yì dìng"] },
