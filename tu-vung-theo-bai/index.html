@@ -16,14 +16,14 @@
         body {
             font-family: 'Montserrat', sans-serif;
             background: #fef5f7;
-            color: #2c2c2c;
+            color: #1a1a1a;
             padding: 1.5rem;
             transition: background 0.3s, color 0.3s;
         }
 
         body.dark {
-            background: #121212;
-            color: #e0e0e0;
+            background: #0a0a0a;
+            color: #f0f0f0;
         }
 
         .container {
@@ -44,15 +44,15 @@
         h1 {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #c06d82;
+            color: #b84c6c;
         }
 
         body.dark h1 {
-            color: #e0a5bb;
+            color: #e8a5bb;
         }
 
         .theme-btn {
-            background: #f0c4d0;
+            background: #e8c4d0;
             border: none;
             padding: 0.5rem 1.2rem;
             border-radius: 60px;
@@ -61,6 +61,7 @@
             display: flex;
             gap: 8px;
             align-items: center;
+            color: #4a2a38;
         }
 
         body.dark .theme-btn {
@@ -73,12 +74,12 @@
             display: flex;
             gap: 1rem;
             margin-bottom: 1.5rem;
-            border-bottom: 2px solid #f0c4d0;
+            border-bottom: 2px solid #e8c4d0;
             padding-bottom: 0.5rem;
         }
 
         body.dark .mode-tabs {
-            border-bottom-color: #3a2a38;
+            border-bottom-color: #4a3a48;
         }
 
         .mode-tab {
@@ -90,11 +91,15 @@
             cursor: pointer;
             border-radius: 40px;
             transition: all 0.2s;
-            color: #8b5a6b;
+            color: #6a4a58;
+        }
+
+        body.dark .mode-tab {
+            color: #aaa;
         }
 
         .mode-tab.active {
-            background: #c06d82;
+            background: #b84c6c;
             color: white;
         }
 
@@ -104,19 +109,19 @@
             border-radius: 1rem;
             padding: 0.8rem 1rem;
             margin-bottom: 1.5rem;
-            border: 1px solid #f0d0da;
+            border: 1px solid #e8c4d0;
         }
 
         body.dark .filter-section {
-            background: #1e1e1e;
-            border-color: #3a2a38;
+            background: #1a1a1a;
+            border-color: #4a3a48;
         }
 
         .filter-title {
             font-weight: 600;
             font-size: 0.75rem;
             margin-bottom: 0.5rem;
-            color: #c06d82;
+            color: #b84c6c;
         }
 
         .filter-group {
@@ -127,33 +132,46 @@
         }
 
         .filter-btn {
-            background: #f0d0da;
+            background: #e8c4d0;
             border: none;
             padding: 0.3rem 0.9rem;
             border-radius: 40px;
             font-size: 0.7rem;
             font-weight: 500;
             cursor: pointer;
+            color: #2a1a22;
+        }
+
+        body.dark .filter-btn {
+            background: #3a2a38;
+            color: #ddd;
         }
 
         .filter-btn.active {
-            background: #c06d82;
+            background: #b84c6c;
             color: white;
         }
 
         .reset-btn {
             background: transparent;
-            border: 1px solid #c06d82;
-            color: #c06d82;
+            border: 1px solid #b84c6c;
+            color: #b84c6c;
         }
 
         .stats {
-            background: #ffe0e8;
+            background: #e8c4d0;
             padding: 0.4rem 1rem;
             border-radius: 40px;
             font-size: 0.75rem;
+            font-weight: 600;
             display: inline-block;
             margin-bottom: 1rem;
+            color: #2a1a22;
+        }
+
+        body.dark .stats {
+            background: #2a2a2a;
+            color: #e0a5bb;
         }
 
         /* List mode */
@@ -166,13 +184,13 @@
         .card {
             background: white;
             border-radius: 1.2rem;
-            border: 1px solid #f0d0da;
+            border: 1px solid #e8c4d0;
             overflow: hidden;
         }
 
         body.dark .card {
-            background: #1e1e1e;
-            border-color: #3a2a38;
+            background: #1a1a1a;
+            border-color: #4a3a48;
         }
 
         .card-inner {
@@ -191,24 +209,25 @@
         .chinese-char {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #c06d82;
+            color: #b84c6c;
         }
 
         .pinyin {
-            background: #f3e0e6;
+            background: #e8c4d0;
             padding: 0.2rem 0.8rem;
             border-radius: 40px;
             font-size: 0.8rem;
             font-weight: 600;
+            color: #2a1a22;
         }
 
         .meaning-viet {
-            background: #e6f3f0;
+            background: #c8e0dc;
             padding: 0.3rem 0.8rem;
             border-radius: 30px;
             font-size: 0.8rem;
             font-weight: 600;
-            color: #2a6b5e;
+            color: #1a4a3e;
             display: inline-block;
             margin: 6px 0;
         }
@@ -219,70 +238,51 @@
             gap: 0.4rem;
             margin: 8px 0;
             padding: 6px 0;
-            border-top: 1px solid #f0d0da;
-            border-bottom: 1px solid #f0d0da;
+            border-top: 1px solid #e8c4d0;
+            border-bottom: 1px solid #e8c4d0;
         }
 
         .badge {
-            background: #f0d0da;
+            background: #e8c4d0;
             padding: 0.2rem 0.6rem;
             border-radius: 30px;
             font-size: 0.65rem;
             font-weight: 600;
+            color: #2a1a22;
         }
 
         .etymology-box {
-            background: #fef0f4;
+            background: #fce8f0;
             border-radius: 0.8rem;
             padding: 0.6rem;
             margin: 8px 0;
-            border-left: 3px solid #d47a9e;
+            border-left: 3px solid #b84c6c;
+        }
+
+        body.dark .etymology-box {
+            background: #2a1a24;
         }
 
         .structure {
             font-size: 0.75rem;
             font-weight: 500;
             line-height: 1.4;
+            color: #1a1a1a;
         }
 
-        .expand-section {
-            margin: 8px 0;
-            border-top: 1px dashed #f0d0da;
-            padding-top: 6px;
-        }
-
-        .toggle-expand {
-            background: none;
-            border: none;
-            color: #c06d82;
-            font-size: 0.7rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .compound-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-top: 6px;
-        }
-
-        .compound-item {
-            background: #f0e0e8;
-            padding: 0.2rem 0.6rem;
-            border-radius: 30px;
-            font-size: 0.65rem;
+        body.dark .structure {
+            color: #ddd;
         }
 
         .bishun-area {
             text-align: center;
-            background: #f8e8f0;
+            background: #e8c4d0;
             border-radius: 0.8rem;
             padding: 0.5rem;
             cursor: pointer;
             margin-top: 6px;
+            color: #2a1a22;
+            font-weight: 500;
         }
 
         .bishun-img {
@@ -337,12 +337,12 @@
         }
 
         .flashcard-front {
-            background: linear-gradient(135deg, #fff0f4, #ffe2ea);
-            border: 2px solid #f0c4d0;
+            background: linear-gradient(135deg, #fff0f4, #fce0e8);
+            border: 2px solid #e8c4d0;
         }
 
         .flashcard-back {
-            background: linear-gradient(135deg, #e8eef5, #dde4ef);
+            background: linear-gradient(135deg, #e0e8f0, #d0dce8);
             transform: rotateY(180deg);
             font-size: 0.95rem;
             line-height: 1.6;
@@ -351,22 +351,30 @@
             align-items: flex-start;
         }
 
+        body.dark .flashcard-front {
+            background: linear-gradient(135deg, #2a1e24, #3a2a38);
+        }
+        body.dark .flashcard-back {
+            background: linear-gradient(135deg, #1a2a2a, #2a3a3a);
+        }
+
         .flashcard-char {
             font-size: 4.5rem;
             font-weight: 800;
-            color: #c06d82;
+            color: #b84c6c;
         }
 
         .flashcard-pinyin {
             font-size: 1.5rem;
             font-weight: 600;
             margin-top: 0.5rem;
+            color: #2a1a22;
         }
 
         .flashcard-meaning {
             font-size: 1.3rem;
             font-weight: 700;
-            color: #2a6b5e;
+            color: #1a6b5e;
             margin-bottom: 1rem;
         }
 
@@ -374,11 +382,16 @@
             font-size: 0.85rem;
             margin-top: 0.5rem;
             line-height: 1.8;
+            color: #2a2a2a;
+        }
+
+        body.dark .flashcard-info {
+            color: #ccc;
         }
 
         .flashcard-info i {
             width: 24px;
-            color: #c06d82;
+            color: #b84c6c;
         }
 
         .nav-buttons {
@@ -389,7 +402,7 @@
         }
 
         .nav-btn {
-            background: #c06d82;
+            background: #b84c6c;
             color: white;
             border: none;
             padding: 0.5rem 1.2rem;
@@ -401,12 +414,13 @@
 
         .progress {
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             margin-bottom: 1rem;
-            font-weight: 500;
+            font-weight: 600;
+            color: #b84c6c;
         }
 
-        /* Quiz Modal - Drag & Drop */
+        /* Quiz Modal */
         .quiz-modal {
             display: none;
             position: fixed;
@@ -414,7 +428,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.9);
             justify-content: center;
             align-items: center;
             z-index: 2000;
@@ -422,7 +436,7 @@
 
         .quiz-modal-content {
             background: white;
-            max-width: 900px;
+            max-width: 1000px;
             width: 95%;
             border-radius: 1.5rem;
             padding: 1.5rem;
@@ -431,7 +445,7 @@
         }
 
         body.dark .quiz-modal-content {
-            background: #1e1e1e;
+            background: #1a1a1a;
         }
 
         .quiz-header {
@@ -442,16 +456,16 @@
         .quiz-title {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #c06d82;
+            color: #b84c6c;
         }
 
         .quiz-score-board {
             font-size: 1rem;
             font-weight: 600;
             margin-top: 0.5rem;
+            color: #2a1a22;
         }
 
-        /* Drag & Drop Game Area */
         .drag-game-area {
             display: flex;
             gap: 2rem;
@@ -461,31 +475,31 @@
 
         .words-container {
             flex: 1;
-            min-width: 250px;
+            min-width: 280px;
         }
 
         .drop-zone {
-            background: #fef0f4;
+            background: #fce8f0;
             border-radius: 1rem;
             padding: 1rem;
             margin-bottom: 1rem;
-            border: 2px dashed #c06d82;
+            border: 2px solid #b84c6c;
             transition: all 0.2s;
         }
 
         body.dark .drop-zone {
-            background: #2a1e24;
+            background: #2a1a24;
         }
 
         .drop-zone.drag-over {
-            background: #e0c0d0;
+            background: #d4a0b8;
             border-color: #ff8cae;
         }
 
         .drop-zone.completed {
-            background: #d4edda;
+            background: #c8e0dc;
             border-color: #28a745;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
         .drop-zone-header {
@@ -499,12 +513,12 @@
         .drop-zone-char {
             font-size: 2rem;
             font-weight: 700;
-            color: #c06d82;
+            color: #b84c6c;
         }
 
         .drop-zone-pinyin {
             font-size: 0.8rem;
-            color: #888;
+            color: #6a4a58;
         }
 
         .drop-zone-matched {
@@ -526,15 +540,10 @@
             gap: 5px;
         }
 
-        .matched-card i {
-            font-size: 0.65rem;
-            cursor: pointer;
-        }
-
         .drag-items-container {
             flex: 1;
             min-width: 280px;
-            background: #f8e8f0;
+            background: #e8c4d0;
             border-radius: 1rem;
             padding: 1rem;
         }
@@ -547,6 +556,7 @@
             font-weight: 600;
             margin-bottom: 1rem;
             text-align: center;
+            color: #2a1a22;
         }
 
         .drag-items {
@@ -558,7 +568,7 @@
         }
 
         .drag-card {
-            background: #c06d82;
+            background: #b84c6c;
             color: white;
             padding: 0.6rem 1.2rem;
             border-radius: 40px;
@@ -567,7 +577,7 @@
             cursor: grab;
             user-select: none;
             transition: all 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         .drag-card:active {
@@ -578,19 +588,15 @@
             opacity: 0.4;
         }
 
-        .drag-card.drag-over {
-            background: #28a745;
-        }
-
         .quiz-result {
             text-align: center;
             margin-top: 1.5rem;
             padding-top: 1rem;
-            border-top: 1px solid #f0d0da;
+            border-top: 1px solid #e8c4d0;
         }
 
         .quiz-next-btn {
-            background: #c06d82;
+            background: #b84c6c;
             color: white;
             border: none;
             padding: 0.7rem 2rem;
@@ -598,16 +604,13 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 1rem;
-        }
-
-        .quiz-next-btn:hover {
-            background: #a8526a;
+            margin-top: 0.5rem;
         }
 
         .quiz-feedback {
             margin-top: 0.5rem;
             font-size: 0.85rem;
+            font-weight: 600;
         }
 
         .hidden {
@@ -617,15 +620,15 @@
         .back-link {
             display: inline-block;
             margin-top: 1rem;
-            color: #c06d82;
+            color: #b84c6c;
             font-size: 0.75rem;
             text-decoration: none;
+            font-weight: 600;
         }
 
         @media (max-width: 700px) {
             body { padding: 1rem; }
             .drag-game-area { flex-direction: column; }
-            .drop-zone-char { font-size: 1.5rem; }
             .flashcard { height: 480px; }
         }
     </style>
@@ -687,7 +690,7 @@
             <button class="nav-btn" id="flipBtn"><i class="fas fa-sync-alt"></i> Lật thẻ</button>
             <button class="nav-btn" id="nextBtn">Sau <i class="fas fa-chevron-right"></i></button>
         </div>
-        <div class="progress" id="progress">Thẻ 0 / 0 | Đã học: 0 từ</div>
+        <div class="progress" id="progress">Thẻ 0 / 0 | 📚 Đã học: 0 từ</div>
     </div>
 
     <div style="text-align: center; margin-top: 1.5rem;">
@@ -695,19 +698,15 @@
     </div>
 </div>
 
-<!-- Quiz Modal Drag & Drop -->
+<!-- Quiz Modal -->
 <div id="quizModal" class="quiz-modal">
     <div class="quiz-modal-content">
         <div class="quiz-header">
             <div class="quiz-title">🎯 KÉO THẢ TỪ MỞ RỘNG</div>
             <div class="quiz-score-board" id="quizScoreBoard">Điểm: 0 / 0</div>
-            <div class="quiz-feedback" id="quizFeedback" style="color: #c06d82;"></div>
+            <div class="quiz-feedback" id="quizFeedback" style="color: #b84c6c;"></div>
         </div>
-
-        <div class="drag-game-area" id="dragGameArea">
-            <!-- Dynamic content -->
-        </div>
-
+        <div class="drag-game-area" id="dragGameArea"></div>
         <div class="quiz-result">
             <button class="quiz-next-btn" id="quizNextBtn">Tiếp tục →</button>
         </div>
@@ -723,12 +722,11 @@
     let isFlipped = false;
     let cardsStudied = 0;
     
-    // Quiz data
     let quizWords = [];
     let currentQuizQuestion = 0;
     let quizScore = 0;
-    let quizMatched = {}; // { wordTu: [matchedCompounds] }
-    let quizRemainingDrags = [];
+    let quizMatched = {};
+    let quizActive = false;
 
     let currentFilters = { level: 'all', loai: 'all' };
 
@@ -736,8 +734,10 @@
         if (window.vocabData && window.vocabData.length) {
             fullData = window.vocabData;
             applyFilters();
+            console.log('✅ Dữ liệu loaded:', fullData.length, 'từ');
         } else {
             document.getElementById('stats').innerHTML = '⚠️ Lỗi tải dữ liệu. Đảm bảo file data.js tồn tại.';
+            console.error('Không tìm thấy window.vocabData');
         }
     }
 
@@ -874,16 +874,20 @@
 
     function nextCard() {
         if (filteredData.length === 0) return;
-        cardsStudied++;
         
-        // Kiểm tra quiz sau mỗi 5 từ
-        if (!window.quizActive && cardsStudied % 5 === 0 && cardsStudied > 0 && currentMode === 'flashcard') {
+        // Tăng số từ đã học
+        cardsStudied++;
+        console.log(`📖 Đã học: ${cardsStudied} từ`);
+        
+        // KIỂM TRA QUIZ: sau mỗi 3 từ (dễ test hơn), hoặc 5 từ
+        if (!quizActive && cardsStudied % 3 === 0 && cardsStudied > 0 && currentMode === 'flashcard') {
+            console.log('🎯 Trigger quiz!');
             showQuiz();
         }
         
         flashcardIndex = (flashcardIndex + 1) % filteredData.length;
         if (flashcardIndex === 0 && cardsStudied >= filteredData.length) {
-            cardsStudied = filteredData.length;
+            // Đã học hết bộ, giữ nguyên số đã học
         }
         isFlipped = false;
         document.getElementById('flashcard')?.classList.remove('flipped');
@@ -908,22 +912,24 @@
         isFlipped = !isFlipped;
     }
 
-    // ============ DRAG & DROP QUIZ ============
+    // ============ QUIZ ============
     function showQuiz() {
-        const studiedCount = Math.min(cardsStudied, filteredData.length);
-        const studiedWords = filteredData.slice(0, studiedCount);
-        // Lọc từ có từ mở rộng
+        const studiedCount = cardsStudied;
+        const studiedWords = filteredData.slice(0, Math.min(studiedCount, filteredData.length));
         quizWords = studiedWords.filter(w => w.moRong && w.moRong.length > 0 && w.moRong[0] !== '');
         
+        console.log('Quiz Words:', quizWords.length);
+        
         if (quizWords.length < 2) {
-            cardsStudied = studiedCount;
+            console.log('Không đủ từ có từ mở rộng để làm quiz');
             return;
         }
         
-        window.quizActive = true;
+        quizActive = true;
         currentQuizQuestion = 0;
         quizScore = 0;
         startQuizQuestion();
+        document.getElementById('quizModal').style.display = 'flex';
     }
 
     function startQuizQuestion() {
@@ -932,10 +938,9 @@
             return;
         }
         
-        // Lấy 3-4 từ để làm câu hỏi (chọn từ học gần nhất + random thêm)
+        // Lấy 2-3 từ cho mỗi câu quiz
         const wordsForQuiz = [];
-        const startIdx = Math.max(0, currentQuizQuestion);
-        for (let i = startIdx; i < Math.min(quizWords.length, startIdx + 3); i++) {
+        for (let i = currentQuizQuestion; i < Math.min(quizWords.length, currentQuizQuestion + 2); i++) {
             wordsForQuiz.push(quizWords[i]);
         }
         
@@ -945,19 +950,19 @@
             return;
         }
         
-        // Tạo danh sách drag items (tất cả từ mở rộng của các từ trong câu hỏi)
         const allDrags = [];
-        const correctMap = {}; // { compoundWord: parentWordTu }
+        const correctMap = {};
         
         wordsForQuiz.forEach(word => {
-            word.moRong.forEach(compound => {
-                const compoundWord = compound.split(':')[0];
-                allDrags.push({ compound: compoundWord, full: compound, parentTu: word.tu });
-                correctMap[compoundWord] = word.tu;
-            });
+            if (word.moRong && word.moRong.length > 0) {
+                word.moRong.forEach(compound => {
+                    const compoundWord = compound.split(':')[0];
+                    allDrags.push({ compound: compoundWord, full: compound, parentTu: word.tu });
+                    correctMap[compoundWord] = word.tu;
+                });
+            }
         });
         
-        // Trộn danh sách drag
         const shuffledDrags = [...allDrags].sort(() => Math.random() - 0.5);
         
         quizMatched = {};
@@ -972,9 +977,8 @@
         const container = document.getElementById('dragGameArea');
         if (!container) return;
         
-        document.getElementById('quizScoreBoard').innerHTML = `Điểm: ${quizScore} / ${quizWords.length} câu`;
+        document.getElementById('quizScoreBoard').innerHTML = `🎯 Câu ${currentQuizQuestion + 1}/${quizWords.length} | Điểm: ${quizScore}`;
         
-        // Tạo drop zones
         const dropZonesHtml = questions.map(q => `
             <div class="drop-zone" data-parent="${q.tu}" data-pinyin="${q.pinyin || ''}" data-char="${q.tu}">
                 <div class="drop-zone-header">
@@ -987,7 +991,6 @@
             </div>
         `).join('');
         
-        // Tạo drag items
         const dragItemsHtml = dragItems.map(item => `
             <div class="drag-card" draggable="true" data-compound="${item.compound}" data-parent="${item.parentTu}" data-full="${item.full}">
                 ${item.compound}
@@ -999,14 +1002,13 @@
                 ${dropZonesHtml}
             </div>
             <div class="drag-items-container">
-                <div class="drag-title">📦 Kéo thả vào ô bên trái</div>
+                <div class="drag-title">📦 Kéo thả từ mở rộng vào ô bên trái</div>
                 <div class="drag-items" id="dragItemsList">
                     ${dragItemsHtml}
                 </div>
             </div>
         `;
         
-        // Attach drag & drop events
         attachDragEvents(questions, correctMap);
     }
     
@@ -1055,35 +1057,31 @@
                 const feedbackDiv = document.getElementById('quizFeedback');
                 
                 if (targetParent === correctParent) {
-                    // Đúng
-                    const matchedDiv = document.getElementById(`matched-${targetParent}`);
-                    if (matchedDiv && !quizMatched[targetParent].includes(compound)) {
+                    if (quizMatched[targetParent] && !quizMatched[targetParent].includes(compound)) {
                         quizMatched[targetParent].push(compound);
-                        matchedDiv.innerHTML = quizMatched[targetParent].map(m => 
-                            `<span class="matched-card"><i class="fas fa-check-circle"></i> ${m}</span>`
-                        ).join('');
+                        const matchedDiv = document.getElementById(`matched-${targetParent}`);
+                        if (matchedDiv) {
+                            matchedDiv.innerHTML = quizMatched[targetParent].map(m => 
+                                `<span class="matched-card"><i class="fas fa-check-circle"></i> ${m}</span>`
+                            ).join('');
+                        }
                         
-                        // Xóa drag item
                         const dragItem = document.querySelector(`.drag-card[data-compound="${compound}"]`);
                         if (dragItem) dragItem.remove();
                         
-                        feedbackDiv.innerHTML = '✅ Đúng! +1 điểm';
+                        feedbackDiv.innerHTML = '✅ Đúng!';
                         feedbackDiv.style.color = '#28a745';
                         
-                        // Kiểm tra xem đã match hết chưa
                         const currentQuestionWord = questions.find(q => q.tu === targetParent);
                         const totalNeeded = currentQuestionWord ? currentQuestionWord.moRong.length : 0;
                         if (quizMatched[targetParent].length === totalNeeded) {
-                            // Hoàn thành từ này
                             zone.classList.add('completed');
                             quizScore++;
-                            document.getElementById('quizScoreBoard').innerHTML = `Điểm: ${quizScore} / ${quizWords.length} câu`;
+                            document.getElementById('quizScoreBoard').innerHTML = `🎯 Câu ${currentQuizQuestion + 1}/${quizWords.length} | Điểm: ${quizScore}`;
                         }
                         
-                        // Kiểm tra xem còn drag item nào không
                         const remainingDrags = document.querySelectorAll('.drag-card');
                         if (remainingDrags.length === 0) {
-                            // Hoàn thành câu hỏi
                             setTimeout(() => {
                                 currentQuizQuestion += questions.length;
                                 startQuizQuestion();
@@ -1094,26 +1092,20 @@
                         feedbackDiv.style.color = '#ff9800';
                     }
                 } else {
-                    // Sai
                     feedbackDiv.innerHTML = `❌ Sai! "${compound}" không phải từ mở rộng của "${targetParent}"`;
                     feedbackDiv.style.color = '#f44336';
-                    
-                    // Hiệu ứng rung cho zone
-                    zone.style.transform = 'shake 0.3s';
-                    setTimeout(() => { zone.style.transform = ''; }, 300);
                 }
                 
                 setTimeout(() => {
                     feedbackDiv.innerHTML = '';
-                }, 1500);
+                }, 1200);
             });
         });
     }
     
     function endQuiz() {
         document.getElementById('quizModal').style.display = 'none';
-        window.quizActive = false;
-        cardsStudied = 0;
+        quizActive = false;
         alert(`🎉 Hoàn thành quiz! Bạn đúng ${quizScore}/${quizWords.length} cụm từ.`);
     }
 
@@ -1187,7 +1179,7 @@
     };
 
     document.getElementById('quizNextBtn').addEventListener('click', () => {
-        if (window.quizActive) {
+        if (quizActive) {
             currentQuizQuestion++;
             startQuizQuestion();
         }
