@@ -121,7 +121,7 @@ window.vocabData = [
     "tu": "对",
     "loai": "hỗn",
     "hanviet": "đối",
-    "tiengViet": "đúng, với, hướng v",
+    "tiengViet": "đúng, với, hướng về",
     "pinyin": "duì",
     "lucThu": "Hội ý",
     "chiestTu": "Tay (又) cầm một ngọn nến (丵) và cây bút (寸) → đối ứng, chính xác.",
