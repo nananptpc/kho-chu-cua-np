@@ -6,7 +6,7 @@
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #fff5f7;
+            background: #fef5f7;
             padding: 2rem;
         }
         .container {
@@ -24,11 +24,11 @@
             padding: 1rem;
             font-family: monospace;
             border-radius: 1rem;
-            border: 2px solid #fbc4d0;
+            border: 2px solid #e8c4d0;
             font-size: 13px;
         }
         button {
-            background: #e38b9e;
+            background: #b84c6c;
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
@@ -37,9 +37,9 @@
             cursor: pointer;
             margin-right: 1rem;
         }
-        button:hover { background: #c06d82; }
+        button:hover { background: #9a3a58; }
         .output {
-            background: #2c2428;
+            background: #1e1e1e;
             color: #f0e6ea;
             padding: 1rem;
             border-radius: 1rem;
@@ -47,17 +47,17 @@
             margin-top: 1rem;
         }
         pre { margin: 0; white-space: pre-wrap; word-wrap: break-word; }
-        h3 { color: #c06d82; margin-top: 1.5rem; }
-        .note { background: #ffe2e8; padding: 0.5rem; border-radius: 1rem; font-size: 0.8rem; margin-bottom: 1rem; }
+        h3 { color: #b84c6c; margin-top: 1.5rem; }
+        .note { background: #e8c4d0; padding: 0.5rem; border-radius: 1rem; font-size: 0.8rem; margin-bottom: 1rem; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🔄 CSV → JSON Converter (Đã sửa lỗi)</h1>
+    <h1>🔄 CSV → JSON Converter (Đã sửa)</h1>
     <div class="note">
-        ✅ <strong>Định dạng CSV chuẩn:</strong> Cột thứ 4 là "tiếng việt", cột thứ 8 là "mở rộng"<br>
-        ✅ Mỗi từ trên 1 dòng, dùng dấu phẩy (,) phân cách cột<br>
-        ✅ Nếu trong ô có dấu phẩy, phải bọc bằng dấu ngoặc kép (" ")
+        ✅ Format CSV đúng: dùng dấu phẩy (,) phân cách cột<br>
+        ✅ Cột "mở rộng" phải có dạng: <code>từ:nghĩa|từ:nghĩa</code><br>
+        ✅ Mỗi từ trên 1 dòng, không xuống dòng giữa chừng
     </div>
     
     <textarea id="csvInput" placeholder="Dán nội dung vocabulary.csv vào đây..."></textarea>
@@ -85,11 +85,11 @@
             return;
         }
         
-        // Đọc header
+        // Đọc header - chuẩn hóa tên cột
         const headers = parseCSVLine(lines[0]);
         console.log('Headers:', headers);
         
-        // Xác định vị trí các cột
+        // Tìm vị trí các cột (không phân biệt dấu)
         const colIndex = {
             tu: -1,
             loai: -1,
@@ -105,15 +105,15 @@
         };
         
         headers.forEach((h, idx) => {
-            const clean = h.trim().toLowerCase();
-            if (clean === 'từ vựng' || clean === 'tư vựng' || clean === 'tu vung') colIndex.tu = idx;
+            const clean = h.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            if (clean === 'từ vựng' || clean === 'tu vung') colIndex.tu = idx;
             else if (clean === 'từ loại' || clean === 'tu loai') colIndex.loai = idx;
-            else if (clean === 'hán việt' || clean === 'hán viết' || clean === 'han viet') colIndex.hanviet = idx;
-            else if (clean === 'tiếng việt' || clean === 'tieng viet' || clean === 'nghĩa') colIndex.tiengViet = idx;
+            else if (clean === 'hán việt' || clean === 'han viet') colIndex.hanviet = idx;
+            else if (clean === 'tiếng việt' || clean === 'tieng viet') colIndex.tiengViet = idx;
             else if (clean === 'pinyin' || clean === 'pin yin') colIndex.pinyin = idx;
-            else if (clean === 'lục thư' || clean === 'lục thủ' || clean === 'luc thu') colIndex.lucThu = idx;
+            else if (clean === 'lục thư' || clean === 'luc thu') colIndex.lucThu = idx;
             else if (clean === 'chiết tự' || clean === 'chiet tu') colIndex.chietTu = idx;
-            else if (clean === 'mở rộng' || clean === 'mơ rộng' || clean === 'mo rong') colIndex.moRong = idx;
+            else if (clean === 'mở rộng' || clean === 'mo rong') colIndex.moRong = idx;
             else if (clean === 'bút thuận' || clean === 'but thuan') colIndex.buthuan = idx;
             else if (clean === 'level') colIndex.level = idx;
             else if (clean === 'bài' || clean === 'bai') colIndex.bai = idx;
@@ -129,9 +129,8 @@
             const values = parseCSVLine(lines[i]);
             if (values.length < 2) continue;
             
-            // Lấy giá trị từng cột
             const tu = colIndex.tu >= 0 ? values[colIndex.tu] || '' : '';
-            if (!tu) continue; // Bỏ qua dòng không có từ
+            if (!tu) continue;
             
             const loai = colIndex.loai >= 0 ? values[colIndex.loai] || '' : '';
             const hanviet = colIndex.hanviet >= 0 ? values[colIndex.hanviet] || '' : '';
@@ -144,14 +143,16 @@
             const level = colIndex.level >= 0 ? values[colIndex.level] || 'HSK1' : 'HSK1';
             const bai = colIndex.bai >= 0 ? values[colIndex.bai] || '' : '';
             
-            // Xử lý nghĩa tiếng Việt (bỏ dấu ngoặc kép thừa)
+            // Xử lý nghĩa tiếng Việt
             tiengViet = tiengViet.replace(/^["']|["']$/g, '').trim();
             
-            // Xử lý từ mở rộng: tách bằng | hoặc ;
+            // XỬ LÝ TỪ MỞ RỘNG - QUAN TRỌNG
             let moRong = [];
             if (moRongRaw && moRongRaw.trim()) {
                 moRongRaw = moRongRaw.replace(/^["']|["']$/g, '');
+                // Tách bằng dấu | hoặc ;
                 moRong = moRongRaw.split(/[|;]/).map(s => s.trim()).filter(s => s);
+                console.log(`Từ ${tu}: moRongRaw = "${moRongRaw}" -> moRong =`, moRong);
             }
             
             const obj = {
@@ -171,7 +172,8 @@
             result.push(obj);
         }
         
-        // Tạo output với window.vocabData
+        console.log('Tổng số từ converted:', result.length);
+        
         const output = `window.vocabData = ${JSON.stringify(result, null, 2)};`;
         document.getElementById('jsonResult').textContent = output;
     }
