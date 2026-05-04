@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Chuyển CSV sang JSON cho data.js</title>
+    <title>CSV → JSON Converter cho HSK1</title>
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
@@ -10,7 +10,7 @@
             padding: 2rem;
         }
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
             border-radius: 2rem;
@@ -19,12 +19,13 @@
         }
         textarea {
             width: 100%;
-            height: 300px;
+            height: 350px;
             margin: 1rem 0;
             padding: 1rem;
             font-family: monospace;
             border-radius: 1rem;
             border: 2px solid #fbc4d0;
+            font-size: 13px;
         }
         button {
             background: #e38b9e;
@@ -43,71 +44,136 @@
             padding: 1rem;
             border-radius: 1rem;
             overflow-x: auto;
+            margin-top: 1rem;
         }
+        pre { margin: 0; white-space: pre-wrap; word-wrap: break-word; }
+        h3 { color: #c06d82; margin-top: 1.5rem; }
+        .note { background: #ffe2e8; padding: 0.5rem; border-radius: 1rem; font-size: 0.8rem; margin-bottom: 1rem; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🔄 CSV → JSON Converter</h1>
-    <p>Dán nội dung file <strong>vocabulary.csv</strong> vào ô bên dưới:</p>
+    <h1>🔄 CSV → JSON Converter (Đã sửa lỗi)</h1>
+    <div class="note">
+        ✅ <strong>Định dạng CSV chuẩn:</strong> Cột thứ 4 là "tiếng việt", cột thứ 8 là "mở rộng"<br>
+        ✅ Mỗi từ trên 1 dòng, dùng dấu phẩy (,) phân cách cột<br>
+        ✅ Nếu trong ô có dấu phẩy, phải bọc bằng dấu ngoặc kép (" ")
+    </div>
     
-    <textarea id="csvInput" placeholder="từ vựng,từ loại,hán việt,pinyin,lục thư,chiết tự,bút thuận,level,từ mở rộng
-我,đại từ,ngã,wǒ,hội ý,手+戈: tay cầm binh khí,https://link.gif,HSK1,我们:chúng tôi|我的:của tôi"></textarea>
+    <textarea id="csvInput" placeholder="Dán nội dung vocabulary.csv vào đây..."></textarea>
     
     <button onclick="convertCSV()">Chuyển đổi → JSON</button>
     <button onclick="copyToClipboard()">📋 Copy JSON</button>
     
-    <h3>Kết quả (copy vào data.js):</h3>
-    <div class="output" id="output">
-        <pre id="jsonResult" style="margin:0; color:#ffd966;">Chưa có dữ liệu</pre>
+    <h3>📄 Kết quả (copy toàn bộ vào data.js):</h3>
+    <div class="output">
+        <pre id="jsonResult">Chưa có dữ liệu</pre>
     </div>
-    
-    <p>✨ <strong>Cách dùng:</strong> Copy kết quả thay thế nội dung trong file <code>data.js</code> (giữ lại window.vocabData = ...)</p>
 </div>
 
 <script>
     function convertCSV() {
         const csvText = document.getElementById('csvInput').value;
+        if (!csvText.trim()) {
+            alert('Vui lòng dán nội dung CSV vào ô trên!');
+            return;
+        }
+        
         const lines = csvText.trim().split('\n');
-        const headers = lines[0].split(',').map(h => h.trim());
+        if (lines.length < 2) {
+            alert('CSV phải có ít nhất 2 dòng (header + dữ liệu)');
+            return;
+        }
+        
+        // Đọc header
+        const headers = parseCSVLine(lines[0]);
+        console.log('Headers:', headers);
+        
+        // Xác định vị trí các cột
+        const colIndex = {
+            tu: -1,
+            loai: -1,
+            hanviet: -1,
+            tiengViet: -1,
+            pinyin: -1,
+            lucThu: -1,
+            chietTu: -1,
+            moRong: -1,
+            buthuan: -1,
+            level: -1,
+            bai: -1
+        };
+        
+        headers.forEach((h, idx) => {
+            const clean = h.trim().toLowerCase();
+            if (clean === 'từ vựng' || clean === 'tư vựng' || clean === 'tu vung') colIndex.tu = idx;
+            else if (clean === 'từ loại' || clean === 'tu loai') colIndex.loai = idx;
+            else if (clean === 'hán việt' || clean === 'hán viết' || clean === 'han viet') colIndex.hanviet = idx;
+            else if (clean === 'tiếng việt' || clean === 'tieng viet' || clean === 'nghĩa') colIndex.tiengViet = idx;
+            else if (clean === 'pinyin' || clean === 'pin yin') colIndex.pinyin = idx;
+            else if (clean === 'lục thư' || clean === 'lục thủ' || clean === 'luc thu') colIndex.lucThu = idx;
+            else if (clean === 'chiết tự' || clean === 'chiet tu') colIndex.chietTu = idx;
+            else if (clean === 'mở rộng' || clean === 'mơ rộng' || clean === 'mo rong') colIndex.moRong = idx;
+            else if (clean === 'bút thuận' || clean === 'but thuan') colIndex.buthuan = idx;
+            else if (clean === 'level') colIndex.level = idx;
+            else if (clean === 'bài' || clean === 'bai') colIndex.bai = idx;
+        });
+        
+        console.log('Column indexes:', colIndex);
         
         const result = [];
+        
         for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue;
+            
             const values = parseCSVLine(lines[i]);
-            const obj = {};
-            headers.forEach((header, idx) => {
-                let val = values[idx] ? values[idx].trim() : '';
-                if (header === 'từ mở rộng' && val) {
-                    // Chuyển "từ: nghĩa|từ2: nghĩa2" thành array
-                    obj.moRong = val.split('|').map(item => {
-                        const parts = item.split(':');
-                        return parts[0] + ': ' + (parts[1] || '');
-                    });
-                } else if (header === 'từ vựng') {
-                    obj.tu = val;
-                } else if (header === 'từ loại') {
-                    obj.loai = val;
-                } else if (header === 'hán việt') {
-                    obj.hanviet = val;
-                } else if (header === 'pinyin') {
-                    obj.pinyin = val;
-                } else if (header === 'lục thư') {
-                    obj.lucThu = val;
-                } else if (header === 'chiết tự') {
-                    obj.chiestTu = val;
-                } else if (header === 'bút thuận') {
-                    obj.buthuan = val;
-                } else if (header === 'level') {
-                    obj.level = val;
-                }
-            });
-            // Nếu không có từ mở rộng thì để mảng rỗng
-            if (!obj.moRong) obj.moRong = [];
+            if (values.length < 2) continue;
+            
+            // Lấy giá trị từng cột
+            const tu = colIndex.tu >= 0 ? values[colIndex.tu] || '' : '';
+            if (!tu) continue; // Bỏ qua dòng không có từ
+            
+            const loai = colIndex.loai >= 0 ? values[colIndex.loai] || '' : '';
+            const hanviet = colIndex.hanviet >= 0 ? values[colIndex.hanviet] || '' : '';
+            let tiengViet = colIndex.tiengViet >= 0 ? values[colIndex.tiengViet] || '' : '';
+            const pinyin = colIndex.pinyin >= 0 ? values[colIndex.pinyin] || '' : '';
+            const lucThu = colIndex.lucThu >= 0 ? values[colIndex.lucThu] || '' : '';
+            const chietTu = colIndex.chietTu >= 0 ? values[colIndex.chietTu] || '' : '';
+            let moRongRaw = colIndex.moRong >= 0 ? values[colIndex.moRong] || '' : '';
+            const buthuan = colIndex.buthuan >= 0 ? values[colIndex.buthuan] || '' : '';
+            const level = colIndex.level >= 0 ? values[colIndex.level] || 'HSK1' : 'HSK1';
+            const bai = colIndex.bai >= 0 ? values[colIndex.bai] || '' : '';
+            
+            // Xử lý nghĩa tiếng Việt (bỏ dấu ngoặc kép thừa)
+            tiengViet = tiengViet.replace(/^["']|["']$/g, '').trim();
+            
+            // Xử lý từ mở rộng: tách bằng | hoặc ;
+            let moRong = [];
+            if (moRongRaw && moRongRaw.trim()) {
+                moRongRaw = moRongRaw.replace(/^["']|["']$/g, '');
+                moRong = moRongRaw.split(/[|;]/).map(s => s.trim()).filter(s => s);
+            }
+            
+            const obj = {
+                tu: tu,
+                loai: loai,
+                hanviet: hanviet,
+                tiengViet: tiengViet,
+                pinyin: pinyin,
+                lucThu: lucThu,
+                chiestTu: chietTu,
+                moRong: moRong,
+                buthuan: buthuan,
+                level: level,
+                bai: bai
+            };
+            
             result.push(obj);
         }
         
-        const jsonOutput = JSON.stringify(result, null, 2);
-        document.getElementById('jsonResult').textContent = `window.vocabData = ${jsonOutput};`;
+        // Tạo output với window.vocabData
+        const output = `window.vocabData = ${JSON.stringify(result, null, 2)};`;
+        document.getElementById('jsonResult').textContent = output;
     }
     
     function parseCSVLine(line) {
@@ -131,8 +197,12 @@
     
     function copyToClipboard() {
         const text = document.getElementById('jsonResult').textContent;
-        navigator.clipboard.writeText(text);
-        alert('✅ Đã copy JSON vào clipboard! Hãy paste vào file data.js');
+        if (text && text !== 'Chưa có dữ liệu') {
+            navigator.clipboard.writeText(text);
+            alert('✅ Đã copy JSON vào clipboard! Paste vào file data.js');
+        } else {
+            alert('Chưa có dữ liệu để copy! Hãy chuyển đổi CSV trước.');
+        }
     }
 </script>
 </body>
