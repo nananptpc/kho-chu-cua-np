@@ -18,47 +18,12 @@
             background: #fef5f7;
             color: #2c2c2c;
             padding: 1.5rem;
-            line-height: 1.5;
+            transition: background 0.3s, color 0.3s;
         }
 
-        /* Dark mode giữ nguyên nhưng tăng tương phản */
         body.dark {
             background: #121212;
             color: #e0e0e0;
-        }
-
-        body.dark .card {
-            background: #1e1e1e;
-            border-color: #333;
-        }
-
-        body.dark .meaning-viet {
-            background: #2a4a4a;
-            color: #b8f2e2;
-        }
-
-        body.dark .badge {
-            background: #2a2a2a;
-            color: #d4a5b5;
-        }
-
-        body.dark .etymology-box {
-            background: #252525;
-            border-left-color: #d47a9e;
-        }
-
-        body.dark .structure {
-            background: #2a2a2a;
-            color: #e0b0d5;
-        }
-
-        body.dark .compound-item {
-            background: #2a2a2a;
-            color: #d4a5b5;
-        }
-
-        body.dark .bishun-area {
-            background: #1a1a1a;
         }
 
         .container {
@@ -72,36 +37,17 @@
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
-            border-bottom: 3px solid #f0c4d0;
-            padding-bottom: 1rem;
-        }
-
-        body.dark .header {
-            border-bottom-color: #444;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
         }
 
         h1 {
             font-size: 1.8rem;
             font-weight: 700;
-            color: #b85c7e;
+            color: #c06d82;
         }
 
         body.dark h1 {
-            color: #e0a5bb;
-        }
-
-        .sub {
-            background: #ffe0e8;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #b85c7e;
-        }
-
-        body.dark .sub {
-            background: #2a2a2a;
             color: #e0a5bb;
         }
 
@@ -115,8 +61,6 @@
             display: flex;
             gap: 8px;
             align-items: center;
-            font-size: 0.85rem;
-            color: #5a3e4b;
         }
 
         body.dark .theme-btn {
@@ -124,15 +68,107 @@
             color: #e0b0d5;
         }
 
+        /* Tab chuyển đổi chế độ */
+        .mode-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #f0c4d0;
+            padding-bottom: 0.5rem;
+        }
+
+        body.dark .mode-tabs {
+            border-bottom-color: #3a2a38;
+        }
+
+        .mode-tab {
+            background: none;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 40px;
+            transition: all 0.2s;
+            color: #8b5a6b;
+        }
+
+        body.dark .mode-tab {
+            color: #aaa;
+        }
+
+        .mode-tab.active {
+            background: #c06d82;
+            color: white;
+        }
+
+        body.dark .mode-tab.active {
+            background: #e0a5bb;
+            color: #121212;
+        }
+
+        /* Bộ lọc */
+        .filter-section {
+            background: white;
+            border-radius: 1rem;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #f0d0da;
+        }
+
+        body.dark .filter-section {
+            background: #1e1e1e;
+            border-color: #3a2a38;
+        }
+
+        .filter-title {
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+            color: #c06d82;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .filter-btn {
+            background: #f0d0da;
+            border: none;
+            padding: 0.3rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        body.dark .filter-btn {
+            background: #2a2a2a;
+            color: #ddd;
+        }
+
+        .filter-btn.active {
+            background: #c06d82;
+            color: white;
+        }
+
+        .reset-btn {
+            background: transparent;
+            border: 1px solid #c06d82;
+            color: #c06d82;
+        }
+
         .stats {
             background: #ffe0e8;
-            padding: 0.5rem 1.2rem;
+            padding: 0.4rem 1rem;
             border-radius: 40px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             display: inline-block;
-            margin-bottom: 1.5rem;
-            font-weight: 500;
-            color: #b85c7e;
+            margin-bottom: 1rem;
         }
 
         body.dark .stats {
@@ -140,288 +176,424 @@
             color: #e0a5bb;
         }
 
-        /* Grid layout */
+        /* Danh sách từ - Grid */
         .vocab-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 1.8rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
         }
 
-        /* Card */
         .card {
-            background: #ffffff;
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background: white;
+            border-radius: 1.2rem;
             border: 1px solid #f0d0da;
             overflow: hidden;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s;
+        }
+
+        body.dark .card {
+            background: #1e1e1e;
+            border-color: #3a2a38;
         }
 
         .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
         }
 
         .card-inner {
-            padding: 1.4rem;
+            padding: 1.2rem;
         }
 
-        /* Word row */
         .word-row {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 0.75rem;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
         .chinese-char {
-            font-size: 2.8rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: #c06d82;
-            letter-spacing: 2px;
-        }
-
-        body.dark .chinese-char {
-            color: #e8aabc;
         }
 
         .pinyin {
             background: #f3e0e6;
-            padding: 0.25rem 1rem;
+            padding: 0.2rem 0.8rem;
             border-radius: 40px;
+            font-size: 0.8rem;
             font-weight: 600;
-            font-size: 0.9rem;
-            color: #b85c7e;
         }
 
-        body.dark .pinyin {
-            background: #3a2a38;
-            color: #e0b0d5;
-        }
-
-        /* Meaning */
         .meaning-viet {
             background: #e6f3f0;
-            padding: 0.5rem 1rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 30px;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: 600;
             color: #2a6b5e;
             display: inline-block;
-            margin: 0.5rem 0;
+            margin: 6px 0;
         }
 
-        /* Meta badges */
         .meta-info {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 0.8rem 0;
-            padding: 0.6rem 0;
+            gap: 0.4rem;
+            margin: 8px 0;
+            padding: 6px 0;
             border-top: 1px solid #f0d0da;
             border-bottom: 1px solid #f0d0da;
         }
 
-        body.dark .meta-info {
-            border-color: #3a2a38;
-        }
-
         .badge {
             background: #f0d0da;
-            padding: 0.25rem 0.8rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 30px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 600;
-            color: #8b5a6b;
         }
 
-        /* Chiết tự */
         .etymology-box {
             background: #fef0f4;
-            border-radius: 1rem;
-            padding: 0.9rem;
-            margin: 0.8rem 0;
-            border-left: 4px solid #d47a9e;
-        }
-
-        body.dark .etymology-box {
-            background: #252525;
-        }
-
-        .etym-title {
-            font-weight: 700;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #d47a9e;
-            margin-bottom: 0.5rem;
-            letter-spacing: 1px;
+            border-radius: 0.8rem;
+            padding: 0.6rem;
+            margin: 8px 0;
+            border-left: 3px solid #d47a9e;
         }
 
         .structure {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 500;
-            background: #ffffff;
-            padding: 0.5rem;
-            border-radius: 0.8rem;
-            line-height: 1.45;
-            color: #3a2a38;
+            line-height: 1.4;
         }
 
-        body.dark .structure {
-            background: #1e1e1e;
-            color: #ddd;
-        }
-
-        /* Từ mở rộng */
         .expand-section {
-            margin: 0.8rem 0;
+            margin: 8px 0;
             border-top: 1px dashed #f0d0da;
-            padding-top: 0.8rem;
+            padding-top: 6px;
         }
 
         .toggle-expand {
             background: none;
             border: none;
             color: #c06d82;
-            font-weight: 600;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 0.3rem 0;
+            gap: 5px;
         }
 
         .compound-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.6rem;
+            gap: 0.4rem;
+            margin-top: 6px;
         }
 
         .compound-item {
             background: #f0e0e8;
-            padding: 0.25rem 0.7rem;
+            padding: 0.2rem 0.6rem;
             border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 500;
-            color: #5a3e4b;
+            font-size: 0.65rem;
         }
 
-        body.dark .compound-item {
-            background: #3a2a38;
-            color: #ddd;
-        }
-
-        /* Bút thuận */
         .bishun-area {
             text-align: center;
             background: #f8e8f0;
-            border-radius: 1rem;
-            padding: 0.6rem;
+            border-radius: 0.8rem;
+            padding: 0.5rem;
             cursor: pointer;
-            margin-top: 0.7rem;
-        }
-
-        body.dark .bishun-area {
-            background: #1a1a1a;
+            margin-top: 6px;
         }
 
         .bishun-placeholder {
-            background: #fce4ec;
-            padding: 0.4rem;
-            border-radius: 1rem;
-            font-size: 0.7rem;
-            color: #b85c7e;
+            font-size: 0.65rem;
         }
 
         .bishun-img {
             max-width: 100%;
-            max-height: 90px;
-            border-radius: 12px;
-            margin-top: 6px;
+            max-height: 80px;
+            border-radius: 10px;
+            margin-top: 5px;
+        }
+
+        /* Flashcard mode */
+        .flashcard-container {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .flashcard {
+            width: 100%;
+            max-width: 500px;
+            height: 360px;
+            cursor: pointer;
+            perspective: 1000px;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s;
+            transform-style: preserve-3d;
+            border-radius: 1.2rem;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1.2rem;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .flashcard-front {
+            background: linear-gradient(135deg, #fff0f4, #ffe2ea);
+            border: 2px solid #f0c4d0;
+        }
+
+        .flashcard-back {
+            background: linear-gradient(135deg, #e8eef5, #dde4ef);
+            transform: rotateY(180deg);
+        }
+
+        body.dark .flashcard-front {
+            background: linear-gradient(135deg, #2a1e24, #3a2a38);
+        }
+        body.dark .flashcard-back {
+            background: linear-gradient(135deg, #1e2a2a, #2a3a3a);
+        }
+
+        .flashcard-char {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #c06d82;
+        }
+
+        .flashcard-pinyin {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 0.3rem;
+        }
+
+        .flashcard-meaning {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2a6b5e;
+            margin-bottom: 0.5rem;
+        }
+
+        .flashcard-info {
+            font-size: 0.7rem;
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .nav-btn {
+            background: #c06d82;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .progress {
+            text-align: center;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
         }
 
         .hidden {
             display: none;
         }
 
-        .footer-note {
-            text-align: center;
-            margin-top: 2rem;
-            font-size: 0.7rem;
-            color: #aaa;
+        .back-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #c06d82;
+            font-size: 0.75rem;
         }
 
         @media (max-width: 700px) {
-            body {
-                padding: 1rem;
-            }
-            .chinese-char {
-                font-size: 2.2rem;
-            }
-            .vocab-grid {
-                grid-template-columns: 1fr;
-            }
+            body { padding: 1rem; }
+            .chinese-char { font-size: 2rem; }
+            .flashcard { height: 320px; }
+            .flashcard-char { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <div>
-            <h1>🌸 Từ vựng HSK1 · Chiết tự</h1>
-            <div class="sub">Lục thư + Nghĩa Việt + Từ mở rộng + Bút thuận</div>
-        </div>
+        <h1>🌸 HSK1 · Từ vựng chiết tự</h1>
         <button class="theme-btn" id="themeToggleBtn">
             <i class="fas fa-moon"></i> <span id="themeText">Dark mode</span>
         </button>
     </div>
-    <div class="stats" id="stats">Đang tải...</div>
-    <div class="vocab-grid" id="vocabGrid"></div>
-    <div class="footer-note">✨ Nhấn vào ô bút thuận để xem ảnh động</div>
+
+    <!-- Tab chuyển chế độ -->
+    <div class="mode-tabs">
+        <button class="mode-tab active" data-mode="list">📋 Danh sách</button>
+        <button class="mode-tab" data-mode="flashcard">🃏 Flashcard ôn tập</button>
+    </div>
+
+    <!-- Bộ lọc chung -->
+    <div class="filter-section">
+        <div class="filter-title"><i class="fas fa-sliders-h"></i> Lọc từ vựng</div>
+        <div class="filter-group">
+            <button class="filter-btn" data-filter="level" data-value="all">📚 Tất cả</button>
+            <button class="filter-btn" data-filter="level" data-value="HSK1">HSK1</button>
+        </div>
+        <div class="filter-group">
+            <button class="filter-btn" data-filter="loai" data-value="all">📖 Tất cả</button>
+            <button class="filter-btn" data-filter="loai" data-value="đại từ">Đại từ</button>
+            <button class="filter-btn" data-filter="loai" data-value="động từ">Động từ</button>
+            <button class="filter-btn" data-filter="loai" data-value="tính từ">Tính từ</button>
+            <button class="filter-btn" data-filter="loai" data-value="phó từ">Phó từ</button>
+        </div>
+        <div class="filter-group">
+            <button class="filter-btn reset-btn" id="resetFilterBtn"><i class="fas fa-undo"></i> Đặt lại bộ lọc</button>
+        </div>
+    </div>
+
+    <div class="stats" id="stats">📊 Đang tải...</div>
+
+    <!-- Chế độ danh sách -->
+    <div id="listMode" class="vocab-grid"></div>
+
+    <!-- Chế độ flashcard -->
+    <div id="flashcardMode" class="hidden">
+        <div class="flashcard-container">
+            <div class="flashcard" id="flashcard">
+                <div class="flashcard-inner">
+                    <div class="flashcard-front">
+                        <div class="flashcard-char" id="cardFrontChar">我</div>
+                        <div class="flashcard-pinyin" id="cardFrontPinyin">wǒ</div>
+                        <div class="flashcard-info">👆 Nhấn để lật thẻ</div>
+                    </div>
+                    <div class="flashcard-back">
+                        <div class="flashcard-meaning" id="cardBackMeaning">tôi, ta</div>
+                        <div class="flashcard-info" id="cardBackInfo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i> Trước</button>
+            <button class="nav-btn" id="flipBtn"><i class="fas fa-sync-alt"></i> Lật thẻ</button>
+            <button class="nav-btn" id="nextBtn">Sau <i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="progress" id="progress">Thẻ 0 / 0</div>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+        <a href="../" class="back-link"><i class="fas fa-arrow-left"></i> Về trang chủ</a>
+    </div>
 </div>
 
 <script src="data.js"></script>
 <script>
-    function renderCards() {
-        const grid = document.getElementById('vocabGrid');
-        const statsDiv = document.getElementById('stats');
-        
-        if (!grid || !window.vocabData || window.vocabData.length === 0) {
-            statsDiv.innerHTML = '⚠️ Đang tải dữ liệu...';
+    let fullData = [];
+    let filteredData = [];
+    let currentMode = 'list';
+    let flashcardIndex = 0;
+    let isFlipped = false;
+
+    let currentFilters = { level: 'all', loai: 'all' };
+
+    function loadData() {
+        if (window.vocabData && window.vocabData.length) {
+            fullData = window.vocabData;
+            applyFilters();
+        } else {
+            document.getElementById('stats').innerHTML = '⚠️ Lỗi tải dữ liệu';
+        }
+    }
+
+    function applyFilters() {
+        filteredData = fullData.filter(word => {
+            if (currentFilters.level !== 'all' && word.level !== currentFilters.level) return false;
+            if (currentFilters.loai !== 'all' && word.loai !== currentFilters.loai) return false;
+            return true;
+        });
+        if (filteredData.length === 0 && fullData.length > 0) {
+            currentFilters = { level: 'all', loai: 'all' };
+            filteredData = [...fullData];
+            updateActiveButtons();
+        }
+        flashcardIndex = 0;
+        isFlipped = false;
+        document.getElementById('flashcard')?.classList.remove('flipped');
+        updateStats();
+        renderCurrentMode();
+    }
+
+    function updateStats() {
+        document.getElementById('stats').innerHTML = `📊 Tổng: ${fullData.length} từ · Đang hiển thị: ${filteredData.length} từ`;
+    }
+
+    function updateActiveButtons() {
+        document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+            const type = btn.getAttribute('data-filter');
+            const val = btn.getAttribute('data-value');
+            if (currentFilters[type] === val) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+    }
+
+    function renderCurrentMode() {
+        if (currentMode === 'list') renderListMode();
+        else renderFlashcardMode();
+    }
+
+    function renderListMode() {
+        const grid = document.getElementById('listMode');
+        grid.innerHTML = '';
+        if (filteredData.length === 0) {
+            grid.innerHTML = '<div style="text-align:center; padding:2rem;">📭 Không có từ nào phù hợp</div>';
             return;
         }
-        
-        const data = window.vocabData;
-        statsDiv.innerHTML = `📚 Tổng số từ: ${data.length} | HSK1 · Chiết tự + Từ mở rộng`;
-        
-        grid.innerHTML = '';
-        
-        data.forEach(word => {
-            const vietMeaning = word.tiengViet || word.nghia || word.meaning || 'Đang cập nhật';
-            
-            let expandHtml = '';
-            const hasMoRong = word.moRong && Array.isArray(word.moRong) && word.moRong.length > 0 && word.moRong[0] !== '';
-            
-            if (hasMoRong) {
-                expandHtml = `
-                    <div class="expand-section">
-                        <button class="toggle-expand" onclick="toggleExpand(this)">
-                            <i class="fas fa-plus-circle"></i> 📖 Từ mở rộng (${word.moRong.length})
-                        </button>
-                        <div class="compound-list hidden">
-                            ${word.moRong.map(c => `<span class="compound-item">📌 ${c}</span>`).join('')}
-                        </div>
+        filteredData.forEach(word => {
+            const vietMeaning = word.tiengViet || word.nghia || 'Đang cập nhật';
+            const hasMoRong = word.moRong?.length > 0 && word.moRong[0] !== '';
+            const expandHtml = hasMoRong ? `
+                <div class="expand-section">
+                    <button class="toggle-expand" onclick="toggleExpand(this)">
+                        <i class="fas fa-plus-circle"></i> Từ mở rộng (${word.moRong.length})
+                    </button>
+                    <div class="compound-list hidden">
+                        ${word.moRong.map(c => `<span class="compound-item">📌 ${c}</span>`).join('')}
                     </div>
-                `;
-            } else {
-                expandHtml = `<div class="expand-section"><i class="fas fa-info-circle" style="font-size:0.65rem; color:#c2798f;"></i> <span style="font-size:0.7rem;">✨ Chưa có từ mở rộng</span></div>`;
-            }
-            
+                </div>
+            ` : `<div class="expand-section"><i class="fas fa-info-circle" style="font-size:0.6rem;"></i> <span style="font-size:0.65rem;">Chưa có từ mở rộng</span></div>`;
+
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
@@ -430,18 +602,14 @@
                         <span class="chinese-char">${word.tu || '?'}</span>
                         <span class="pinyin">${word.pinyin || ''}</span>
                     </div>
-                    <div class="meaning-viet">
-                        <i class="fas fa-language"></i> ${vietMeaning}
-                    </div>
+                    <div class="meaning-viet"><i class="fas fa-language"></i> ${vietMeaning}</div>
                     <div class="meta-info">
                         <span class="badge">📖 ${word.loai || '?'}</span>
                         <span class="badge">🇻🇳 ${word.hanviet || '?'}</span>
                         <span class="badge">🔤 ${word.lucThu || '?'}</span>
                         <span class="badge">${word.level || 'HSK1'}</span>
-                        ${word.bai ? `<span class="badge">📘 ${word.bai}</span>` : ''}
                     </div>
                     <div class="etymology-box">
-                        <div class="etym-title"><i class="fas fa-cubes"></i> CHIẾT TỰ | 析字</div>
                         <div class="structure">🔹 ${word.chiestTu || word.chietTu || 'Đang cập nhật'}</div>
                     </div>
                     ${expandHtml}
@@ -453,40 +621,123 @@
             `;
             grid.appendChild(card);
         });
-        
+        attachBishunEvents();
+    }
+
+    function attachBishunEvents() {
         document.querySelectorAll('.bishun-area').forEach(area => {
             const url = area.getAttribute('data-url');
             if (!url || url === '') {
-                area.innerHTML = '<div style="padding:0.4rem; color:#aaa;">⚠️ Chưa có link bút thuận</div>';
+                area.innerHTML = '<div style="padding:0.3rem; color:#aaa;">⚠️ Chưa có link</div>';
                 return;
             }
             area.addEventListener('click', () => {
                 const container = area.querySelector('.bishun-container');
-                if (!container) return;
-                if (container.querySelector('img')) return;
+                if (!container || container.querySelector('img')) return;
                 const placeholder = area.querySelector('.bishun-placeholder');
                 if (placeholder) placeholder.remove();
                 const img = document.createElement('img');
                 img.src = url;
                 img.className = 'bishun-img';
-                img.onerror = () => { img.alt = 'Không tải được ảnh'; };
                 container.appendChild(img);
             });
         });
     }
-    
-    window.toggleExpand = function(btn) {
-        const list = btn.parentElement.querySelector('.compound-list');
-        if (list.classList.contains('hidden')) {
-            list.classList.remove('hidden');
-            btn.innerHTML = '<i class="fas fa-minus-circle"></i> 📖 Thu gọn';
-        } else {
-            list.classList.add('hidden');
-            const count = list.children.length;
-            btn.innerHTML = `<i class="fas fa-plus-circle"></i> 📖 Từ mở rộng (${count})`;
+
+    function renderFlashcardMode() {
+        if (filteredData.length === 0) {
+            document.getElementById('progress').innerText = 'Không có từ để ôn';
+            document.getElementById('cardFrontChar').innerText = '🎯';
+            document.getElementById('cardFrontPinyin').innerText = '';
+            document.getElementById('cardBackMeaning').innerHTML = 'Hãy reset bộ lọc';
+            document.getElementById('cardBackInfo').innerHTML = '';
+            return;
         }
-    };
-    
+        const word = filteredData[flashcardIndex];
+        const vietMeaning = word.tiengViet || word.nghia || 'Đang cập nhật';
+        document.getElementById('cardFrontChar').innerText = word.tu || '?';
+        document.getElementById('cardFrontPinyin').innerText = word.pinyin || '';
+        document.getElementById('cardBackMeaning').innerHTML = `<i class="fas fa-language"></i> ${vietMeaning}`;
+        document.getElementById('cardBackInfo').innerHTML = `
+            <i class="fas fa-tag"></i> ${word.loai || '?'}<br>
+            <i class="fas fa-book"></i> ${word.hanviet || '?'}<br>
+            <i class="fas fa-puzzle-piece"></i> ${word.lucThu || '?'}<br>
+            <i class="fas fa-cubes"></i> ${(word.chiestTu || word.chietTu || '').substring(0, 80)}...
+        `;
+        document.getElementById('progress').innerText = `Thẻ ${flashcardIndex + 1} / ${filteredData.length}`;
+    }
+
+    function nextCard() {
+        if (filteredData.length === 0) return;
+        flashcardIndex = (flashcardIndex + 1) % filteredData.length;
+        isFlipped = false;
+        document.getElementById('flashcard')?.classList.remove('flipped');
+        renderFlashcardMode();
+    }
+
+    function prevCard() {
+        if (filteredData.length === 0) return;
+        flashcardIndex = (flashcardIndex - 1 + filteredData.length) % filteredData.length;
+        isFlipped = false;
+        document.getElementById('flashcard')?.classList.remove('flipped');
+        renderFlashcardMode();
+    }
+
+    function flipCard() {
+        if (filteredData.length === 0) return;
+        const fc = document.getElementById('flashcard');
+        if (isFlipped) fc.classList.remove('flipped');
+        else fc.classList.add('flipped');
+        isFlipped = !isFlipped;
+    }
+
+    function initFilters() {
+        document.querySelectorAll('.filter-btn[data-filter]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const type = btn.getAttribute('data-filter');
+                const val = btn.getAttribute('data-value');
+                currentFilters[type] = val;
+                applyFilters();
+                updateActiveButtons();
+                if (currentMode === 'flashcard') {
+                    isFlipped = false;
+                    document.getElementById('flashcard')?.classList.remove('flipped');
+                }
+            });
+        });
+        document.getElementById('resetFilterBtn').addEventListener('click', () => {
+            currentFilters = { level: 'all', loai: 'all' };
+            applyFilters();
+            updateActiveButtons();
+            if (currentMode === 'flashcard') {
+                isFlipped = false;
+                document.getElementById('flashcard')?.classList.remove('flipped');
+            }
+        });
+    }
+
+    function initModeTabs() {
+        document.querySelectorAll('.mode-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.mode-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentMode = tab.getAttribute('data-mode');
+                if (currentMode === 'list') {
+                    document.getElementById('listMode').classList.remove('hidden');
+                    document.getElementById('flashcardMode').classList.add('hidden');
+                    renderListMode();
+                } else {
+                    document.getElementById('listMode').classList.add('hidden');
+                    document.getElementById('flashcardMode').classList.remove('hidden');
+                    flashcardIndex = 0;
+                    isFlipped = false;
+                    document.getElementById('flashcard')?.classList.remove('flipped');
+                    renderFlashcardMode();
+                }
+            });
+        });
+    }
+
     function initTheme() {
         const stored = localStorage.getItem('theme_hsk');
         const body = document.body;
@@ -500,18 +751,32 @@
         }
         btn.addEventListener('click', () => {
             body.classList.toggle('dark');
-            const isDark = body.classList.contains('dark');
-            localStorage.setItem('theme_hsk', isDark ? 'dark' : 'light');
-            span.innerText = isDark ? 'Light mode' : 'Dark mode';
+            localStorage.setItem('theme_hsk', body.classList.contains('dark') ? 'dark' : 'light');
+            span.innerText = body.classList.contains('dark') ? 'Light mode' : 'Dark mode';
         });
     }
-    
+
+    window.toggleExpand = function(btn) {
+        const list = btn.parentElement.querySelector('.compound-list');
+        if (list.classList.contains('hidden')) {
+            list.classList.remove('hidden');
+            btn.innerHTML = '<i class="fas fa-minus-circle"></i> Thu gọn';
+        } else {
+            list.classList.add('hidden');
+            const count = list.children.length;
+            btn.innerHTML = `<i class="fas fa-plus-circle"></i> Từ mở rộng (${count})`;
+        }
+    };
+
     document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => {
-            if (window.vocabData) renderCards();
-            else console.error('Không tìm thấy data.js');
-        }, 100);
+        loadData();
+        initFilters();
+        initModeTabs();
         initTheme();
+        document.getElementById('prevBtn')?.addEventListener('click', prevCard);
+        document.getElementById('nextBtn')?.addEventListener('click', nextCard);
+        document.getElementById('flipBtn')?.addEventListener('click', flipCard);
+        document.getElementById('flashcard')?.addEventListener('click', flipCard);
     });
 </script>
 </body>
