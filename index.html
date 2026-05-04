@@ -263,10 +263,16 @@
       transition: transform 0.2s;
     }
 
+    /* THÊM DÒNG NÀY ĐỂ BỎ GẠCH CHÂN */
     .flashcard-main-link {
       text-decoration: none;
       display: block;
       margin-bottom: 1.2rem;
+    }
+
+    /* BỎ GẠCH CHÂN CHO CẢ THẺ A */
+    a {
+      text-decoration: none;
     }
 
     .section-header {
@@ -319,6 +325,7 @@
 
     .quiz-link:hover {
       transform: translateX(4px);
+      text-decoration: none;
     }
 
     .quiz-name {
@@ -377,11 +384,11 @@
     <div class="gamification">🎮 Gamification</div>
   </div>
 
-  <!-- FLASHCARD THÔNG MINH -->
-  <a href="tu-vung-theo-bai/" class="card">
+  <!-- Link TỪ VỰNG THEO BÀI đã sửa -->
+  <a href="tu-vung-theo-bai/" class="flashcard-main-link">
     <div class="level">
       <div class="level-header" style="cursor: pointer;">
-        <span class="level-title">📇 Từ vựng theo bài </span>
+        <span class="level-title">📇 TỪ VỰNG THEO BÀI</span>
       </div>
     </div>
   </a>
