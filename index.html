@@ -1,540 +1,518 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kho chữ của np – Học tiếng Trung</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>HSK1 - Từ vựng chiết tự | Kho chữ của NP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: 'Montserrat', sans-serif;
-      padding: 2rem 1rem;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #fef5f7;
+            color: #2c2c2c;
+            padding: 1.5rem;
+            line-height: 1.5;
+        }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-    }
+        /* Dark mode giữ nguyên nhưng tăng tương phản */
+        body.dark {
+            background: #121212;
+            color: #e0e0e0;
+        }
 
-    /* ===== TOGGLE BUTTON ===== */
-    .theme-toggle {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: rgba(255, 94, 156, 0.2);
-      border: 1px solid;
-      border-radius: 3rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      font-size: 1.2rem;
-      font-weight: 600;
-      transition: all 0.2s;
-      z-index: 1000;
-      backdrop-filter: blur(8px);
-    }
+        body.dark .card {
+            background: #1e1e1e;
+            border-color: #333;
+        }
 
-    .theme-toggle:hover {
-      transform: scale(1.05);
-    }
+        body.dark .meaning-viet {
+            background: #2a4a4a;
+            color: #b8f2e2;
+        }
 
-    /* ===== DARK THEME (mặc định) ===== */
-    body.dark {
-      background: #0D0F14;
-      color: #FFFFFF;
-    }
+        body.dark .badge {
+            background: #2a2a2a;
+            color: #d4a5b5;
+        }
 
-    body.dark .hero {
-      background: #1E1620;
-      border: 1px solid #3A2A38;
-    }
+        body.dark .etymology-box {
+            background: #252525;
+            border-left-color: #d47a9e;
+        }
 
-    body.dark h1 {
-      color: #FFB3D1;
-    }
+        body.dark .structure {
+            background: #2a2a2a;
+            color: #e0b0d5;
+        }
 
-    body.dark .gamification {
-      color: #FF5E9C;
-      background: rgba(255, 94, 156, 0.15);
-    }
+        body.dark .compound-item {
+            background: #2a2a2a;
+            color: #d4a5b5;
+        }
 
-    body.dark .level {
-      background: #1E1620;
-      border: 1px solid #3A2A38;
-    }
+        body.dark .bishun-area {
+            background: #1a1a1a;
+        }
 
-    body.dark .level:hover {
-      border-color: #FF5E9C;
-    }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-    body.dark .level-title {
-      color: #FFB3D1;
-    }
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            border-bottom: 3px solid #f0c4d0;
+            padding-bottom: 1rem;
+        }
 
-    body.dark .toggle-icon {
-      color: #FF5E9C;
-    }
+        body.dark .header {
+            border-bottom-color: #444;
+        }
 
-    body.dark .section-header:hover {
-      background: rgba(255, 94, 156, 0.1);
-    }
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #b85c7e;
+        }
 
-    body.dark .section-title {
-      color: #E0B0D5;
-    }
+        body.dark h1 {
+            color: #e0a5bb;
+        }
 
-    body.dark .section-icon {
-      color: #FF5E9C;
-    }
+        .sub {
+            background: #ffe0e8;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #b85c7e;
+        }
 
-    body.dark .section-content {
-      border-left: 2px solid #3A2A38;
-    }
+        body.dark .sub {
+            background: #2a2a2a;
+            color: #e0a5bb;
+        }
 
-    body.dark .quiz-link {
-      background: #0D0F14;
-      border: 1px solid #3A2A38;
-      color: #FFFFFF;
-    }
+        .theme-btn {
+            background: #f0c4d0;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #5a3e4b;
+        }
 
-    body.dark .quiz-link:hover {
-      background: #2E1F2A;
-      border-color: #FF5E9C;
-    }
+        body.dark .theme-btn {
+            background: #3a2a38;
+            color: #e0b0d5;
+        }
 
-    body.dark .quiz-name {
-      color: #FFB3D1;
-    }
+        .stats {
+            background: #ffe0e8;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            color: #b85c7e;
+        }
 
-    body.dark .badge {
-      background: rgba(255, 94, 156, 0.15);
-      color: #E0B0D5;
-    }
+        body.dark .stats {
+            background: #2a2a2a;
+            color: #e0a5bb;
+        }
 
-    body.dark .footer {
-      border-top: 1px solid #3A2A38;
-      color: #888;
-    }
+        /* Grid layout */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1rem;
+        }
 
-    body.dark .theme-toggle {
-      background: rgba(255, 94, 156, 0.2);
-      border-color: #FF5E9C;
-      color: #FFB3D1;
-    }
+        /* Card */
+        .card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0d0da;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
 
-    /* ===== LIGHT THEME (hồng pastel nhẹ) ===== */
-    body.light {
-      background: #FFF5F7;
-      color: #5A3E4B;
-    }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
 
-    body.light .hero {
-      background: #FFFFFF;
-      border: 1px solid #F3C4D4;
-      box-shadow: 0 4px 12px rgba(212, 122, 158, 0.08);
-    }
+        .card-inner {
+            padding: 1.4rem;
+        }
 
-    body.light h1 {
-      color: #D47A9E;
-    }
+        /* Word row */
+        .word-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 0.75rem;
+        }
 
-    body.light .gamification {
-      color: #B5838D;
-      background: #FFF0F3;
-    }
+        .chinese-char {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #c06d82;
+            letter-spacing: 2px;
+        }
 
-    body.light .level {
-      background: #FFFFFF;
-      border: 1px solid #F3C4D4;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-    }
+        body.dark .chinese-char {
+            color: #e8aabc;
+        }
 
-    body.light .level:hover {
-      border-color: #D47A9E;
-    }
+        .pinyin {
+            background: #f3e0e6;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #b85c7e;
+        }
 
-    body.light .level-title {
-      color: #D47A9E;
-    }
+        body.dark .pinyin {
+            background: #3a2a38;
+            color: #e0b0d5;
+        }
 
-    body.light .toggle-icon {
-      color: #D47A9E;
-    }
+        /* Meaning */
+        .meaning-viet {
+            background: #e6f3f0;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2a6b5e;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
 
-    body.light .section-header:hover {
-      background: #FFF0F3;
-    }
+        /* Meta badges */
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.8rem 0;
+            padding: 0.6rem 0;
+            border-top: 1px solid #f0d0da;
+            border-bottom: 1px solid #f0d0da;
+        }
 
-    body.light .section-title {
-      color: #B5838D;
-    }
+        body.dark .meta-info {
+            border-color: #3a2a38;
+        }
 
-    body.light .section-icon {
-      color: #D47A9E;
-    }
+        .badge {
+            background: #f0d0da;
+            padding: 0.25rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #8b5a6b;
+        }
 
-    body.light .section-content {
-      border-left: 2px solid #F3C4D4;
-    }
+        /* Chiết tự */
+        .etymology-box {
+            background: #fef0f4;
+            border-radius: 1rem;
+            padding: 0.9rem;
+            margin: 0.8rem 0;
+            border-left: 4px solid #d47a9e;
+        }
 
-    body.light .quiz-link {
-      background: #FFFafb;
-      border: 1px solid #F3C4D4;
-      color: #5A3E4B;
-    }
+        body.dark .etymology-box {
+            background: #252525;
+        }
 
-    body.light .quiz-link:hover {
-      background: #FFF0F3;
-      border-color: #D47A9E;
-    }
+        .etym-title {
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #d47a9e;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
 
-    body.light .quiz-name {
-      color: #D47A9E;
-    }
+        .structure {
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: #ffffff;
+            padding: 0.5rem;
+            border-radius: 0.8rem;
+            line-height: 1.45;
+            color: #3a2a38;
+        }
 
-    body.light .badge {
-      background: #F3C4D4;
-      color: #8B5E6B;
-    }
+        body.dark .structure {
+            background: #1e1e1e;
+            color: #ddd;
+        }
 
-    body.light .footer {
-      border-top: 1px solid #F3C4D4;
-      color: #C98AA8;
-    }
+        /* Từ mở rộng */
+        .expand-section {
+            margin: 0.8rem 0;
+            border-top: 1px dashed #f0d0da;
+            padding-top: 0.8rem;
+        }
 
-    body.light .theme-toggle {
-      background: rgba(212, 122, 158, 0.15);
-      border-color: #D47A9E;
-      color: #D47A9E;
-    }
+        .toggle-expand {
+            background: none;
+            border: none;
+            color: #c06d82;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.3rem 0;
+        }
 
-    /* ===== CÁC STYLE CHUNG ===== */
-    .hero {
-      text-align: center;
-      border-radius: 2rem;
-      padding: 2rem 1.5rem;
-      margin-bottom: 2rem;
-      transition: all 0.3s ease;
-    }
+        .compound-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.6rem;
+        }
 
-    h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
+        .compound-item {
+            background: #f0e0e8;
+            padding: 0.25rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #5a3e4b;
+        }
 
-    .gamification {
-      font-size: 0.85rem;
-      font-weight: 500;
-      display: inline-block;
-      padding: 0.3rem 1.2rem;
-      border-radius: 2rem;
-      margin-top: 0.8rem;
-    }
+        body.dark .compound-item {
+            background: #3a2a38;
+            color: #ddd;
+        }
 
-    .level {
-      border-radius: 1.5rem;
-      margin-bottom: 1.2rem;
-      padding: 1rem 1.5rem;
-      transition: all 0.2s;
-    }
+        /* Bút thuận */
+        .bishun-area {
+            text-align: center;
+            background: #f8e8f0;
+            border-radius: 1rem;
+            padding: 0.6rem;
+            cursor: pointer;
+            margin-top: 0.7rem;
+        }
 
-    .level-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      padding: 0.5rem 0;
-    }
+        body.dark .bishun-area {
+            background: #1a1a1a;
+        }
 
-    .level-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-    }
+        .bishun-placeholder {
+            background: #fce4ec;
+            padding: 0.4rem;
+            border-radius: 1rem;
+            font-size: 0.7rem;
+            color: #b85c7e;
+        }
 
-    .toggle-icon {
-      font-size: 1.2rem;
-      transition: transform 0.2s;
-    }
+        .bishun-img {
+            max-width: 100%;
+            max-height: 90px;
+            border-radius: 12px;
+            margin-top: 6px;
+        }
 
-    /* THÊM DÒNG NÀY ĐỂ BỎ GẠCH CHÂN */
-    .flashcard-main-link {
-      text-decoration: none;
-      display: block;
-      margin-bottom: 1.2rem;
-    }
+        .hidden {
+            display: none;
+        }
 
-    /* BỎ GẠCH CHÂN CHO CẢ THẺ A */
-    a {
-      text-decoration: none;
-    }
+        .footer-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #aaa;
+        }
 
-    .section-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      padding: 0.7rem 0 0.7rem 0.5rem;
-      margin-top: 0.8rem;
-      border-radius: 2rem;
-      transition: 0.2s;
-    }
-
-    .section-title {
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .section-icon {
-      font-size: 0.8rem;
-    }
-
-    .section-content {
-      margin-top: 0.5rem;
-      margin-left: 1rem;
-      padding-left: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .quiz-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-    }
-
-    .quiz-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-radius: 3rem;
-      padding: 0.7rem 1.2rem;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.2s;
-      font-size: 0.85rem;
-    }
-
-    .quiz-link:hover {
-      transform: translateX(4px);
-      text-decoration: none;
-    }
-
-    .quiz-name {
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    .badge {
-      padding: 0.2rem 0.8rem;
-      border-radius: 2rem;
-      font-size: 0.65rem;
-      font-weight: 500;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 2.5rem;
-      padding: 1.2rem 0;
-      font-size: 0.7rem;
-    }
-
-    @media (max-width: 640px) {
-      .level-title {
-        font-size: 1.2rem;
-      }
-      .quiz-link {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-      }
-      .theme-toggle {
-        top: 0.5rem;
-        right: 0.5rem;
-        padding: 0.3rem 0.8rem;
-        font-size: 0.9rem;
-      }
-      body {
-        padding: 1rem;
-      }
-    }
-  </style>
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .chinese-char {
+                font-size: 2.2rem;
+            }
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-<body class="dark">
+<body>
 <div class="container">
-  <!-- Theme toggle button -->
-  <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
-    🌙 Dark
-  </div>
-
-  <div class="hero">
-    <h1>🌸 kho chữ của np</h1>
-    <div class="gamification">🎮 Gamification</div>
-  </div>
-
-  <!-- Link TỪ VỰNG THEO BÀI đã sửa -->
-  <a href="tu-vung-theo-bai/" class="flashcard-main-link">
-    <div class="level">
-      <div class="level-header" style="cursor: pointer;">
-        <span class="level-title">📇 TỪ VỰNG THEO BÀI</span>
-      </div>
+    <div class="header">
+        <div>
+            <h1>🌸 Từ vựng HSK1 · Chiết tự</h1>
+            <div class="sub">Lục thư + Nghĩa Việt + Từ mở rộng + Bút thuận</div>
+        </div>
+        <button class="theme-btn" id="themeToggleBtn">
+            <i class="fas fa-moon"></i> <span id="themeText">Dark mode</span>
+        </button>
     </div>
-  </a>
-
-  <!-- HSK 1 -->
-  <div class="level">
-    <div class="level-header" onclick="toggleList('hsk1')">
-      <span class="level-title">📘 HSK 1</span>
-      <span class="toggle-icon" id="hsk1-icon">▼</span>
-    </div>
-    <div id="hsk1-content" class="quiz-list">
-      
-      <!-- QUIZ section -->
-      <div class="section-header" onclick="toggleSection('quiz')">
-        <span class="section-title">📝 QUIZ</span>
-        <span class="section-icon" id="quiz-icon">▼</span>
-      </div>
-      <div id="quiz-section" class="section-content">
-        <a href="/kho-chu-cua-np/HSK1/cau-tao-chu-han/" class="quiz-link">
-          <span class="quiz-name">📖 Cấu tạo chữ Hán</span>
-          <span class="badge">tượng hình · chỉ sự · hội ý · hình thanh</span>
-        </a>
-        <a href="/kho-chu-cua-np/HSK1/quy-tac-viet-chu-han/" class="quiz-link">
-          <span class="quiz-name">✍️ Quy tắc viết chữ Hán</span>
-          <span class="badge">8 nét cơ bản · bút thuận</span>
-        </a>
-        <a href="/kho-chu-cua-np/HSK1/ngu-am-bien-dieu/" class="quiz-link">
-          <span class="quiz-name">🎵 Ngữ âm & biến điệu</span>
-          <span class="badge">thanh mẫu · vận mẫu · i/u/ü · biến thanh</span>
-        </a>
-        <a href="/kho-chu-cua-np/HSK1/phat-am-va-dat-luoi/" class="quiz-link">
-          <span class="quiz-name">🎤 Phát âm & Đặt lưỡi</span>
-          <span class="badge">thanh mẫu · vận mẫu · thanh điệu</span>
-        </a>
-      </div>
-
-      <!-- TÀI LIỆU TƯƠNG TÁC -->
-      <div class="section-header" onclick="toggleSection('tailieu')">
-        <span class="section-title">📁 TÀI LIỆU TƯƠNG TÁC</span>
-        <span class="section-icon" id="tailieu-icon">▼</span>
-      </div>
-      <div id="tailieu-section" class="section-content">
-        <a href="/kho-chu-cua-np/HSK1/luc-thu-matching/" class="quiz-link">
-          <span class="quiz-name">🔗 Lục thư – Ghép định nghĩa & khái niệm</span>
-          <span class="badge">kéo thả · tương tác</span>
-        </a>
-        <a href="/kho-chu-cua-np/HSK1/bang-thanh-mau-van-mau/" class="quiz-link">
-          <span class="quiz-name">🎵 Bảng thanh mẫu - vận mẫu</span>
-          <span class="badge">âm tắc · âm xát · ghép âm · quy tắc</span>
-        </a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- HSK 2 -->
-  <div class="level">
-    <div class="level-header" onclick="toggleList('hsk2')">
-      <span class="level-title">📗 HSK 2</span>
-      <span class="toggle-icon" id="hsk2-icon">▶</span>
-    </div>
-    <div id="hsk2-content" class="quiz-list hidden">
-      <div class="quiz-link" style="cursor:default; justify-content:center;">
-        ✨ Sắp ra mắt
-      </div>
-    </div>
-  </div>
-
-  <!-- HSK 3 -->
-  <div class="level">
-    <div class="level-header" onclick="toggleList('hsk3')">
-      <span class="level-title">📙 HSK 3</span>
-      <span class="toggle-icon" id="hsk3-icon">▶</span>
-    </div>
-    <div id="hsk3-content" class="quiz-list hidden">
-      <div class="quiz-link" style="cursor:default; justify-content:center;">
-        🌿 Đang xây dựng
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    © nananp.tpc
-  </div>
+    <div class="stats" id="stats">Đang tải...</div>
+    <div class="vocab-grid" id="vocabGrid"></div>
+    <div class="footer-note">✨ Nhấn vào ô bút thuận để xem ảnh động</div>
 </div>
 
+<script src="data.js"></script>
 <script>
-  // Theme handling
-  function setTheme(theme) {
-    document.body.classList.remove('dark', 'light');
-    document.body.classList.add(theme);
-    localStorage.setItem('theme', theme);
+    function renderCards() {
+        const grid = document.getElementById('vocabGrid');
+        const statsDiv = document.getElementById('stats');
+        
+        if (!grid || !window.vocabData || window.vocabData.length === 0) {
+            statsDiv.innerHTML = '⚠️ Đang tải dữ liệu...';
+            return;
+        }
+        
+        const data = window.vocabData;
+        statsDiv.innerHTML = `📚 Tổng số từ: ${data.length} | HSK1 · Chiết tự + Từ mở rộng`;
+        
+        grid.innerHTML = '';
+        
+        data.forEach(word => {
+            const vietMeaning = word.tiengViet || word.nghia || word.meaning || 'Đang cập nhật';
+            
+            let expandHtml = '';
+            const hasMoRong = word.moRong && Array.isArray(word.moRong) && word.moRong.length > 0 && word.moRong[0] !== '';
+            
+            if (hasMoRong) {
+                expandHtml = `
+                    <div class="expand-section">
+                        <button class="toggle-expand" onclick="toggleExpand(this)">
+                            <i class="fas fa-plus-circle"></i> 📖 Từ mở rộng (${word.moRong.length})
+                        </button>
+                        <div class="compound-list hidden">
+                            ${word.moRong.map(c => `<span class="compound-item">📌 ${c}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                expandHtml = `<div class="expand-section"><i class="fas fa-info-circle" style="font-size:0.65rem; color:#c2798f;"></i> <span style="font-size:0.7rem;">✨ Chưa có từ mở rộng</span></div>`;
+            }
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="word-row">
+                        <span class="chinese-char">${word.tu || '?'}</span>
+                        <span class="pinyin">${word.pinyin || ''}</span>
+                    </div>
+                    <div class="meaning-viet">
+                        <i class="fas fa-language"></i> ${vietMeaning}
+                    </div>
+                    <div class="meta-info">
+                        <span class="badge">📖 ${word.loai || '?'}</span>
+                        <span class="badge">🇻🇳 ${word.hanviet || '?'}</span>
+                        <span class="badge">🔤 ${word.lucThu || '?'}</span>
+                        <span class="badge">${word.level || 'HSK1'}</span>
+                        ${word.bai ? `<span class="badge">📘 ${word.bai}</span>` : ''}
+                    </div>
+                    <div class="etymology-box">
+                        <div class="etym-title"><i class="fas fa-cubes"></i> CHIẾT TỰ | 析字</div>
+                        <div class="structure">🔹 ${word.chiestTu || word.chietTu || 'Đang cập nhật'}</div>
+                    </div>
+                    ${expandHtml}
+                    <div class="bishun-area" data-url="${word.buthuan || ''}">
+                        <div class="bishun-placeholder">✍️ Ấn để xem bút thuận động</div>
+                        <div class="bishun-container"></div>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+        
+        document.querySelectorAll('.bishun-area').forEach(area => {
+            const url = area.getAttribute('data-url');
+            if (!url || url === '') {
+                area.innerHTML = '<div style="padding:0.4rem; color:#aaa;">⚠️ Chưa có link bút thuận</div>';
+                return;
+            }
+            area.addEventListener('click', () => {
+                const container = area.querySelector('.bishun-container');
+                if (!container) return;
+                if (container.querySelector('img')) return;
+                const placeholder = area.querySelector('.bishun-placeholder');
+                if (placeholder) placeholder.remove();
+                const img = document.createElement('img');
+                img.src = url;
+                img.className = 'bishun-img';
+                img.onerror = () => { img.alt = 'Không tải được ảnh'; };
+                container.appendChild(img);
+            });
+        });
+    }
     
-    // Cập nhật nút toggle
-    const toggleBtn = document.getElementById('themeToggle');
-    if (theme === 'dark') {
-      toggleBtn.innerHTML = '🌙 Dark';
-    } else {
-      toggleBtn.innerHTML = '☀️ Light';
+    window.toggleExpand = function(btn) {
+        const list = btn.parentElement.querySelector('.compound-list');
+        if (list.classList.contains('hidden')) {
+            list.classList.remove('hidden');
+            btn.innerHTML = '<i class="fas fa-minus-circle"></i> 📖 Thu gọn';
+        } else {
+            list.classList.add('hidden');
+            const count = list.children.length;
+            btn.innerHTML = `<i class="fas fa-plus-circle"></i> 📖 Từ mở rộng (${count})`;
+        }
+    };
+    
+    function initTheme() {
+        const stored = localStorage.getItem('theme_hsk');
+        const body = document.body;
+        const btn = document.getElementById('themeToggleBtn');
+        const span = document.getElementById('themeText');
+        if (stored === 'dark') {
+            body.classList.add('dark');
+            span.innerText = 'Light mode';
+        } else {
+            span.innerText = 'Dark mode';
+        }
+        btn.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            const isDark = body.classList.contains('dark');
+            localStorage.setItem('theme_hsk', isDark ? 'dark' : 'light');
+            span.innerText = isDark ? 'Light mode' : 'Dark mode';
+        });
     }
-  }
-
-  function toggleTheme() {
-    const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-  }
-
-  // Load saved theme from localStorage
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme && (savedTheme === 'dark' || savedTheme === 'light')) {
-    setTheme(savedTheme);
-  } else {
-    // Mặc định dark (vì bạn thích dark)
-    setTheme('dark');
-  }
-
-  // Toggle HSK level
-  function toggleList(level) {
-    const content = document.getElementById(level + '-content');
-    const icon = document.getElementById(level + '-icon');
-    if (content.classList.contains('hidden')) {
-      content.classList.remove('hidden');
-      icon.innerHTML = '▼';
-    } else {
-      content.classList.add('hidden');
-      icon.innerHTML = '▶';
-    }
-  }
-
-  // Toggle section (Quiz / Tài liệu)
-  function toggleSection(section) {
-    const content = document.getElementById(section + '-section');
-    const icon = document.getElementById(section + '-icon');
-    if (content.classList.contains('hidden')) {
-      content.classList.remove('hidden');
-      icon.innerHTML = '▼';
-    } else {
-      content.classList.add('hidden');
-      icon.innerHTML = '▶';
-    }
-  }
-
-  // Mặc định mở sẵn QUIZ và TÀI LIỆU
-  document.getElementById('quiz-section').classList.remove('hidden');
-  document.getElementById('tailieu-section').classList.remove('hidden');
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            if (window.vocabData) renderCards();
+            else console.error('Không tìm thấy data.js');
+        }, 100);
+        initTheme();
+    });
 </script>
 </body>
 </html>
