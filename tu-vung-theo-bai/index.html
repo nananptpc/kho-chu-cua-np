@@ -68,7 +68,7 @@
             color: #e0b0d5;
         }
 
-        /* Tab chuyển đổi chế độ */
+        /* Mode tabs */
         .mode-tabs {
             display: flex;
             gap: 1rem;
@@ -93,21 +93,12 @@
             color: #8b5a6b;
         }
 
-        body.dark .mode-tab {
-            color: #aaa;
-        }
-
         .mode-tab.active {
             background: #c06d82;
             color: white;
         }
 
-        body.dark .mode-tab.active {
-            background: #e0a5bb;
-            color: #121212;
-        }
-
-        /* Bộ lọc */
+        /* Filter */
         .filter-section {
             background: white;
             border-radius: 1rem;
@@ -143,12 +134,6 @@
             font-size: 0.7rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        body.dark .filter-btn {
-            background: #2a2a2a;
-            color: #ddd;
         }
 
         .filter-btn.active {
@@ -171,12 +156,7 @@
             margin-bottom: 1rem;
         }
 
-        body.dark .stats {
-            background: #2a2a2a;
-            color: #e0a5bb;
-        }
-
-        /* Danh sách từ - Grid */
+        /* List mode */
         .vocab-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -188,16 +168,11 @@
             border-radius: 1.2rem;
             border: 1px solid #f0d0da;
             overflow: hidden;
-            transition: transform 0.2s;
         }
 
         body.dark .card {
             background: #1e1e1e;
             border-color: #3a2a38;
-        }
-
-        .card:hover {
-            transform: translateY(-3px);
         }
 
         .card-inner {
@@ -310,10 +285,6 @@
             margin-top: 6px;
         }
 
-        .bishun-placeholder {
-            font-size: 0.65rem;
-        }
-
         .bishun-img {
             max-width: 100%;
             max-height: 80px;
@@ -330,8 +301,8 @@
 
         .flashcard {
             width: 100%;
-            max-width: 500px;
-            height: 360px;
+            max-width: 550px;
+            height: 420px;
             cursor: pointer;
             perspective: 1000px;
         }
@@ -355,13 +326,14 @@
             height: 100%;
             backface-visibility: hidden;
             border-radius: 1.2rem;
-            padding: 1.2rem;
+            padding: 1.5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            overflow-y: auto;
         }
 
         .flashcard-front {
@@ -372,6 +344,11 @@
         .flashcard-back {
             background: linear-gradient(135deg, #e8eef5, #dde4ef);
             transform: rotateY(180deg);
+            font-size: 1rem;
+            line-height: 1.6;
+            justify-content: flex-start;
+            text-align: left;
+            align-items: flex-start;
         }
 
         body.dark .flashcard-front {
@@ -382,28 +359,33 @@
         }
 
         .flashcard-char {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 800;
             color: #c06d82;
         }
 
         .flashcard-pinyin {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             font-weight: 600;
-            margin-top: 0.3rem;
+            margin-top: 0.5rem;
         }
 
         .flashcard-meaning {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.3rem;
+            font-weight: 700;
             color: #2a6b5e;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .flashcard-info {
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             margin-top: 0.5rem;
-            line-height: 1.5;
+            line-height: 1.8;
+        }
+
+        .flashcard-info i {
+            width: 24px;
+            color: #c06d82;
         }
 
         .nav-buttons {
@@ -421,13 +403,104 @@
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
 
         .progress {
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        /* Quiz Modal */
+        .quiz-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .quiz-modal-content {
+            background: white;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        body.dark .quiz-modal-content {
+            background: #1e1e1e;
+        }
+
+        .quiz-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #c06d82;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .quiz-option {
+            background: #f0d0da;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            background: #c06d82;
+            color: white;
+        }
+
+        .quiz-option.correct {
+            background: #4caf50;
+            color: white;
+        }
+
+        .quiz-option.wrong {
+            background: #f44336;
+            color: white;
+        }
+
+        .quiz-feedback {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .quiz-next-btn {
+            background: #c06d82;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 2rem;
+            margin-top: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .quiz-score {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: #2a6b5e;
         }
 
         .hidden {
@@ -443,9 +516,10 @@
 
         @media (max-width: 700px) {
             body { padding: 1rem; }
-            .chinese-char { font-size: 2rem; }
-            .flashcard { height: 320px; }
+            .flashcard { height: 480px; }
             .flashcard-char { font-size: 3rem; }
+            .flashcard-pinyin { font-size: 1.2rem; }
+            .flashcard-info { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -458,13 +532,11 @@
         </button>
     </div>
 
-    <!-- Tab chuyển chế độ -->
     <div class="mode-tabs">
         <button class="mode-tab active" data-mode="list">📋 Danh sách</button>
         <button class="mode-tab" data-mode="flashcard">🃏 Flashcard ôn tập</button>
     </div>
 
-    <!-- Bộ lọc chung -->
     <div class="filter-section">
         <div class="filter-title"><i class="fas fa-sliders-h"></i> Lọc từ vựng</div>
         <div class="filter-group">
@@ -485,10 +557,8 @@
 
     <div class="stats" id="stats">📊 Đang tải...</div>
 
-    <!-- Chế độ danh sách -->
     <div id="listMode" class="vocab-grid"></div>
 
-    <!-- Chế độ flashcard -->
     <div id="flashcardMode" class="hidden">
         <div class="flashcard-container">
             <div class="flashcard" id="flashcard">
@@ -518,6 +588,17 @@
     </div>
 </div>
 
+<!-- Quiz Modal -->
+<div id="quizModal" class="quiz-modal">
+    <div class="quiz-modal-content">
+        <div class="quiz-question" id="quizQuestion">📝 Kiểm tra từ vựng!</div>
+        <div class="quiz-score" id="quizScore"></div>
+        <div class="quiz-options" id="quizOptions"></div>
+        <div class="quiz-feedback" id="quizFeedback"></div>
+        <button class="quiz-next-btn" id="quizNextBtn">Tiếp theo →</button>
+    </div>
+</div>
+
 <script src="data.js"></script>
 <script>
     let fullData = [];
@@ -525,6 +606,11 @@
     let currentMode = 'list';
     let flashcardIndex = 0;
     let isFlipped = false;
+    let cardsStudied = 0;
+    let quizWords = [];
+    let currentQuizIndex = 0;
+    let quizScore = 0;
+    let quizActive = false;
 
     let currentFilters = { level: 'all', loai: 'all' };
 
@@ -549,6 +635,7 @@
             updateActiveButtons();
         }
         flashcardIndex = 0;
+        cardsStudied = 0;
         isFlipped = false;
         document.getElementById('flashcard')?.classList.remove('flipped');
         updateStats();
@@ -592,7 +679,7 @@
                         ${word.moRong.map(c => `<span class="compound-item">📌 ${c}</span>`).join('')}
                     </div>
                 </div>
-            ` : `<div class="expand-section"><i class="fas fa-info-circle" style="font-size:0.6rem;"></i> <span style="font-size:0.65rem;">Chưa có từ mở rộng</span></div>`;
+            ` : `<div class="expand-section"><span style="font-size:0.65rem;">✨ Chưa có từ mở rộng</span></div>`;
 
             const card = document.createElement('div');
             card.className = 'card';
@@ -627,10 +714,7 @@
     function attachBishunEvents() {
         document.querySelectorAll('.bishun-area').forEach(area => {
             const url = area.getAttribute('data-url');
-            if (!url || url === '') {
-                area.innerHTML = '<div style="padding:0.3rem; color:#aaa;">⚠️ Chưa có link</div>';
-                return;
-            }
+            if (!url || url === '') return;
             area.addEventListener('click', () => {
                 const container = area.querySelector('.bishun-container');
                 if (!container || container.querySelector('img')) return;
@@ -647,10 +731,6 @@
     function renderFlashcardMode() {
         if (filteredData.length === 0) {
             document.getElementById('progress').innerText = 'Không có từ để ôn';
-            document.getElementById('cardFrontChar').innerText = '🎯';
-            document.getElementById('cardFrontPinyin').innerText = '';
-            document.getElementById('cardBackMeaning').innerHTML = 'Hãy reset bộ lọc';
-            document.getElementById('cardBackInfo').innerHTML = '';
             return;
         }
         const word = filteredData[flashcardIndex];
@@ -658,18 +738,38 @@
         document.getElementById('cardFrontChar').innerText = word.tu || '?';
         document.getElementById('cardFrontPinyin').innerText = word.pinyin || '';
         document.getElementById('cardBackMeaning').innerHTML = `<i class="fas fa-language"></i> ${vietMeaning}`;
+        
+        let compoundHtml = '';
+        if (word.moRong && word.moRong.length > 0 && word.moRong[0] !== '') {
+            compoundHtml = `<div style="margin-top: 10px;"><strong>📖 Từ mở rộng:</strong><br>${word.moRong.map(c => `• ${c}`).join('<br>')}</div>`;
+        }
+        
         document.getElementById('cardBackInfo').innerHTML = `
-            <i class="fas fa-tag"></i> ${word.loai || '?'}<br>
-            <i class="fas fa-book"></i> ${word.hanviet || '?'}<br>
-            <i class="fas fa-puzzle-piece"></i> ${word.lucThu || '?'}<br>
-            <i class="fas fa-cubes"></i> ${(word.chiestTu || word.chietTu || '').substring(0, 80)}...
+            <div><i class="fas fa-tag"></i> <strong>Từ loại:</strong> ${word.loai || '?'}</div>
+            <div><i class="fas fa-book"></i> <strong>Hán Việt:</strong> ${word.hanviet || '?'}</div>
+            <div><i class="fas fa-puzzle-piece"></i> <strong>Lục thư:</strong> ${word.lucThu || '?'}</div>
+            <div><i class="fas fa-cubes"></i> <strong>Chiết tự:</strong> ${word.chiestTu || word.chietTu || 'Đang cập nhật'}</div>
+            ${compoundHtml}
         `;
-        document.getElementById('progress').innerText = `Thẻ ${flashcardIndex + 1} / ${filteredData.length}`;
+        document.getElementById('progress').innerHTML = `Thẻ ${flashcardIndex + 1} / ${filteredData.length} | 📚 Đã học: ${cardsStudied} từ`;
     }
 
     function nextCard() {
         if (filteredData.length === 0) return;
+        
+        // Đánh dấu đã học từ hiện tại
+        cardsStudied++;
+        
+        // Kiểm tra nếu đã học đủ 7 từ và chưa có quiz đang mở
+        if (!quizActive && cardsStudied >= 7 && currentMode === 'flashcard') {
+            showQuiz();
+        }
+        
         flashcardIndex = (flashcardIndex + 1) % filteredData.length;
+        if (flashcardIndex === 0 && cardsStudied >= filteredData.length) {
+            // Hết bộ, reset
+            cardsStudied = 0;
+        }
         isFlipped = false;
         document.getElementById('flashcard')?.classList.remove('flipped');
         renderFlashcardMode();
@@ -677,10 +777,12 @@
 
     function prevCard() {
         if (filteredData.length === 0) return;
-        flashcardIndex = (flashcardIndex - 1 + filteredData.length) % filteredData.length;
-        isFlipped = false;
-        document.getElementById('flashcard')?.classList.remove('flipped');
-        renderFlashcardMode();
+        if (flashcardIndex > 0) {
+            flashcardIndex--;
+            isFlipped = false;
+            document.getElementById('flashcard')?.classList.remove('flipped');
+            renderFlashcardMode();
+        }
     }
 
     function flipCard() {
@@ -689,6 +791,109 @@
         if (isFlipped) fc.classList.remove('flipped');
         else fc.classList.add('flipped');
         isFlipped = !isFlipped;
+    }
+
+    function showQuiz() {
+        // Lấy các từ đã học gần nhất (từ đầu đến cardsStudied)
+        const studiedWords = filteredData.slice(0, Math.min(cardsStudied, filteredData.length));
+        // Lọc ra từ có từ mở rộng
+        quizWords = studiedWords.filter(w => w.moRong && w.moRong.length > 0 && w.moRong[0] !== '');
+        
+        if (quizWords.length === 0) {
+            cardsStudied = 0;
+            return;
+        }
+        
+        quizActive = true;
+        currentQuizIndex = 0;
+        quizScore = 0;
+        startQuiz();
+    }
+
+    function startQuiz() {
+        if (currentQuizIndex >= quizWords.length) {
+            endQuiz();
+            return;
+        }
+        
+        const word = quizWords[currentQuizIndex];
+        // Lấy danh sách từ mở rộng
+        const compounds = word.moRong.filter(c => c && c.trim() !== '');
+        if (compounds.length === 0) {
+            currentQuizIndex++;
+            startQuiz();
+            return;
+        }
+        
+        // Chọn ngẫu nhiên 1 compound để hỏi
+        const correctCompound = compounds[Math.floor(Math.random() * compounds.length)];
+        const correctAnswer = correctCompound.split(':')[0];
+        
+        // Tạo đáp án nhiễu từ các từ khác
+        let allCompounds = [];
+        quizWords.forEach(w => {
+            if (w.moRong) allCompounds.push(...w.moRong.filter(c => c && c.trim() !== ''));
+        });
+        let options = [correctAnswer];
+        while (options.length < 4 && allCompounds.length > 0) {
+            const randomCompound = allCompounds[Math.floor(Math.random() * allCompounds.length)];
+            const randomWord = randomCompound.split(':')[0];
+            if (!options.includes(randomWord) && randomWord !== correctAnswer) {
+                options.push(randomWord);
+            }
+        }
+        // Trộn đáp án
+        options = options.sort(() => Math.random() - 0.5);
+        
+        document.getElementById('quizQuestion').innerHTML = `📝 "${word.tu}" (${word.pinyin}) có nghĩa mở rộng nào?`;
+        document.getElementById('quizScore').innerHTML = `Điểm: ${quizScore}/${quizWords.length}`;
+        
+        const optionsDiv = document.getElementById('quizOptions');
+        optionsDiv.innerHTML = '';
+        options.forEach(opt => {
+            const btn = document.createElement('div');
+            btn.className = 'quiz-option';
+            btn.innerHTML = opt;
+            btn.onclick = () => checkAnswer(opt, correctAnswer, btn);
+            optionsDiv.appendChild(btn);
+        });
+        
+        document.getElementById('quizFeedback').innerHTML = '';
+        document.getElementById('quizNextBtn').style.display = 'none';
+        document.getElementById('quizModal').style.display = 'flex';
+    }
+    
+    function checkAnswer(selected, correct, element) {
+        const feedback = document.getElementById('quizFeedback');
+        if (selected === correct) {
+            element.classList.add('correct');
+            feedback.innerHTML = '✅ Chính xác! +1 điểm';
+            quizScore++;
+            document.getElementById('quizScore').innerHTML = `Điểm: ${quizScore}/${quizWords.length}`;
+            setTimeout(() => {
+                currentQuizIndex++;
+                startQuiz();
+            }, 1000);
+        } else {
+            element.classList.add('wrong');
+            feedback.innerHTML = `❌ Sai! Đáp án đúng là: ${correct}`;
+            setTimeout(() => {
+                currentQuizIndex++;
+                startQuiz();
+            }, 1500);
+        }
+        
+        // Disable all options
+        document.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.style.pointerEvents = 'none';
+        });
+    }
+    
+    function endQuiz() {
+        document.getElementById('quizModal').style.display = 'none';
+        quizActive = false;
+        cardsStudied = 0;
+        alert(`🎉 Kết thúc quiz! Bạn đúng ${quizScore}/${quizWords.length} câu.`);
     }
 
     function initFilters() {
@@ -709,10 +914,6 @@
             currentFilters = { level: 'all', loai: 'all' };
             applyFilters();
             updateActiveButtons();
-            if (currentMode === 'flashcard') {
-                isFlipped = false;
-                document.getElementById('flashcard')?.classList.remove('flipped');
-            }
         });
     }
 
@@ -729,9 +930,9 @@
                 } else {
                     document.getElementById('listMode').classList.add('hidden');
                     document.getElementById('flashcardMode').classList.remove('hidden');
+                    cardsStudied = 0;
                     flashcardIndex = 0;
                     isFlipped = false;
-                    document.getElementById('flashcard')?.classList.remove('flipped');
                     renderFlashcardMode();
                 }
             });
@@ -767,6 +968,11 @@
             btn.innerHTML = `<i class="fas fa-plus-circle"></i> Từ mở rộng (${count})`;
         }
     };
+
+    document.getElementById('quizNextBtn').addEventListener('click', () => {
+        currentQuizIndex++;
+        startQuiz();
+    });
 
     document.addEventListener('DOMContentLoaded', () => {
         loadData();
