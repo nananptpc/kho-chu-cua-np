@@ -82,7 +82,9 @@
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .chinese-char { font-size: 3rem; font-weight: 800; color: #bc6f85; }
         body.dark .chinese-char { color: #f3bfce; }
@@ -94,6 +96,17 @@
             color: #c27086;
         }
         body.dark .pinyin { background: #3f2f35; color: #f5cdda; }
+        .meaning-viet {
+            background: #e8f0fe;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2e7d64;
+            display: inline-block;
+            margin: 5px 0;
+        }
+        body.dark .meaning-viet { background: #2a4a4a; color: #9fd3c7; }
         .meta-info {
             display: flex;
             flex-wrap: wrap;
@@ -111,10 +124,7 @@
             font-weight: 600;
         }
         body.dark .badge { background: #4f3941; color: #f3c4d2; }
-        .luc-thu {
-            background: #e8d3da;
-            color: #8b5a6b;
-        }
+        .luc-thu { background: #e8d3da; color: #8b5a6b; }
         .etymology-box {
             background: #fff3f6;
             border-radius: 1.2rem;
@@ -166,7 +176,7 @@
             background: #ffe2e8;
             padding: 0.3rem 0.8rem;
             border-radius: 30px;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 500;
         }
         body.dark .compound-item { background: #4f3941; }
@@ -184,6 +194,12 @@
             border-radius: 1rem;
             font-size: 0.75rem;
         }
+        .bishun-img {
+            max-width: 100%;
+            max-height: 100px;
+            border-radius: 12px;
+            margin-top: 8px;
+        }
         .hidden { display: none; }
         @media (max-width: 700px) { body { padding: 1rem; } }
     </style>
@@ -191,7 +207,7 @@
 <body>
 <div class="container">
     <div class="header">
-        <div><h1>🌸 HSK1 · Từ vựng chiết tự</h1><div class="sub">🔍 Lục thư + Từ mở rộng</div></div>
+        <div><h1>🌸 HSK1 · Từ vựng chiết tự</h1><div class="sub">🔍 Chiết tự + Nghĩa Việt + Từ mở rộng</div></div>
         <button class="theme-btn" id="themeToggleBtn"><i class="fas fa-moon"></i> <span id="themeText">Dark mode</span></button>
     </div>
     <div class="stats" id="stats"></div>
@@ -203,44 +219,60 @@
     function renderCards() {
         const grid = document.getElementById('vocabGrid');
         const statsDiv = document.getElementById('stats');
-        if (!grid || !window.vocabData) return;
+        if (!grid || !window.vocabData) {
+            if(statsDiv) statsDiv.innerHTML = '⚠️ Đang tải dữ liệu...';
+            return;
+        }
         
         const data = window.vocabData;
-        statsDiv.innerHTML = `📚 Tổng số từ: ${data.length} | 🌟 HSK1 · Có từ mở rộng`;
+        statsDiv.innerHTML = `📚 Tổng số từ: ${data.length} | 🌟 HSK1 · Chiết tự + Từ mở rộng`;
         
         grid.innerHTML = '';
         data.forEach(word => {
-            const expandHtml = word.moRong && word.moRong.length > 0 ? `
-                <div class="expand-section">
-                    <button class="toggle-expand" onclick="toggleExpand(this)">
-                        <i class="fas fa-plus-circle"></i> Mở rộng (${word.moRong.length} từ)
-                    </button>
-                    <div class="compound-list hidden">
-                        ${word.moRong.map(c => `<span class="compound-item">📖 ${c}</span>`).join('')}
+            // Xử lý từ mở rộng
+            let expandHtml = '';
+            if (word.moRong && word.moRong.length > 0 && !(word.moRong.length === 1 && word.moRong[0] === '')) {
+                expandHtml = `
+                    <div class="expand-section">
+                        <button class="toggle-expand" onclick="toggleExpand(this)">
+                            <i class="fas fa-plus-circle"></i> 📖 Từ mở rộng (${word.moRong.length})
+                        </button>
+                        <div class="compound-list hidden">
+                            ${word.moRong.map(c => `<span class="compound-item">${c}</span>`).join('')}
+                        </div>
                     </div>
-                </div>
-            ` : `<div class="expand-section"><i class="fas fa-info-circle" style="font-size:0.7rem; color:#c2798f;"></i> <span style="font-size:0.7rem;">Chưa có từ mở rộng</span></div>`;
+                `;
+            } else {
+                expandHtml = `<div class="expand-section"><i class="fas fa-info-circle" style="font-size:0.7rem; color:#c2798f;"></i> <span style="font-size:0.7rem;">✨ Chưa có từ mở rộng</span></div>`;
+            }
+            
+            // Nghĩa tiếng Việt
+            const vietMeaning = word.tiengViet || word.nghia || word.meaning || 'Đang cập nhật';
             
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
                 <div class="card-inner">
                     <div class="word-row">
-                        <span class="chinese-char">${word.tu}</span>
-                        <span class="pinyin">${word.pinyin}</span>
+                        <span class="chinese-char">${word.tu || word.từ || '?'}</span>
+                        <span class="pinyin">${word.pinyin || ''}</span>
+                    </div>
+                    <div class="meaning-viet">
+                        <i class="fas fa-language"></i> ${vietMeaning}
                     </div>
                     <div class="meta-info">
-                        <span class="badge">📖 ${word.loai}</span>
-                        <span class="badge">🇻🇳 ${word.hanviet}</span>
+                        <span class="badge">📖 ${word.loai || '?'}</span>
+                        <span class="badge">🇻🇳 ${word.hanviet || '?'}</span>
                         <span class="badge luc-thu">🔤 ${word.lucThu || '?'}</span>
-                        <span class="badge">${word.level}</span>
+                        <span class="badge">${word.level || 'HSK1'}</span>
+                        ${word.bai ? `<span class="badge">📘 ${word.bai}</span>` : ''}
                     </div>
                     <div class="etymology-box">
                         <div class="etym-title"><i class="fas fa-cubes"></i> ✦ CHIẾT TỰ | 析字 ✦</div>
-                        <div class="structure">🔹 ${word.chiestTu || 'Đang cập nhật'}</div>
+                        <div class="structure">🔹 ${word.chiestTu || word.chietTu || 'Đang cập nhật'}</div>
                     </div>
                     ${expandHtml}
-                    <div class="bishun-area" data-url="${word.buthuan}">
+                    <div class="bishun-area" data-url="${word.buthuan || ''}">
                         <div class="bishun-placeholder">✍️ Ấn để xem bút thuận động</div>
                         <div class="bishun-container"></div>
                     </div>
@@ -249,18 +281,28 @@
             grid.appendChild(card);
         });
         
+        // Gắn sự kiện bút thuận
         document.querySelectorAll('.bishun-area').forEach(area => {
+            const url = area.getAttribute('data-url');
+            if (!url || url === '') {
+                area.innerHTML = '<div style="padding:0.5rem; color:#999;">⚠️ Chưa có link bút thuận</div>';
+                return;
+            }
             area.addEventListener('click', (e) => {
                 const container = area.querySelector('.bishun-container');
+                if (!container) return;
                 if (container.querySelector('img')) return;
-                const url = area.getAttribute('data-url');
                 const placeholder = area.querySelector('.bishun-placeholder');
                 if (placeholder) placeholder.remove();
                 const img = document.createElement('img');
                 img.src = url;
+                img.className = 'bishun-img';
                 img.style.maxWidth = '100%';
                 img.style.borderRadius = '12px';
-                img.style.marginTop = '8px';
+                img.onerror = () => {
+                    img.alt = 'Không tải được ảnh';
+                    img.style.opacity = '0.6';
+                };
                 container.appendChild(img);
             });
         });
@@ -269,14 +311,14 @@
     window.toggleExpand = function(btn) {
         const list = btn.parentElement.querySelector('.compound-list');
         const icon = btn.querySelector('i');
+        const text = btn.innerText.replace(icon.outerHTML, '').trim();
         if (list.classList.contains('hidden')) {
             list.classList.remove('hidden');
-            icon.className = 'fas fa-minus-circle';
-            btn.innerHTML = '<i class="fas fa-minus-circle"></i> Thu gọn';
+            btn.innerHTML = '<i class="fas fa-minus-circle"></i> 📖 Thu gọn';
         } else {
             list.classList.add('hidden');
-            icon.className = 'fas fa-plus-circle';
-            btn.innerHTML = '<i class="fas fa-plus-circle"></i> Mở rộng (' + (list.children.length) + ' từ)';
+            const count = list.children.length;
+            btn.innerHTML = `<i class="fas fa-plus-circle"></i> 📖 Từ mở rộng (${count})`;
         }
     };
     
@@ -287,20 +329,25 @@
         const span = document.getElementById('themeText');
         if (stored === 'dark') {
             body.classList.add('dark');
-            span.innerText = 'Light mode';
+            if(span) span.innerText = 'Light mode';
         } else {
-            span.innerText = 'Dark mode';
+            if(span) span.innerText = 'Dark mode';
         }
-        btn.addEventListener('click', () => {
-            body.classList.toggle('dark');
-            const isDark = body.classList.contains('dark');
-            localStorage.setItem('theme_hsk', isDark ? 'dark' : 'light');
-            span.innerText = isDark ? 'Light mode' : 'Dark mode';
-        });
+        if(btn) {
+            btn.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                const isDark = body.classList.contains('dark');
+                localStorage.setItem('theme_hsk', isDark ? 'dark' : 'light');
+                if(span) span.innerText = isDark ? 'Light mode' : 'Dark mode';
+            });
+        }
     }
     
     document.addEventListener('DOMContentLoaded', () => {
-        if (window.vocabData) renderCards();
+        setTimeout(() => {
+            if (window.vocabData) renderCards();
+            else console.error('Không tìm thấy data.js');
+        }, 100);
         initTheme();
     });
 </script>
