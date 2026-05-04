@@ -8,7 +8,9 @@ window.vocabData = [
     "lucThu": "Chỉ sự (giả tá thuyết)",
     "chiestTu": "Tay (手) cầm giáo (戈) → tự chỉ bản thân.",
     "moRong": [
-      "我们 (wǒmen - chúng tôi), 自我 (zìwǒ - bản ngã)."
+      "我们:chúng tôi",
+      "我的:của tôi",
+      "我自己:bản thân tôi"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-25105.gif",
     "level": "HSK1",
@@ -23,7 +25,10 @@ window.vocabData = [
     "lucThu": "Hình thanh",
     "chiestTu": "Bộ Nhân (亻) + chữ Nhĩ (尔 - “cậu/ấy”).",
     "moRong": [
-      "你们 (nǐmen - các bạn), 你的 (nǐde - của bạn)."
+      "你们:các bạn",
+      "你的:của bạn",
+      "你自己:bản thân bạn",
+      "您好:xin chào"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-20320.gif",
     "level": "HSK1",
@@ -38,7 +43,7 @@ window.vocabData = [
     "lucThu": "Hội ý + Hình thanh",
     "chiestTu": "Bộ Tâm (心) phía dưới chữ Nhĩ (你) → “cậu ở trong lòng” → kính ngữ.",
     "moRong": [
-      "Chỉ dùng để bày tỏ sự tôn kính (với người già, cấp trên). Số nhiều là 您们 (nínmen) - ít dùng."
+      "您好:xin chào (kính ngữ)"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-24744.gif",
     "level": "HSK1",
@@ -53,7 +58,11 @@ window.vocabData = [
     "lucThu": "Hội ý",
     "chiestTu": "Con gái (女) + con trai (子) → mẹ + con → sự hòa hợp, êm đẹp.",
     "moRong": [
-      "好人 (hǎorén - người tốt), 好吃 (hǎochī - ngon), 你好 (nǐhǎo - xin chào)."
+      "好吃:ngon",
+      "好看:đẹp",
+      "好人:người tốt",
+      "好久:lâu rồi",
+      "好像:giống như"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-22909.gif",
     "level": "HSK1",
@@ -68,7 +77,9 @@ window.vocabData = [
     "lucThu": "Hình thanh",
     "chiestTu": "Bộ Nhân (亻) + chữ Dã (也 - “cũng”).",
     "moRong": [
-      "他们 (tāmen - họ - nam / hỗn hợp), 其他 (qítā - cái khác)."
+      "他们:họ (dùng cho nam)",
+      "他的:của anh ấy",
+      "其他:cái khác"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-20182.gif",
     "level": "HSK1",
@@ -83,7 +94,8 @@ window.vocabData = [
     "lucThu": "Hình thanh",
     "chiestTu": "Bộ Nữ (女) + chữ Dã (也).",
     "moRong": [
-      "她们 (tāmen - họ - nữ). Đây là chữ được tạo thời cận đại để dịch “she” phương Tây."
+      "她们:họ (dùng cho nữ)",
+      "她的:của cô ấy"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-22905.gif",
     "level": "HSK1",
@@ -98,7 +110,8 @@ window.vocabData = [
     "lucThu": "Hình thanh",
     "chiestTu": "Bộ Miên (宀 - mái nhà) + chữ Dã (也).",
     "moRong": [
-      "它们 (tāmen - chúng nó - vật, con vật), 其它 (qítā - cái khác - thay 其他)."
+      "它们:chúng nó",
+      "它的:của nó"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-23427.gif",
     "level": "HSK1",
@@ -113,7 +126,10 @@ window.vocabData = [
     "lucThu": "Hội ý",
     "chiestTu": "Tay (又) cầm một ngọn nến (丵) và cây bút (寸) → đối ứng, chính xác.",
     "moRong": [
-      "对不起 (duìbuqǐ - xin lỗi), 对错 (duìcuò - đúng sai), 一对 (yīduì - một cặp)."
+      "对不起:xin lỗi",
+      "对的:đúng",
+      "面对:đối mặt",
+      "不对:không đúng"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-23545.gif",
     "level": "HSK1",
@@ -128,7 +144,10 @@ window.vocabData = [
     "lucThu": "Chỉ sự",
     "chiestTu": "Mô tả rễ cây lật ngược lên trên → từ chối, phủ định.",
     "moRong": [
-      "不好 (bùhǎo - không tốt), 不客气 (búkèqi - không có gì / đừng khách sáo)."
+      "不是:không phải",
+      "不行:không được",
+      "不要:đừng",
+      "不好:không tốt"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-19981.gif",
     "level": "HSK1",
@@ -143,7 +162,9 @@ window.vocabData = [
     "lucThu": "Hình thanh",
     "chiestTu": "Bộ Tẩu (走 - chạy) + chữ Kỷ (己 - chính mình) → đứng lên từ chính mình.",
     "moRong": [
-      "起来 (qǐlai - đứng dậy, làm lên), 对不起 (khởi + bất + 起?). Thực ra 对不起 = đối + bất + khởi = không thể đối diện được."
+      "起来:đứng lên",
+      "起床:thức dậy",
+      "起立:đứng dậy"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-36215.gif",
     "level": "HSK1",
@@ -158,7 +179,9 @@ window.vocabData = [
     "lucThu": "Hình thanh",
     "chiestTu": "Bộ Thủy (氵 - nước) + chữ Một (殳 - chìm vào nước) → biến mất.",
     "moRong": [
-      "没有 (méiyǒu - không có), 没事 (méishì - không sao). Phân biệt: 不 (chủ quan) vs 没 (khách quan)."
+      "没有:không có",
+      "没关系:không sao",
+      "没事:không có việc gì"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-27809.gif",
     "level": "HSK1",
@@ -173,7 +196,10 @@ window.vocabData = [
     "lucThu": "Hội ý",
     "chiestTu": "Hai thanh gỗ (丷) + then cài (㇇ + 天) → cài cửa lại.",
     "moRong": [
-      "关门 (guānmén - đóng cửa), 开关 (kāiguān - công tắc), 关系 (guānxì - quan hệ)."
+      "关系:quan hệ",
+      "关心:quan tâm",
+      "开关:công tắc",
+      "关闭:đóng lại"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-20851.gif",
     "level": "HSK1",
@@ -188,7 +214,9 @@ window.vocabData = [
     "lucThu": "Hội ý + Hình thanh",
     "chiestTu": "Một mớ tơ (纟) + người biết canh tác (丿+关系简化).",
     "moRong": [
-      "关系 (guānxì - liên quan), 系统 (xìtǒng - hệ thống), 系列 (xìliè - hàng loạt)."
+      "系统:hệ thống",
+      "联系:liên lạc",
+      "关系:quan hệ"
     ],
     "buthuan": "https://bishun.net/assets/bishun/donghua/bishundonghua-31995.gif",
     "level": "HSK1",
