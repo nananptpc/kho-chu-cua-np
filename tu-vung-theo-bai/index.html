@@ -302,7 +302,7 @@
         .flashcard {
             width: 100%;
             max-width: 550px;
-            height: 420px;
+            height: 460px;
             cursor: pointer;
             perspective: 1000px;
         }
@@ -344,18 +344,11 @@
         .flashcard-back {
             background: linear-gradient(135deg, #e8eef5, #dde4ef);
             transform: rotateY(180deg);
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.6;
             justify-content: flex-start;
             text-align: left;
             align-items: flex-start;
-        }
-
-        body.dark .flashcard-front {
-            background: linear-gradient(135deg, #2a1e24, #3a2a38);
-        }
-        body.dark .flashcard-back {
-            background: linear-gradient(135deg, #1e2a2a, #2a3a3a);
         }
 
         .flashcard-char {
@@ -378,7 +371,7 @@
         }
 
         .flashcard-info {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-top: 0.5rem;
             line-height: 1.8;
         }
@@ -413,7 +406,7 @@
             font-weight: 500;
         }
 
-        /* Quiz Modal */
+        /* Quiz Modal - Drag & Drop */
         .quiz-modal {
             display: none;
             position: fixed;
@@ -421,7 +414,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.85);
             justify-content: center;
             align-items: center;
             z-index: 2000;
@@ -429,12 +422,11 @@
 
         .quiz-modal-content {
             background: white;
-            max-width: 500px;
-            width: 90%;
+            max-width: 900px;
+            width: 95%;
             border-radius: 1.5rem;
             padding: 1.5rem;
-            text-align: center;
-            max-height: 80vh;
+            max-height: 85vh;
             overflow-y: auto;
         }
 
@@ -442,65 +434,180 @@
             background: #1e1e1e;
         }
 
-        .quiz-question {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .quiz-title {
+            font-size: 1.5rem;
+            font-weight: 700;
             color: #c06d82;
         }
 
-        .quiz-options {
+        .quiz-score-board {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Drag & Drop Game Area */
+        .drag-game-area {
             display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin: 1rem 0;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        .quiz-option {
-            background: #f0d0da;
-            padding: 0.8rem;
+        .words-container {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .drop-zone {
+            background: #fef0f4;
             border-radius: 1rem;
-            cursor: pointer;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px dashed #c06d82;
             transition: all 0.2s;
-            font-weight: 500;
         }
 
-        .quiz-option:hover {
+        body.dark .drop-zone {
+            background: #2a1e24;
+        }
+
+        .drop-zone.drag-over {
+            background: #e0c0d0;
+            border-color: #ff8cae;
+        }
+
+        .drop-zone.completed {
+            background: #d4edda;
+            border-color: #28a745;
+            opacity: 0.7;
+        }
+
+        .drop-zone-header {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .drop-zone-char {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #c06d82;
+        }
+
+        .drop-zone-pinyin {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .drop-zone-matched {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+            min-height: 50px;
+        }
+
+        .matched-card {
+            background: #28a745;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .matched-card i {
+            font-size: 0.65rem;
+            cursor: pointer;
+        }
+
+        .drag-items-container {
+            flex: 1;
+            min-width: 280px;
+            background: #f8e8f0;
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+
+        body.dark .drag-items-container {
+            background: #2a2a2a;
+        }
+
+        .drag-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .drag-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+            min-height: 200px;
+        }
+
+        .drag-card {
             background: #c06d82;
             color: white;
-        }
-
-        .quiz-option.correct {
-            background: #4caf50;
-            color: white;
-        }
-
-        .quiz-option.wrong {
-            background: #f44336;
-            color: white;
-        }
-
-        .quiz-feedback {
-            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 40px;
             font-size: 0.9rem;
             font-weight: 600;
+            cursor: grab;
+            user-select: none;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .drag-card:active {
+            cursor: grabbing;
+        }
+
+        .drag-card.dragging {
+            opacity: 0.4;
+        }
+
+        .drag-card.drag-over {
+            background: #28a745;
+        }
+
+        .quiz-result {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f0d0da;
         }
 
         .quiz-next-btn {
             background: #c06d82;
             color: white;
             border: none;
-            padding: 0.6rem 1.5rem;
+            padding: 0.7rem 2rem;
             border-radius: 2rem;
-            margin-top: 1rem;
-            cursor: pointer;
+            font-size: 1rem;
             font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
         }
 
-        .quiz-score {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            color: #2a6b5e;
+        .quiz-next-btn:hover {
+            background: #a8526a;
+        }
+
+        .quiz-feedback {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
         }
 
         .hidden {
@@ -512,14 +619,14 @@
             margin-top: 1rem;
             color: #c06d82;
             font-size: 0.75rem;
+            text-decoration: none;
         }
 
         @media (max-width: 700px) {
             body { padding: 1rem; }
+            .drag-game-area { flex-direction: column; }
+            .drop-zone-char { font-size: 1.5rem; }
             .flashcard { height: 480px; }
-            .flashcard-char { font-size: 3rem; }
-            .flashcard-pinyin { font-size: 1.2rem; }
-            .flashcard-info { font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -580,7 +687,7 @@
             <button class="nav-btn" id="flipBtn"><i class="fas fa-sync-alt"></i> Lật thẻ</button>
             <button class="nav-btn" id="nextBtn">Sau <i class="fas fa-chevron-right"></i></button>
         </div>
-        <div class="progress" id="progress">Thẻ 0 / 0</div>
+        <div class="progress" id="progress">Thẻ 0 / 0 | Đã học: 0 từ</div>
     </div>
 
     <div style="text-align: center; margin-top: 1.5rem;">
@@ -588,14 +695,22 @@
     </div>
 </div>
 
-<!-- Quiz Modal -->
+<!-- Quiz Modal Drag & Drop -->
 <div id="quizModal" class="quiz-modal">
     <div class="quiz-modal-content">
-        <div class="quiz-question" id="quizQuestion">📝 Kiểm tra từ vựng!</div>
-        <div class="quiz-score" id="quizScore"></div>
-        <div class="quiz-options" id="quizOptions"></div>
-        <div class="quiz-feedback" id="quizFeedback"></div>
-        <button class="quiz-next-btn" id="quizNextBtn">Tiếp theo →</button>
+        <div class="quiz-header">
+            <div class="quiz-title">🎯 KÉO THẢ TỪ MỞ RỘNG</div>
+            <div class="quiz-score-board" id="quizScoreBoard">Điểm: 0 / 0</div>
+            <div class="quiz-feedback" id="quizFeedback" style="color: #c06d82;"></div>
+        </div>
+
+        <div class="drag-game-area" id="dragGameArea">
+            <!-- Dynamic content -->
+        </div>
+
+        <div class="quiz-result">
+            <button class="quiz-next-btn" id="quizNextBtn">Tiếp tục →</button>
+        </div>
     </div>
 </div>
 
@@ -607,10 +722,13 @@
     let flashcardIndex = 0;
     let isFlipped = false;
     let cardsStudied = 0;
+    
+    // Quiz data
     let quizWords = [];
-    let currentQuizIndex = 0;
+    let currentQuizQuestion = 0;
     let quizScore = 0;
-    let quizActive = false;
+    let quizMatched = {}; // { wordTu: [matchedCompounds] }
+    let quizRemainingDrags = [];
 
     let currentFilters = { level: 'all', loai: 'all' };
 
@@ -619,7 +737,7 @@
             fullData = window.vocabData;
             applyFilters();
         } else {
-            document.getElementById('stats').innerHTML = '⚠️ Lỗi tải dữ liệu';
+            document.getElementById('stats').innerHTML = '⚠️ Lỗi tải dữ liệu. Đảm bảo file data.js tồn tại.';
         }
     }
 
@@ -730,7 +848,7 @@
 
     function renderFlashcardMode() {
         if (filteredData.length === 0) {
-            document.getElementById('progress').innerText = 'Không có từ để ôn';
+            document.getElementById('progress').innerHTML = 'Không có từ để ôn';
             return;
         }
         const word = filteredData[flashcardIndex];
@@ -756,19 +874,16 @@
 
     function nextCard() {
         if (filteredData.length === 0) return;
-        
-        // Đánh dấu đã học từ hiện tại
         cardsStudied++;
         
-        // Kiểm tra nếu đã học đủ 7 từ và chưa có quiz đang mở
-        if (!quizActive && cardsStudied >= 7 && currentMode === 'flashcard') {
+        // Kiểm tra quiz sau mỗi 5 từ
+        if (!window.quizActive && cardsStudied % 5 === 0 && cardsStudied > 0 && currentMode === 'flashcard') {
             showQuiz();
         }
         
         flashcardIndex = (flashcardIndex + 1) % filteredData.length;
         if (flashcardIndex === 0 && cardsStudied >= filteredData.length) {
-            // Hết bộ, reset
-            cardsStudied = 0;
+            cardsStudied = filteredData.length;
         }
         isFlipped = false;
         document.getElementById('flashcard')?.classList.remove('flipped');
@@ -793,107 +908,213 @@
         isFlipped = !isFlipped;
     }
 
+    // ============ DRAG & DROP QUIZ ============
     function showQuiz() {
-        // Lấy các từ đã học gần nhất (từ đầu đến cardsStudied)
-        const studiedWords = filteredData.slice(0, Math.min(cardsStudied, filteredData.length));
-        // Lọc ra từ có từ mở rộng
+        const studiedCount = Math.min(cardsStudied, filteredData.length);
+        const studiedWords = filteredData.slice(0, studiedCount);
+        // Lọc từ có từ mở rộng
         quizWords = studiedWords.filter(w => w.moRong && w.moRong.length > 0 && w.moRong[0] !== '');
         
-        if (quizWords.length === 0) {
-            cardsStudied = 0;
+        if (quizWords.length < 2) {
+            cardsStudied = studiedCount;
             return;
         }
         
-        quizActive = true;
-        currentQuizIndex = 0;
+        window.quizActive = true;
+        currentQuizQuestion = 0;
         quizScore = 0;
-        startQuiz();
+        startQuizQuestion();
     }
 
-    function startQuiz() {
-        if (currentQuizIndex >= quizWords.length) {
+    function startQuizQuestion() {
+        if (currentQuizQuestion >= quizWords.length) {
             endQuiz();
             return;
         }
         
-        const word = quizWords[currentQuizIndex];
-        // Lấy danh sách từ mở rộng
-        const compounds = word.moRong.filter(c => c && c.trim() !== '');
-        if (compounds.length === 0) {
-            currentQuizIndex++;
-            startQuiz();
+        // Lấy 3-4 từ để làm câu hỏi (chọn từ học gần nhất + random thêm)
+        const wordsForQuiz = [];
+        const startIdx = Math.max(0, currentQuizQuestion);
+        for (let i = startIdx; i < Math.min(quizWords.length, startIdx + 3); i++) {
+            wordsForQuiz.push(quizWords[i]);
+        }
+        
+        if (wordsForQuiz.length === 0) {
+            currentQuizQuestion++;
+            startQuizQuestion();
             return;
         }
         
-        // Chọn ngẫu nhiên 1 compound để hỏi
-        const correctCompound = compounds[Math.floor(Math.random() * compounds.length)];
-        const correctAnswer = correctCompound.split(':')[0];
+        // Tạo danh sách drag items (tất cả từ mở rộng của các từ trong câu hỏi)
+        const allDrags = [];
+        const correctMap = {}; // { compoundWord: parentWordTu }
         
-        // Tạo đáp án nhiễu từ các từ khác
-        let allCompounds = [];
-        quizWords.forEach(w => {
-            if (w.moRong) allCompounds.push(...w.moRong.filter(c => c && c.trim() !== ''));
-        });
-        let options = [correctAnswer];
-        while (options.length < 4 && allCompounds.length > 0) {
-            const randomCompound = allCompounds[Math.floor(Math.random() * allCompounds.length)];
-            const randomWord = randomCompound.split(':')[0];
-            if (!options.includes(randomWord) && randomWord !== correctAnswer) {
-                options.push(randomWord);
-            }
-        }
-        // Trộn đáp án
-        options = options.sort(() => Math.random() - 0.5);
-        
-        document.getElementById('quizQuestion').innerHTML = `📝 "${word.tu}" (${word.pinyin}) có nghĩa mở rộng nào?`;
-        document.getElementById('quizScore').innerHTML = `Điểm: ${quizScore}/${quizWords.length}`;
-        
-        const optionsDiv = document.getElementById('quizOptions');
-        optionsDiv.innerHTML = '';
-        options.forEach(opt => {
-            const btn = document.createElement('div');
-            btn.className = 'quiz-option';
-            btn.innerHTML = opt;
-            btn.onclick = () => checkAnswer(opt, correctAnswer, btn);
-            optionsDiv.appendChild(btn);
+        wordsForQuiz.forEach(word => {
+            word.moRong.forEach(compound => {
+                const compoundWord = compound.split(':')[0];
+                allDrags.push({ compound: compoundWord, full: compound, parentTu: word.tu });
+                correctMap[compoundWord] = word.tu;
+            });
         });
         
-        document.getElementById('quizFeedback').innerHTML = '';
-        document.getElementById('quizNextBtn').style.display = 'none';
-        document.getElementById('quizModal').style.display = 'flex';
+        // Trộn danh sách drag
+        const shuffledDrags = [...allDrags].sort(() => Math.random() - 0.5);
+        
+        quizMatched = {};
+        wordsForQuiz.forEach(word => {
+            quizMatched[word.tu] = [];
+        });
+        
+        renderQuizUI(wordsForQuiz, shuffledDrags, correctMap);
     }
     
-    function checkAnswer(selected, correct, element) {
-        const feedback = document.getElementById('quizFeedback');
-        if (selected === correct) {
-            element.classList.add('correct');
-            feedback.innerHTML = '✅ Chính xác! +1 điểm';
-            quizScore++;
-            document.getElementById('quizScore').innerHTML = `Điểm: ${quizScore}/${quizWords.length}`;
-            setTimeout(() => {
-                currentQuizIndex++;
-                startQuiz();
-            }, 1000);
-        } else {
-            element.classList.add('wrong');
-            feedback.innerHTML = `❌ Sai! Đáp án đúng là: ${correct}`;
-            setTimeout(() => {
-                currentQuizIndex++;
-                startQuiz();
-            }, 1500);
-        }
+    function renderQuizUI(questions, dragItems, correctMap) {
+        const container = document.getElementById('dragGameArea');
+        if (!container) return;
         
-        // Disable all options
-        document.querySelectorAll('.quiz-option').forEach(opt => {
-            opt.style.pointerEvents = 'none';
+        document.getElementById('quizScoreBoard').innerHTML = `Điểm: ${quizScore} / ${quizWords.length} câu`;
+        
+        // Tạo drop zones
+        const dropZonesHtml = questions.map(q => `
+            <div class="drop-zone" data-parent="${q.tu}" data-pinyin="${q.pinyin || ''}" data-char="${q.tu}">
+                <div class="drop-zone-header">
+                    <span class="drop-zone-char">${q.tu}</span>
+                    <span class="drop-zone-pinyin">${q.pinyin || ''}</span>
+                </div>
+                <div class="drop-zone-matched" id="matched-${q.tu}">
+                    ${quizMatched[q.tu].map(m => `<span class="matched-card"><i class="fas fa-check-circle"></i> ${m}</span>`).join('')}
+                </div>
+            </div>
+        `).join('');
+        
+        // Tạo drag items
+        const dragItemsHtml = dragItems.map(item => `
+            <div class="drag-card" draggable="true" data-compound="${item.compound}" data-parent="${item.parentTu}" data-full="${item.full}">
+                ${item.compound}
+            </div>
+        `).join('');
+        
+        container.innerHTML = `
+            <div class="words-container">
+                ${dropZonesHtml}
+            </div>
+            <div class="drag-items-container">
+                <div class="drag-title">📦 Kéo thả vào ô bên trái</div>
+                <div class="drag-items" id="dragItemsList">
+                    ${dragItemsHtml}
+                </div>
+            </div>
+        `;
+        
+        // Attach drag & drop events
+        attachDragEvents(questions, correctMap);
+    }
+    
+    function attachDragEvents(questions, correctMap) {
+        const dragItems = document.querySelectorAll('.drag-card');
+        const dropZones = document.querySelectorAll('.drop-zone');
+        
+        dragItems.forEach(drag => {
+            drag.setAttribute('draggable', 'true');
+            
+            drag.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text/plain', JSON.stringify({
+                    compound: drag.getAttribute('data-compound'),
+                    parent: drag.getAttribute('data-parent'),
+                    full: drag.getAttribute('data-full')
+                }));
+                e.dataTransfer.effectAllowed = 'copy';
+                drag.classList.add('dragging');
+            });
+            
+            drag.addEventListener('dragend', (e) => {
+                drag.classList.remove('dragging');
+            });
+        });
+        
+        dropZones.forEach(zone => {
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'copy';
+                zone.classList.add('drag-over');
+            });
+            
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('drag-over');
+            });
+            
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('drag-over');
+                
+                const targetParent = zone.getAttribute('data-parent');
+                const dragData = JSON.parse(e.dataTransfer.getData('text/plain'));
+                const compound = dragData.compound;
+                const correctParent = dragData.parent;
+                
+                const feedbackDiv = document.getElementById('quizFeedback');
+                
+                if (targetParent === correctParent) {
+                    // Đúng
+                    const matchedDiv = document.getElementById(`matched-${targetParent}`);
+                    if (matchedDiv && !quizMatched[targetParent].includes(compound)) {
+                        quizMatched[targetParent].push(compound);
+                        matchedDiv.innerHTML = quizMatched[targetParent].map(m => 
+                            `<span class="matched-card"><i class="fas fa-check-circle"></i> ${m}</span>`
+                        ).join('');
+                        
+                        // Xóa drag item
+                        const dragItem = document.querySelector(`.drag-card[data-compound="${compound}"]`);
+                        if (dragItem) dragItem.remove();
+                        
+                        feedbackDiv.innerHTML = '✅ Đúng! +1 điểm';
+                        feedbackDiv.style.color = '#28a745';
+                        
+                        // Kiểm tra xem đã match hết chưa
+                        const currentQuestionWord = questions.find(q => q.tu === targetParent);
+                        const totalNeeded = currentQuestionWord ? currentQuestionWord.moRong.length : 0;
+                        if (quizMatched[targetParent].length === totalNeeded) {
+                            // Hoàn thành từ này
+                            zone.classList.add('completed');
+                            quizScore++;
+                            document.getElementById('quizScoreBoard').innerHTML = `Điểm: ${quizScore} / ${quizWords.length} câu`;
+                        }
+                        
+                        // Kiểm tra xem còn drag item nào không
+                        const remainingDrags = document.querySelectorAll('.drag-card');
+                        if (remainingDrags.length === 0) {
+                            // Hoàn thành câu hỏi
+                            setTimeout(() => {
+                                currentQuizQuestion += questions.length;
+                                startQuizQuestion();
+                            }, 1000);
+                        }
+                    } else {
+                        feedbackDiv.innerHTML = '⚠️ Từ này đã được ghép rồi!';
+                        feedbackDiv.style.color = '#ff9800';
+                    }
+                } else {
+                    // Sai
+                    feedbackDiv.innerHTML = `❌ Sai! "${compound}" không phải từ mở rộng của "${targetParent}"`;
+                    feedbackDiv.style.color = '#f44336';
+                    
+                    // Hiệu ứng rung cho zone
+                    zone.style.transform = 'shake 0.3s';
+                    setTimeout(() => { zone.style.transform = ''; }, 300);
+                }
+                
+                setTimeout(() => {
+                    feedbackDiv.innerHTML = '';
+                }, 1500);
+            });
         });
     }
     
     function endQuiz() {
         document.getElementById('quizModal').style.display = 'none';
-        quizActive = false;
+        window.quizActive = false;
         cardsStudied = 0;
-        alert(`🎉 Kết thúc quiz! Bạn đúng ${quizScore}/${quizWords.length} câu.`);
+        alert(`🎉 Hoàn thành quiz! Bạn đúng ${quizScore}/${quizWords.length} cụm từ.`);
     }
 
     function initFilters() {
@@ -904,10 +1125,6 @@
                 currentFilters[type] = val;
                 applyFilters();
                 updateActiveButtons();
-                if (currentMode === 'flashcard') {
-                    isFlipped = false;
-                    document.getElementById('flashcard')?.classList.remove('flipped');
-                }
             });
         });
         document.getElementById('resetFilterBtn').addEventListener('click', () => {
@@ -970,8 +1187,10 @@
     };
 
     document.getElementById('quizNextBtn').addEventListener('click', () => {
-        currentQuizIndex++;
-        startQuiz();
+        if (window.quizActive) {
+            currentQuizQuestion++;
+            startQuizQuestion();
+        }
     });
 
     document.addEventListener('DOMContentLoaded', () => {
