@@ -2,76 +2,387 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSK1 Vocabulary | Chiết tự + Từ mở rộng</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>HSK1 - Từ vựng chiết tự | Kho chữ của NP</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #fff5f7;
-            color: #4a3b3f;
-            padding: 2rem;
+            background: #fef5f7;
+            color: #2c2c2c;
+            padding: 1.5rem;
+            line-height: 1.5;
         }
-        body.dark { background: #1e1a1c; color: #f0e6ea; }
-        .container { max-width: 1400px; margin: 0 auto; }
+
+        /* Dark mode giữ nguyên nhưng tăng tương phản */
+        body.dark {
+            background: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark .card {
+            background: #1e1e1e;
+            border-color: #333;
+        }
+
+        body.dark .meaning-viet {
+            background: #2a4a4a;
+            color: #b8f2e2;
+        }
+
+        body.dark .badge {
+            background: #2a2a2a;
+            color: #d4a5b5;
+        }
+
+        body.dark .etymology-box {
+            background: #252525;
+            border-left-color: #d47a9e;
+        }
+
+        body.dark .structure {
+            background: #2a2a2a;
+            color: #e0b0d5;
+        }
+
+        body.dark .compound-item {
+            background: #2a2a2a;
+            color: #d4a5b5;
+        }
+
+        body.dark .bishun-area {
+            background: #1a1a1a;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             margin-bottom: 2rem;
-            border-bottom: 3px solid #fbc4d0;
+            border-bottom: 3px solid #f0c4d0;
             padding-bottom: 1rem;
         }
-        body.dark .header { border-bottom-color: #ae7d8a; }
-        h1 { font-size: 2rem; font-weight: 800; background: linear-gradient(135deg, #e38b9e, #c06d82); background-clip: text; -webkit-background-clip: text; color: transparent; }
-        .sub { background: #ffe2e8; padding: 0.3rem 1rem; border-radius: 40px; font-size: 0.8rem; font-weight: 600; }
-        body.dark .sub { background: #382e32; color: #f2c2cf; }
-        .theme-btn { background: #f9cfda; border: none; padding: 0.6rem 1.2rem; border-radius: 60px; font-weight: 600; cursor: pointer; display: flex; gap: 10px; align-items: center; }
-        body.dark .theme-btn { background: #563f46; color: #ffdfe7; }
-        .stats { background: #ffeef2; padding: 0.5rem 1rem; border-radius: 40px; font-size: 0.85rem; margin-bottom: 1.5rem; display: inline-block; }
-        body.dark .stats { background: #2f2429; }
-        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 1.8rem; margin-top: 1.5rem; }
-        .card { background: #fffbfc; border-radius: 2rem; box-shadow: 0 10px 25px rgba(190, 90, 110, 0.1); border: 1px solid #ffe2ea; overflow: hidden; }
-        body.dark .card { background: #2c2428; border-color: #56424a; }
-        .card-inner { padding: 1.6rem; }
-        .word-row { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px; margin-bottom: 0.5rem; }
-        .chinese-char { font-size: 3rem; font-weight: 800; color: #bc6f85; }
-        body.dark .chinese-char { color: #f3bfce; }
-        .pinyin { background: #ffeef2; padding: 0.3rem 1rem; border-radius: 40px; font-weight: 600; color: #c27086; }
-        body.dark .pinyin { background: #3f2f35; color: #f5cdda; }
-        .meaning-viet { background: #e8f0fe; padding: 0.5rem 1rem; border-radius: 30px; font-size: 0.9rem; font-weight: 600; color: #2e7d64; display: inline-block; margin: 8px 0; }
-        body.dark .meaning-viet { background: #2a4a4a; color: #9fd3c7; }
-        .meta-info { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0.8rem 0 1rem; padding: 0.6rem 0; border-top: 1px dashed #f7ced9; border-bottom: 1px dashed #f7ced9; }
-        .badge { background: #fadce3; padding: 0.25rem 0.8rem; border-radius: 30px; font-size: 0.75rem; font-weight: 600; }
-        body.dark .badge { background: #4f3941; color: #f3c4d2; }
-        .luc-thu { background: #e8d3da; color: #8b5a6b; }
-        .etymology-box { background: #fff3f6; border-radius: 1.2rem; padding: 1rem; margin: 1rem 0; border-left: 5px solid #e38b9e; }
-        body.dark .etymology-box { background: #352c30; border-left-color: #e6a7bb; }
-        .etym-title { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; color: #d4819a; margin-bottom: 0.6rem; }
-        .structure { font-size: 0.85rem; font-weight: 500; background: #ffe7ed; padding: 0.6rem; border-radius: 1rem; line-height: 1.5; }
-        .expand-section { margin: 1rem 0 0.8rem; border-top: 2px dotted #f7ced9; padding-top: 0.8rem; }
-        .toggle-expand { background: none; border: none; color: #c27086; font-weight: 700; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 0.3rem 0; width: 100%; }
-        .compound-list { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.8rem; }
-        .compound-item { background: #ffe2e8; padding: 0.3rem 0.8rem; border-radius: 30px; font-size: 0.75rem; font-weight: 500; }
-        body.dark .compound-item { background: #4f3941; }
-        .bishun-area { text-align: center; background: #fdeef2; border-radius: 1.2rem; padding: 0.8rem; cursor: pointer; margin-top: 0.8rem; }
-        .bishun-placeholder { background: #ffecf0; padding: 0.5rem; border-radius: 1rem; font-size: 0.75rem; }
-        .bishun-img { max-width: 100%; max-height: 100px; border-radius: 12px; margin-top: 8px; }
-        .hidden { display: none; }
-        @media (max-width: 700px) { body { padding: 1rem; } }
+
+        body.dark .header {
+            border-bottom-color: #444;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #b85c7e;
+        }
+
+        body.dark h1 {
+            color: #e0a5bb;
+        }
+
+        .sub {
+            background: #ffe0e8;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #b85c7e;
+        }
+
+        body.dark .sub {
+            background: #2a2a2a;
+            color: #e0a5bb;
+        }
+
+        .theme-btn {
+            background: #f0c4d0;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #5a3e4b;
+        }
+
+        body.dark .theme-btn {
+            background: #3a2a38;
+            color: #e0b0d5;
+        }
+
+        .stats {
+            background: #ffe0e8;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            color: #b85c7e;
+        }
+
+        body.dark .stats {
+            background: #2a2a2a;
+            color: #e0a5bb;
+        }
+
+        /* Grid layout */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1rem;
+        }
+
+        /* Card */
+        .card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f0d0da;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-inner {
+            padding: 1.4rem;
+        }
+
+        /* Word row */
+        .word-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 0.75rem;
+        }
+
+        .chinese-char {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #c06d82;
+            letter-spacing: 2px;
+        }
+
+        body.dark .chinese-char {
+            color: #e8aabc;
+        }
+
+        .pinyin {
+            background: #f3e0e6;
+            padding: 0.25rem 1rem;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #b85c7e;
+        }
+
+        body.dark .pinyin {
+            background: #3a2a38;
+            color: #e0b0d5;
+        }
+
+        /* Meaning */
+        .meaning-viet {
+            background: #e6f3f0;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #2a6b5e;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+
+        /* Meta badges */
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.8rem 0;
+            padding: 0.6rem 0;
+            border-top: 1px solid #f0d0da;
+            border-bottom: 1px solid #f0d0da;
+        }
+
+        body.dark .meta-info {
+            border-color: #3a2a38;
+        }
+
+        .badge {
+            background: #f0d0da;
+            padding: 0.25rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #8b5a6b;
+        }
+
+        /* Chiết tự */
+        .etymology-box {
+            background: #fef0f4;
+            border-radius: 1rem;
+            padding: 0.9rem;
+            margin: 0.8rem 0;
+            border-left: 4px solid #d47a9e;
+        }
+
+        body.dark .etymology-box {
+            background: #252525;
+        }
+
+        .etym-title {
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #d47a9e;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .structure {
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: #ffffff;
+            padding: 0.5rem;
+            border-radius: 0.8rem;
+            line-height: 1.45;
+            color: #3a2a38;
+        }
+
+        body.dark .structure {
+            background: #1e1e1e;
+            color: #ddd;
+        }
+
+        /* Từ mở rộng */
+        .expand-section {
+            margin: 0.8rem 0;
+            border-top: 1px dashed #f0d0da;
+            padding-top: 0.8rem;
+        }
+
+        .toggle-expand {
+            background: none;
+            border: none;
+            color: #c06d82;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.3rem 0;
+        }
+
+        .compound-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.6rem;
+        }
+
+        .compound-item {
+            background: #f0e0e8;
+            padding: 0.25rem 0.7rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #5a3e4b;
+        }
+
+        body.dark .compound-item {
+            background: #3a2a38;
+            color: #ddd;
+        }
+
+        /* Bút thuận */
+        .bishun-area {
+            text-align: center;
+            background: #f8e8f0;
+            border-radius: 1rem;
+            padding: 0.6rem;
+            cursor: pointer;
+            margin-top: 0.7rem;
+        }
+
+        body.dark .bishun-area {
+            background: #1a1a1a;
+        }
+
+        .bishun-placeholder {
+            background: #fce4ec;
+            padding: 0.4rem;
+            border-radius: 1rem;
+            font-size: 0.7rem;
+            color: #b85c7e;
+        }
+
+        .bishun-img {
+            max-width: 100%;
+            max-height: 90px;
+            border-radius: 12px;
+            margin-top: 6px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.7rem;
+            color: #aaa;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .chinese-char {
+                font-size: 2.2rem;
+            }
+            .vocab-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <div><h1>🌸 HSK1 · Từ vựng chiết tự</h1><div class="sub">🔍 Chiết tự + Nghĩa Việt + Từ mở rộng</div></div>
-        <button class="theme-btn" id="themeToggleBtn"><i class="fas fa-moon"></i> <span id="themeText">Dark mode</span></button>
+        <div>
+            <h1>🌸 Từ vựng HSK1 · Chiết tự</h1>
+            <div class="sub">Lục thư + Nghĩa Việt + Từ mở rộng + Bút thuận</div>
+        </div>
+        <button class="theme-btn" id="themeToggleBtn">
+            <i class="fas fa-moon"></i> <span id="themeText">Dark mode</span>
+        </button>
     </div>
-    <div class="stats" id="stats"></div>
+    <div class="stats" id="stats">Đang tải...</div>
     <div class="vocab-grid" id="vocabGrid"></div>
+    <div class="footer-note">✨ Nhấn vào ô bút thuận để xem ảnh động</div>
 </div>
 
 <script src="data.js"></script>
@@ -81,20 +392,18 @@
         const statsDiv = document.getElementById('stats');
         
         if (!grid || !window.vocabData || window.vocabData.length === 0) {
-            if(statsDiv) statsDiv.innerHTML = '⚠️ Đang tải dữ liệu hoặc data.js bị lỗi...';
+            statsDiv.innerHTML = '⚠️ Đang tải dữ liệu...';
             return;
         }
         
         const data = window.vocabData;
-        statsDiv.innerHTML = `📚 Tổng số từ: ${data.length} | 🌟 HSK1 · Chiết tự + Từ mở rộng`;
+        statsDiv.innerHTML = `📚 Tổng số từ: ${data.length} | HSK1 · Chiết tự + Từ mở rộng`;
         
         grid.innerHTML = '';
         
         data.forEach(word => {
-            // Lấy nghĩa tiếng Việt - ưu tiên các trường khác nhau
-            const vietMeaning = word.tiengViet || word.nghia || word.meaning || word.tieng_viet || 'Đang cập nhật';
+            const vietMeaning = word.tiengViet || word.nghia || word.meaning || 'Đang cập nhật';
             
-            // Xử lý từ mở rộng
             let expandHtml = '';
             const hasMoRong = word.moRong && Array.isArray(word.moRong) && word.moRong.length > 0 && word.moRong[0] !== '';
             
@@ -110,16 +419,15 @@
                     </div>
                 `;
             } else {
-                expandHtml = `<div class="expand-section"><i class="fas fa-info-circle" style="font-size:0.7rem; color:#c2798f;"></i> <span style="font-size:0.7rem;">✨ Chưa có từ mở rộng</span></div>`;
+                expandHtml = `<div class="expand-section"><i class="fas fa-info-circle" style="font-size:0.65rem; color:#c2798f;"></i> <span style="font-size:0.7rem;">✨ Chưa có từ mở rộng</span></div>`;
             }
             
-            // Tạo card
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `
                 <div class="card-inner">
                     <div class="word-row">
-                        <span class="chinese-char">${word.tu || word.từ || '?'}</span>
+                        <span class="chinese-char">${word.tu || '?'}</span>
                         <span class="pinyin">${word.pinyin || ''}</span>
                     </div>
                     <div class="meaning-viet">
@@ -127,17 +435,17 @@
                     </div>
                     <div class="meta-info">
                         <span class="badge">📖 ${word.loai || '?'}</span>
-                        <span class="badge">🇻🇳 ${word.hanviet || word.han_viet || '?'}</span>
-                        <span class="badge luc-thu">🔤 ${word.lucThu || word.luc_thu || '?'}</span>
+                        <span class="badge">🇻🇳 ${word.hanviet || '?'}</span>
+                        <span class="badge">🔤 ${word.lucThu || '?'}</span>
                         <span class="badge">${word.level || 'HSK1'}</span>
                         ${word.bai ? `<span class="badge">📘 ${word.bai}</span>` : ''}
                     </div>
                     <div class="etymology-box">
-                        <div class="etym-title"><i class="fas fa-cubes"></i> ✦ CHIẾT TỰ | 析字 ✦</div>
-                        <div class="structure">🔹 ${word.chiestTu || word.chietTu || word.chiết_tự || 'Đang cập nhật'}</div>
+                        <div class="etym-title"><i class="fas fa-cubes"></i> CHIẾT TỰ | 析字</div>
+                        <div class="structure">🔹 ${word.chiestTu || word.chietTu || 'Đang cập nhật'}</div>
                     </div>
                     ${expandHtml}
-                    <div class="bishun-area" data-url="${word.buthuan || word.bút_thuận || ''}">
+                    <div class="bishun-area" data-url="${word.buthuan || ''}">
                         <div class="bishun-placeholder">✍️ Ấn để xem bút thuận động</div>
                         <div class="bishun-container"></div>
                     </div>
@@ -146,11 +454,10 @@
             grid.appendChild(card);
         });
         
-        // Gắn sự kiện bút thuận
         document.querySelectorAll('.bishun-area').forEach(area => {
             const url = area.getAttribute('data-url');
             if (!url || url === '') {
-                area.innerHTML = '<div style="padding:0.5rem; color:#999;">⚠️ Chưa có link bút thuận</div>';
+                area.innerHTML = '<div style="padding:0.4rem; color:#aaa;">⚠️ Chưa có link bút thuận</div>';
                 return;
             }
             area.addEventListener('click', () => {
@@ -187,29 +494,22 @@
         const span = document.getElementById('themeText');
         if (stored === 'dark') {
             body.classList.add('dark');
-            if(span) span.innerText = 'Light mode';
+            span.innerText = 'Light mode';
         } else {
-            if(span) span.innerText = 'Dark mode';
+            span.innerText = 'Dark mode';
         }
-        if(btn) {
-            btn.addEventListener('click', () => {
-                body.classList.toggle('dark');
-                const isDark = body.classList.contains('dark');
-                localStorage.setItem('theme_hsk', isDark ? 'dark' : 'light');
-                if(span) span.innerText = isDark ? 'Light mode' : 'Dark mode';
-            });
-        }
+        btn.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            const isDark = body.classList.contains('dark');
+            localStorage.setItem('theme_hsk', isDark ? 'dark' : 'light');
+            span.innerText = isDark ? 'Light mode' : 'Dark mode';
+        });
     }
     
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
-            if (window.vocabData) {
-                console.log('Dữ liệu đã load:', window.vocabData.length, 'từ');
-                renderCards();
-            } else {
-                console.error('Không tìm thấy data.js');
-                document.getElementById('stats').innerHTML = '⚠️ Lỗi: Không tìm thấy dữ liệu. Hãy đảm bảo data.js tồn tại.';
-            }
+            if (window.vocabData) renderCards();
+            else console.error('Không tìm thấy data.js');
         }, 100);
         initTheme();
     });
