@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bảng Vận Mẫu Tiếng Trung HSK1 | Pastel Pink</title>
+    <!-- Google Fonts: Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fff5f7;  /* pastel pink nhẹ nền tổng thể */
+            font-family: 'Montserrat', sans-serif;
+            padding: 40px 24px 60px 24px;
+            color: #4a2e3a;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* tiêu đề chính */
+        h1 {
+            font-size: 2.6rem;
+            font-weight: 600;
+            text-align: center;
+            color: #c97b9b;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub {
+            text-align: center;
+            color: #d9a7b8;
+            font-weight: 500;
+            margin-bottom: 48px;
+            font-size: 1.1rem;
+            border-bottom: 2px solid #ffe0e8;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 6px;
+        }
+
+        /* mỗi loại là một block */
+        .section {
+            background: #ffffffdd;
+            backdrop-filter: blur(0px);
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 20px 24px 28px 24px;
+            margin-bottom: 38px;
+            box-shadow: 0 8px 20px rgba(241, 147, 177, 0.1);
+            transition: all 0.2s ease;
+            border: 1px solid #ffe2ec;
+        }
+
+        .section-title {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #e597b3;
+            border-left: 8px solid #f8c4d4;
+            padding-left: 20px;
+            margin-bottom: 24px;
+            letter-spacing: -0.2px;
+        }
+
+        /* bảng design nhẹ nhàng, không bo tròn ô, không đường viền rườm rà */
+        .vowel-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+
+        /* mỗi hàng có đường kẻ ngang mảnh pastel */
+        .vowel-table tr {
+            border-bottom: 1px solid #ffe2ec;
+        }
+
+        .vowel-table td {
+            padding: 18px 12px;
+            vertical-align: middle;
+        }
+
+        /* cột vận mẫu (pinyin) */
+        .pinyin-col {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #b45f7b;
+            width: 18%;
+            letter-spacing: 0.5px;
+        }
+
+        /* cột từ vựng: chữ Hán được highlight to, đậm */
+        .chinese-col {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #b3476b;
+            width: 28%;
+            background-color: #fff0f5;
+            border-radius: 0;
+            text-shadow: 0 1px 1px rgba(0,0,0,0.02);
+        }
+
+        /* pinyin của từ (có dấu) */
+        .word-pinyin {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #a56781;
+            width: 20%;
+        }
+
+        /* nghĩa tiếng việt */
+        .meaning-col {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #7b5b68;
+            width: 34%;
+            line-height: 1.4;
+        }
+
+        /* responsive - bảng xếp dọc trên mobile */
+        @media (max-width: 700px) {
+            body {
+                padding: 20px 16px;
+            }
+            .vowel-table, .vowel-table tbody, .vowel-table tr, .vowel-table td {
+                display: block;
+                width: 100%;
+            }
+            .vowel-table tr {
+                border-bottom: 2px solid #ffe2ec;
+                margin-bottom: 12px;
+                padding-bottom: 8px;
+            }
+            .vowel-table td {
+                padding: 8px 12px;
+                text-align: left;
+            }
+            .pinyin-col {
+                font-size: 1.7rem;
+            }
+            .chinese-col {
+                font-size: 2rem;
+                background: none;
+                padding-left: 12px;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* highlight nhẹ cho chữ Hán vẫn giữ tone pastel */
+        .chinese-col strong, em {
+            font-style: normal;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.85rem;
+            color: #e7b9cb;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🌸 Bảng vận mẫu tiếng Trung</h1>
+    <div style="text-align: center;">
+        <div class="sub">HSK1 · Từ vựng đơn giản · Tone pastel</div>
+    </div>
+
+    <!-- ============================ I. VẬN MẪU ĐƠN ============================ -->
+    <div class="section">
+        <div class="section-title">❶ Vận mẫu đơn · 6 âm cơ bản</div>
+        <table class="vowel-table">
+            <tbody>
+                <tr><td class="pinyin-col">a</td><td class="chinese-col">妈</td><td class="word-pinyin">mā</td><td class="meaning-col">mẹ</td></tr>
+                <tr><td class="pinyin-col">o</td><td class="chinese-col">哦</td><td class="word-pinyin">ó</td><td class="meaning-col">ồ (ngạc nhiên)</td></tr>
+                <tr><td class="pinyin-col">e</td><td class="chinese-col">饿</td><td class="word-pinyin">è</td><td class="meaning-col">đói</td></tr>
+                <tr><td class="pinyin-col">i</td><td class="chinese-col">一</td><td class="word-pinyin">yī</td><td class="meaning-col">một</td></tr>
+                <tr><td class="pinyin-col">u</td><td class="chinese-col">五</td><td class="word-pinyin">wǔ</td><td class="meaning-col">năm</td></tr>
+                <tr><td class="pinyin-col">ü</td><td class="chinese-col">鱼</td><td class="word-pinyin">yú</td><td class="meaning-col">con cá</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================ II. VẬN MẪU KÉP ============================ -->
+    <div class="section">
+        <div class="section-title">❷ Vận mẫu kép · nguyên âm đôi / ba</div>
+        <table class="vowel-table">
+            <tbody>
+                <tr><td class="pinyin-col">ai</td><td class="chinese-col">爱</td><td class="word-pinyin">ài</td><td class="meaning-col">yêu</td></tr>
+                <tr><td class="pinyin-col">ei</td><td class="chinese-col">北</td><td class="word-pinyin">běi</td><td class="meaning-col">bắc / phía bắc</td></tr>
+                <tr><td class="pinyin-col">ao</td><td class="chinese-col">好</td><td class="word-pinyin">hǎo</td><td class="meaning-col">tốt</td></tr>
+                <tr><td class="pinyin-col">ou</td><td class="chinese-col">口</td><td class="word-pinyin">kǒu</td><td class="meaning-col">miệng</td></tr>
+                <tr><td class="pinyin-col">ia</td><td class="chinese-col">家</td><td class="word-pinyin">jiā</td><td class="meaning-col">nhà</td></tr>
+                <tr><td class="pinyin-col">ie</td><td class="chinese-col">谢</td><td class="word-pinyin">xiè</td><td class="meaning-col">cảm ơn</td></tr>
+                <tr><td class="pinyin-col">iao</td><td class="chinese-col">要</td><td class="word-pinyin">yào</td><td class="meaning-col">muốn</td></tr>
+                <tr><td class="pinyin-col">iu</td><td class="chinese-col">六</td><td class="word-pinyin">liù</td><td class="meaning-col">sáu</td></tr>
+                <tr><td class="pinyin-col">ua</td><td class="chinese-col">瓜</td><td class="word-pinyin">guā</td><td class="meaning-col">quả dưa</td></tr>
+                <tr><td class="pinyin-col">uo</td><td class="chinese-col">我</td><td class="word-pinyin">wǒ</td><td class="meaning-col">tôi</td></tr>
+                <tr><td class="pinyin-col">uai</td><td class="chinese-col">快</td><td class="word-pinyin">kuài</td><td class="meaning-col">nhanh</td></tr>
+                <tr><td class="pinyin-col">ui</td><td class="chinese-col">水</td><td class="word-pinyin">shuǐ</td><td class="meaning-col">nước</td></tr>
+                <tr><td class="pinyin-col">üe</td><td class="chinese-col">月</td><td class="word-pinyin">yuè</td><td class="meaning-col">mặt trăng</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================ III. VẬN MẪU MŨI -n ============================ -->
+    <div class="section">
+        <div class="section-title">❸ Vận mẫu mũi trước · kết thúc bằng -n</div>
+        <table class="vowel-table">
+            <tbody>
+                <tr><td class="pinyin-col">an</td><td class="chinese-col">看</td><td class="word-pinyin">kàn</td><td class="meaning-col">xem</td></tr>
+                <tr><td class="pinyin-col">en</td><td class="chinese-col">门</td><td class="word-pinyin">mén</td><td class="meaning-col">cửa</td></tr>
+                <tr><td class="pinyin-col">in</td><td class="chinese-col">今</td><td class="word-pinyin">jīn</td><td class="meaning-col">hôm nay</td></tr>
+                <tr><td class="pinyin-col">un</td><td class="chinese-col">问</td><td class="word-pinyin">wèn</td><td class="meaning-col">hỏi</td></tr>
+                <tr><td class="pinyin-col">ün</td><td class="chinese-col">云</td><td class="word-pinyin">yún</td><td class="meaning-col">mây</td></tr>
+                <tr><td class="pinyin-col">ian</td><td class="chinese-col">电</td><td class="word-pinyin">diàn</td><td class="meaning-col">điện</td></tr>
+                <tr><td class="pinyin-col">uan</td><td class="chinese-col">穿</td><td class="word-pinyin">chuān</td><td class="meaning-col">mặc (quần áo)</td></tr>
+                <tr><td class="pinyin-col">üan</td><td class="chinese-col">圆</td><td class="word-pinyin">yuán</td><td class="meaning-col">tròn</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================ IV. VẬN MẪU MŨI -ng ============================ -->
+    <div class="section">
+        <div class="section-title">❹ Vận mẫu mũi sau · kết thúc bằng -ng</div>
+        <table class="vowel-table">
+            <tbody>
+                <tr><td class="pinyin-col">ang</td><td class="chinese-col">汤</td><td class="word-pinyin">tāng</td><td class="meaning-col">canh / súp</td></tr>
+                <tr><td class="pinyin-col">eng</td><td class="chinese-col">朋</td><td class="word-pinyin">péng</td><td class="meaning-col">bạn</td></tr>
+                <tr><td class="pinyin-col">ing</td><td class="chinese-col">听</td><td class="word-pinyin">tīng</td><td class="meaning-col">nghe</td></tr>
+                <tr><td class="pinyin-col">ong</td><td class="chinese-col">工</td><td class="word-pinyin">gōng</td><td class="meaning-col">làm việc / công</td></tr>
+                <tr><td class="pinyin-col">iang</td><td class="chinese-col">两</td><td class="word-pinyin">liǎng</td><td class="meaning-col">hai (số lượng)</td></tr>
+                <tr><td class="pinyin-col">uang</td><td class="chinese-col">黄</td><td class="word-pinyin">huáng</td><td class="meaning-col">màu vàng</td></tr>
+                <tr><td class="pinyin-col">ueng</td><td class="chinese-col">翁</td><td class="word-pinyin">wēng</td><td class="meaning-col">ông già</td></tr>
+                <tr><td class="pinyin-col">iong</td><td class="chinese-col">用</td><td class="word-pinyin">yòng</td><td class="meaning-col">dùng</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================ V. LƯU Ý NHẸ VỀ y, w (thông tin tham khảo) ============================ -->
+    <div class="section" style="background: #fef8fa;">
+        <div class="section-title" style="color: #d98fae;">📖 Ghi nhớ nhanh · y / w</div>
+        <table class="vowel-table">
+            <tbody>
+                <tr><td class="pinyin-col" style="font-size:1.4rem;">y, w</td><td class="chinese-col" style="font-size:1.3rem; background:#fff0f5;">cách viết thay thế</td><td class="word-pinyin" style="font-size:1rem;">giữ nguyên âm đọc</td><td class="meaning-col">yi = i, wu = u, yu = ü<br>không phát âm riêng "y" hay "w"</td></tr>
+                <tr><td class="pinyin-col">yu</td><td class="chinese-col">鱼</td><td class="word-pinyin">yú</td><td class="meaning-col">âm ü (giống ü ban đầu)</td></tr>
+                <tr><td class="pinyin-col">wu</td><td class="chinese-col">五</td><td class="word-pinyin">wǔ</td><td class="meaning-col">âm u thuần</td></tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 12px; font-size: 0.9rem; color:#b18397; padding-left: 12px;">💡 y / w chỉ có chức năng ký âm khi i/u/ü đứng đầu, không tạo thêm phụ âm riêng</div>
+    </div>
+
+    <footer>🌸 Học vui cùng vận mẫu · Mỗi từ đều là HSK1 cơ bản</footer>
+</div>
+</body>
+</html>
